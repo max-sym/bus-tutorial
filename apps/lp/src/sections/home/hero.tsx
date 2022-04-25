@@ -1,12 +1,12 @@
 import React from "react"
 import tw from "tailwind-styled-components"
+import { Section } from "components"
 
 const Title = tw.span`text-5xl text-green-500 uppercase font-bold font-title`
 const Caption = tw.span`text-3xl text-gray-900 uppercase font-bold font-title`
 const Description = tw.h1`text-2xl text-gray-500`
 const MainImage = tw.img`rounded-3xl shadow-lg`
 
-const Section = tw.div`max-w-screen-2xl mx-auto relative`
 const Separator = tw.div`w-10 h-1 bg-blue-500`
 
 const Button = tw.button`bg-green-500 px-5 py-3 rounded-xl text-white font-bold uppercase`
@@ -88,7 +88,7 @@ const BookingForm = () => (
 export const HeroSection = () => (
   <>
     <GradientBackground />
-    <Section>
+    <Section className="h-[900px]">
       <BookingForm />
       <div className="mt-16 flex justify-between items-center gap-x-8">
         <TextSection />
