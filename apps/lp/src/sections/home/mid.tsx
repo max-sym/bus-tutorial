@@ -1,4 +1,4 @@
-import { SectionAndOffset } from "components"
+import { SectionAndOffset, Text } from "components"
 import React from "react"
 import tw from "tailwind-styled-components"
 
@@ -8,10 +8,12 @@ const Image = tw.img`w-full h-full object-cover`
 
 const TopPart = ({ section }) => (
   <>
-    <h3 className="text-center text-4xl font-bold uppercase">
+    <Text variant="h4" className="text-center uppercase">
       {section.title}
-    </h3>
-    <p className="text-center w-1/3 mx-auto mt-4">{section.description}</p>
+    </Text>
+    <Text variant={"bodyBig"} className="text-center w-1/2 mx-auto mt-8">
+      {section.description}
+    </Text>
   </>
 )
 
@@ -19,10 +21,10 @@ const FeatureItem = ({ feature }) => (
   <div className="flex space-x-4">
     <div>{<feature.icon className="w-8 h-8" />}</div>
     <div>
-      <h5 className="font-bold text-gray-900 uppercase text-2xl">
-        {feature.title}
-      </h5>
-      <p>{feature.description}</p>
+      <Text variant="button">{feature.title}</Text>
+      <Text variant="body" className="mt-2">
+        {feature.description}
+      </Text>
     </div>
   </div>
 )
@@ -41,9 +43,7 @@ export const MidSection = ({ section }) => (
         </ImageContainer>
       </Column>
       <Column>
-        <h3 className="text-4xl font-bold uppercase">
-          {section.featuresTitle}
-        </h3>
+        <Text variant="h5">{section.featuresTitle}</Text>
         <div className="mt-12 space-y-8">
           {section.features.map(feature => (
             <FeatureItem feature={feature} />
