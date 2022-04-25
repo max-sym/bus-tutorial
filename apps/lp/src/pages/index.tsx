@@ -2,8 +2,8 @@ import React from "react"
 import { Layout, Seo } from "../components"
 import tw from "tailwind-styled-components"
 
-const Title = tw.span`text-5xl text-green-500 uppercase font-bold`
-const Caption = tw.span`text-3xl text-gray-900 uppercase font-bold`
+const Title = tw.span`text-5xl text-green-500 uppercase font-bold font-title`
+const Caption = tw.span`text-3xl text-gray-900 uppercase font-bold font-title`
 const Description = tw.h1`text-2xl text-gray-500`
 const MainImage = tw.img`rounded-3xl shadow-lg`
 

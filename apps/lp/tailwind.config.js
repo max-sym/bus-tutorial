@@ -7,6 +7,9 @@ module.exports = {
         "gradient-radial-hero":
           "radial-gradient(farthest-corner at 20% 50%,#ffffffff 0%, #88A4BF 120%);",
       },
+      fontFamily: {
+        title: ["'Montserrat'"],
+      },
     },
   },
   plugins: [],
