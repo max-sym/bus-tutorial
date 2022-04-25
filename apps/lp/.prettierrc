@@ -1,6 +1,6 @@
 {
-  "arrowParens": "avoid",
-  "semi": false,
-  "useTabs": true,
-  "printWidth": 80
+	"arrowParens": "avoid",
+	"semi": false,
+	"useTabs": false,
+	"printWidth": 80
 }
