@@ -28,7 +28,7 @@ const HeroFeatureItem = ({ item }) => (
 export const HeroFeatures = () => (
   <div className="flex gap-4">
     {heroFeatures.map(item => (
-      <HeroFeatureItem item={item} />
+      <HeroFeatureItem key={item.title} item={item} />
     ))}
   </div>
 )

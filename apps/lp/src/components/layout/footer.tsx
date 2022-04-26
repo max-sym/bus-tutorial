@@ -64,7 +64,7 @@ const Column = ({ title, items }) => (
     </Text>
     <div className="mt-4">
       {items.map(item => (
-        <Link to={item.link}>
+        <Link key={item.link} to={item.link}>
           <Text color="white" className="py-1">
             {item.title}
           </Text>
@@ -93,7 +93,9 @@ export const Footer = () => (
       </Text>
       <div className="flex justify-center mt-4 gap-x-4">
         {socialMediaLinks.map(item => (
-          <a href={item.link}>{<item.icon className="w-8 h-8 text-white" />}</a>
+          <a key={item.link} href={item.link}>
+            {<item.icon className="w-8 h-8 text-white" />}
+          </a>
         ))}
       </div>
     </div>

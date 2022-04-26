@@ -46,7 +46,7 @@ export const MidSection = ({ section }) => (
         <Text variant="h5">{section.featuresTitle}</Text>
         <div className="mt-12 space-y-8">
           {section.features.map(feature => (
-            <FeatureItem feature={feature} />
+            <FeatureItem key={feature.title} feature={feature} />
           ))}
         </div>
       </Column>
