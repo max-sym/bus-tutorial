@@ -6,6 +6,7 @@ import { GiAlarmClock } from "@react-icons/all-files/gi/GiAlarmClock"
 import { GiMoneyStack } from "@react-icons/all-files/gi/GiMoneyStack"
 import { BiNetworkChart } from "@react-icons/all-files/bi/BiNetworkChart"
 import { FaLeaf } from "@react-icons/all-files/fa/FaLeaf"
+import { ReviewsSection } from "sections/home/reviews"
 
 const sections = {
   features: {
@@ -98,6 +99,7 @@ const IndexPage = () => (
     <MidSection section={sections.features} />
     <MidSection section={sections.features2} />
     <StatsSection />
+    <ReviewsSection />
   </Layout>
 )
 
