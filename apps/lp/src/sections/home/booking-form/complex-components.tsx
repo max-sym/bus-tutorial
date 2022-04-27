@@ -3,7 +3,6 @@ import { GuestOption, BookingForm as BookingFormType } from "react-booking-form"
 import {
   GuestButton,
   IconContainer,
-  InputCore,
   OptionBase,
   SmallText,
   Text,
@@ -14,6 +13,7 @@ import { FaSpinner } from "@react-icons/all-files/fa/FaSpinner"
 import { FaPlus } from "@react-icons/all-files/fa/FaPlus"
 import { FaMinus } from "@react-icons/all-files/fa/FaMinus"
 import { FaUser } from "@react-icons/all-files/fa/FaUser"
+import { InputCore } from "components"
 
 type InputProps = {
   form?: BookingFormType

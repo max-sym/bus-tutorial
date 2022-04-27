@@ -3,7 +3,6 @@ import tw from "tailwind-styled-components"
 
 export const Container = tw(Card)`flex justify-between p-6`
 export const InputContainer = tw.div`relative w-full md:w-1/3 flex flex-col justify-center items-center pl-2`
-export const InputCore = tw.input`relative w-full peer flex h-10 focus:outline-none appearance-none border border-gray-300 rounded-full outline-none transition pl-4 pr-6 group-hover:border-green-500 focus:border-green-500 cursor-pointer`
 export const Label = tw.div`text-sm w-full font-bold mb-1 text-gray-500`
 
 export const ButtonCore = tw.button`appearance-none h-10 rounded-full flex justify-center items-center font-bold px-3`
