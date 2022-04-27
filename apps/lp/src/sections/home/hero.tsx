@@ -8,7 +8,6 @@ import { InView } from "react-cool-inview"
 const Container = tw.div`mt-16 flex justify-between items-center gap-x-8`
 const Column = tw.div`w-1/2`
 
-const MainImage = tw.img`rounded-3xl shadow-lg`
 const Separator = tw.div`w-12 h-1 bg-blue-500 mt-4 transform transition duration-1000 delay-[1500ms] origin-left`
 const Gradient = tw.div`absolute inset-0 bg-gradient-radial-hero`
 
@@ -78,6 +77,19 @@ const WrappedBookingForm = ({
   </BookingFormWrapper>
 )
 
+const ImageContainer = tw.div`rounded-3xl shadow-lg overflow-hidden transition ease-in-out delay-500 duration-[2000ms]`
+const MainImage = tw.img`w-full h-full object-cover transition transform ease-out duration-[14s]`
+
+const HeroImage = ({ observe, inView }: any) => (
+  <ImageContainer ref={observe} className={`${inView ? "" : "opacity-0"}`}>
+    <MainImage
+      className={`${inView ? "" : "scale-[1.15] rotate-2 translate-y-4"}`}
+      src="https://source.unsplash.com/T5jzpRTVF1U"
+      alt="Bus"
+    />
+  </ImageContainer>
+)
+
 export const HeroSection = () => (
   <>
     <GradientBackground />
@@ -94,7 +106,9 @@ export const HeroSection = () => (
           </InView>
         </Column>
         <Column>
-          <MainImage src="https://source.unsplash.com/T5jzpRTVF1U" alt="Bus" />
+          <InView unobserveOnEnter>
+            <HeroImage />
+          </InView>
         </Column>
       </Container>
     </Section>
