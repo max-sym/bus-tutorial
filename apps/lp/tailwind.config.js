@@ -10,11 +10,12 @@ module.exports = {
       },
       boxShadow: {
         "green-light": "0 3px 15px 0 rgba(100, 255, 100, 0.4)",
+        "green-light2": "0 2px 15px 0 rgba(100, 255, 100, 0.8)",
       },
       fontFamily: {
         title: ["'Montserrat'"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 }
