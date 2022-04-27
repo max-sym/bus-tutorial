@@ -36,17 +36,12 @@ export const formSchema: FormSchema = {
   to: {
     type: "location",
     options: { defaultLocationOptions, searchPlace },
-    focusOnNext: "checkIn",
+    focusOnNext: "departureDate",
   },
-  checkIn: {
-    type: "date",
-    focusOnNext: "checkOut",
-    options: { ...dateConfig, minDate: "today" },
-  },
-  checkOut: {
+  departureDate: {
     type: "date",
     focusOnNext: "guests",
-    options: { ...dateConfig, minDateFrom: "checkIn" },
+    options: { ...dateConfig, minDate: "today" },
   },
   guests: {
     type: "peopleCount",

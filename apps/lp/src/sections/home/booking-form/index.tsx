@@ -20,6 +20,7 @@ import {
 import { Button } from "components"
 import { GuestOptionComponent, InputComponent } from "./complex-components"
 import { formSchema } from "./form-schema"
+import { navigate } from "gatsby"
 
 export const BookingForm = () => {
   const form = useReactBookingForm({ formSchema })
@@ -28,7 +29,7 @@ export const BookingForm = () => {
     const config = {
       convertDate: (dateValue: Date) => moment(dateValue).format("DD-MM-YYYY"),
     }
-    alert(form.serializeToURLParams(config))
+    navigate("/search?" + form.serializeToURLParams(config))
   }
 
   return (
@@ -43,7 +44,7 @@ export const BookingForm = () => {
           inputComponent={InputComponent}
           name="from"
           emptyOption="Nothing was found :("
-          placeholder="Where are you going?"
+          placeholder="Where from?"
         />
       </InputContainer>
       <InputContainer style={{ width: "auto" }}>
@@ -67,27 +68,17 @@ export const BookingForm = () => {
           inputComponent={InputComponent}
           name="to"
           emptyOption="Nothing was found :("
-          placeholder="Where are you going?"
+          placeholder="Where to?"
         />
       </InputContainer>
       <InputContainer>
-        <Label>{"Check in"}</Label>
+        <Label>{"Departure"}</Label>
         <DateInput
           inputComponent={InputComponent}
           className="w-full"
           placeholder="Add date"
           form={form}
-          name="checkIn"
-        />
-      </InputContainer>
-      <InputContainer>
-        <Label>{"Check out"}</Label>
-        <DateInput
-          inputComponent={InputComponent}
-          className="w-full"
-          placeholder="Add date"
-          form={form}
-          name="checkOut"
+          name="departureDate"
         />
       </InputContainer>
       <InputContainer>
