@@ -105,7 +105,7 @@ const HeroImage = ({ inView }: any) => (
 export const HeroSectionCore = ({ observe, inView }: any) => (
   <div ref={observe}>
     <GradientBackground inView={inView} />
-    <Section className="h-[900px]">
+    <Section className="h-[740px]">
       <div className="flex justify-center mt-16">
         <WrappedBookingForm inView={inView} />
       </div>
