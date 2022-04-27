@@ -3,7 +3,7 @@ import tw from "tailwind-styled-components"
 const colorClasses = {
   none: "",
   white: "text-white",
-  base: "text-gray-900",
+  base: "text-gray-900 dark:text-white",
 }
 
 const variantClasses = {
@@ -26,5 +26,5 @@ export type TextProps = {
 
 export const Text = tw.p<TextProps>`transition 
 ${({ variant = "body" }) => variantClasses[variant]}
-${({ color = "body" }) => colorClasses[color]}
+${({ color = "base" }) => colorClasses[color]}
 `

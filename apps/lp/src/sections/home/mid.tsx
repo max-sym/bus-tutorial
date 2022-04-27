@@ -25,7 +25,9 @@ const TopPart = ({ section, observe, inView }: any) => (
 
 const FeatureItem = ({ feature }) => (
   <div className="flex space-x-4">
-    <div>{<feature.icon className="w-8 h-8" />}</div>
+    <div>
+      {<feature.icon className="w-8 h-8 text-gray-800 dark:text-white" />}
+    </div>
     <div>
       <Text variant="button">{feature.title}</Text>
       <Text variant="body" className="mt-2">

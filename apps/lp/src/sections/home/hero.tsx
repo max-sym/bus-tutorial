@@ -8,15 +8,18 @@ import { InView } from "react-cool-inview"
 const Container = tw.div`mt-16 flex justify-between items-center gap-x-8`
 const Column = tw.div`w-1/2`
 
-const Separator = tw.div`w-12 h-1 bg-blue-500 mt-4 transform transition duration-1000 delay-[1500ms] origin-left`
-const Gradient = tw.div`absolute inset-0 bg-gradient-radial-hero`
-
 const SmallHeadingText = tw(Text)`delay-500 duration-1000 ease-in-out`
 const BigHeadingText = tw(Text)`mt-1 delay-1000 duration-1000 ease-in-out`
 const DescriptionText = tw(
   Text
 )`mt-6 delay-[1500ms] duration-[2000ms] ease-in-out w-2/3`
 const ButtonContainer = tw.div`delay-[1500ms] transition duration-[2000ms] mt-8`
+const Separator = tw.div`w-12 h-1 bg-blue-500 mt-4 transform transition duration-1000 delay-[1500ms] origin-left`
+
+const GradientBackgroundContainer = tw.div`absolute left-0 right-0 top-0 h-[900px] z-0 transition duration-700`
+const Gradient = tw.div`absolute inset-0 bg-gradient-radial-hero dark:opacity-0 transition z-0`
+const GradientDark = tw.div`absolute inset-0 bg-gradient-to-r w-2/3 from-black to-transparent opacity-0 dark:opacity-100 transition z-0`
+const Glow = tw.div`absolute z-20 bg-[radial-gradient(#06f4,transparent,transparent)] transition dark:opacity-100 opacity-0`
 
 export const LogoTitle = ({ inView }) => (
   <div>
@@ -55,15 +58,30 @@ const TextSection = ({ inView }: any) => (
   </div>
 )
 
-const GradientBackgroundContainer = tw.div`absolute left-0 right-0 top-0 h-[900px] z-0 transition duration-700`
-
 const GradientBackground = ({ inView }) => (
   <GradientBackgroundContainer className={`${inView ? "" : "opacity-0"}`}>
     <Gradient />
+    <GradientDark />
+    <Glow
+      className={`top-[10%] left-[-10%] w-[1000px] h-[700px] ${
+        inView ? "" : "opacity-0"
+      }`}
+      style={{
+        backfaceVisibility: "hidden",
+      }}
+    />
+    <Glow
+      className={`top-[-20%] left-[30%] w-[1000px] h-[700px] ${
+        inView ? "" : "opacity-0"
+      }`}
+      style={{
+        backfaceVisibility: "hidden",
+      }}
+    />
   </GradientBackgroundContainer>
 )
-const BookingFormWrapper = tw.div`transform transition duration-1000`
 
+const BookingFormWrapper = tw.div`transform transition duration-1000`
 const WrappedBookingForm = ({ inView }: { inView?: boolean }) => (
   <BookingFormWrapper className={`${inView ? "" : "translate-y-5 opacity-0"}`}>
     <BookingForm />
