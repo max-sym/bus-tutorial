@@ -156,6 +156,17 @@ const Sidebar = () => (
   </Card>
 )
 
+const ReservationBar = () => (
+  <Card className="sticky top-32">
+    <CardHeading>
+      <CardTitle>{"Reservation"}</CardTitle>
+    </CardHeading>
+    <CardContent>
+      <Text color="gray-light">{"Please select a trip to proceed"}</Text>
+    </CardContent>
+  </Card>
+)
+
 export const SearchSection = () => {
   return (
     <Section className="mt-20">
@@ -167,7 +178,9 @@ export const SearchSection = () => {
           <Header />
           <Trips />
         </div>
-        <div className="w-1/4">{/* reservation bar */}</div>
+        <div className="w-1/4">
+          <ReservationBar />
+        </div>
       </div>
     </Section>
   )
