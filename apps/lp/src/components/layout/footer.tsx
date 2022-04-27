@@ -6,7 +6,7 @@ import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"
 
-const Container = tw.div`flex flex-col mt-48 px-24 pb-4 pt-12 bg-gray-900`
+const Container = tw.div`flex flex-col mt-48 px-24 pb-4 pt-12 bg-gray-900 dark:bg-gray-800`
 
 const footerItems = {
   left: [
