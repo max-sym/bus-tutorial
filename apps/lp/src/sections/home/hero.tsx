@@ -3,6 +3,10 @@ import tw from "tailwind-styled-components"
 import { Section, Text, Button } from "components"
 import { HeroFeatures } from "./hero-features"
 import { BookingForm } from "./booking-form"
+import { InView } from "react-cool-inview"
+
+const Container = tw.div`mt-16 flex justify-between items-center gap-x-8`
+const Column = tw.div`w-1/2`
 
 const MainImage = tw.img`rounded-3xl shadow-lg`
 const Separator = tw.div`w-10 h-1 bg-blue-500`
@@ -43,16 +47,31 @@ const GradientBackground = () => (
     <Gradient />
   </div>
 )
+const BookingFormWrapper = tw.div`transform transition duration-1000`
 
-const Container = tw.div`mt-16 flex justify-between items-center gap-x-8`
-const Column = tw.div`w-1/2`
+const WrappedBookingForm = ({
+  observe,
+  inView,
+}: {
+  observe?: any
+  inView?: boolean
+}) => (
+  <BookingFormWrapper
+    ref={observe}
+    className={`${inView ? "" : "translate-y-5 opacity-0"}`}
+  >
+    <BookingForm />
+  </BookingFormWrapper>
+)
 
 export const HeroSection = () => (
   <>
     <GradientBackground />
     <Section className="h-[900px]">
       <div className="flex justify-center mt-16">
-        <BookingForm />
+        <InView unobserveOnEnter>
+          <WrappedBookingForm />
+        </InView>
       </div>
       <Container>
         <Column>
