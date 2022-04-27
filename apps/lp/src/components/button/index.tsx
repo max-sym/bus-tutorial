@@ -4,7 +4,7 @@ import { Text } from "components"
 
 const variantClasses = {
   round: "p-2 rounded-full",
-  base: "px-5 py-3 rounded-xl",
+  base: "px-6 py-2 rounded-xl",
 }
 
 const colorClasses = {

@@ -45,10 +45,12 @@ const ActionButton = () => <Button>{"Add"}</Button>
 
 const Actions = ({ priceText }: { priceText: string }) => {
   return (
-    <div className="flex items-end justify-end gap-2">
+    <div className="flex flex-col items-end justify-end gap-2">
       <div className="flex flex-col items-stretch justify-between flex-1">
-        <div>
-          <Text variant="subtitle">{"12 seats left"}</Text>
+        <div className="flex gap-x-4">
+          <Text variant="subtitle" color="green">
+            {"12 seats left"}
+          </Text>
           <Text variant="button" className="font-bold text-right">
             {priceText}
           </Text>
@@ -67,14 +69,18 @@ const TripItem = ({ trip }: { trip: TripType }) => {
       <CardContent className="flex justify-between gap-2 gap-x-4">
         <div className="flex justify-between flex-1">
           <div className="flex-1">
-            <Text>{moment(trip.departure).format("hh:mm DD/MM")}</Text>
+            <Text variant="button">
+              {moment(trip.departure).format("hh:mm DD/MM")}
+            </Text>
             <Text>{trip.cityFrom.name}</Text>
             <div>
               <Text>{trip.bus.name}</Text>
             </div>
           </div>
-          <div>
-            <Text>{moment(trip.arrival).format("hh:mm DD/MM")}</Text>
+          <div className="text-right">
+            <Text variant="button">
+              {moment(trip.arrival).format("hh:mm DD/MM")}
+            </Text>
             <Text>{trip.cityTo.name}</Text>
             <div>
               <Text>{`${trip.distance}km`}</Text>
