@@ -66,7 +66,9 @@ export const StatsSectionCore = ({ observe, inView }: any) => (
       {stats.map((item, index) => (
         <div
           key={item.title}
-          className={`transition duration-1000 ${inView ? "" : "opacity-0"}`}
+          className={`transition duration-1000 ${
+            inView ? "" : "opacity-0 translate-y-8"
+          }`}
           style={{
             transitionDelay: 300 + 150 * index + "ms",
           }}
