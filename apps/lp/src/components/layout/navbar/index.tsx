@@ -5,8 +5,9 @@ import { Link } from "gatsby"
 import { FaBus } from "@react-icons/all-files/fa/FaBus"
 import { WiMoonAltWaningCrescent6 } from "@react-icons/all-files/wi/WiMoonAltWaningCrescent6"
 import { WiDaySunny } from "@react-icons/all-files/wi/WiDaySunny"
+import { InView } from "react-cool-inview"
 
-const Container = tw.div`fixed left-0 right-0 top-0 z-20`
+const Container = tw.div`fixed left-0 right-0 top-0 z-20 transition duration-[2000ms] delay-500`
 const Box = tw.div`bg-black bg-opacity-50 w-full backdrop-filter backdrop-blur`
 const WidthContainer = tw.div`max-w-screen-2xl mx-auto flex justify-between`
 const NavItemsContainer = tw.div`flex items-center`
@@ -70,19 +71,19 @@ const DarkModeSwitch = () => {
   }
 
   return (
-    <button onClick={onClick} className="text-white px-2">
+    <button onClick={onClick} className="px-2 text-white">
       <Icon className="w-6 h-6 text-current" />
     </button>
   )
 }
 
-export const Navbar = () => {
+export const NavbarCore = ({ observe, inView }: any) => {
   return (
-    <Container>
+    <Container ref={observe} className={`${inView ? "" : "opacity-0"}`}>
       <Box>
         <WidthContainer>
           <NavItemsContainer>
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center">
               <Link to="/">
                 <div className="px-2">
                   <BusLogo className="w-6 h-6" />
@@ -94,7 +95,7 @@ export const Navbar = () => {
             ))}
           </NavItemsContainer>
           <NavItemsContainer>
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center">
               <DarkModeSwitch />
             </div>
             {navItems.right.map(item => (
@@ -106,3 +107,9 @@ export const Navbar = () => {
     </Container>
   )
 }
+
+export const Navbar = () => (
+  <InView>
+    <NavbarCore />
+  </InView>
+)
