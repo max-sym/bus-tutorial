@@ -28,7 +28,7 @@ const HeroFeatureItem = ({ item, inView, index }) => (
     <Text variant="body" className="font-bold">
       {item.title}
     </Text>
-    <Text>{item.description}</Text>
+    <Text color="gray-light">{item.description}</Text>
   </div>
 )
 

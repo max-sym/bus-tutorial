@@ -17,7 +17,11 @@ const TopPart = ({ section, observe, inView }: any) => (
     <Text variant="h4" className="text-center uppercase">
       {section.title}
     </Text>
-    <Text variant={"bodyBig"} className="w-1/2 mx-auto mt-8 text-center">
+    <Text
+      variant="bodyBig"
+      color="gray-light"
+      className="w-1/2 mx-auto mt-8 text-center"
+    >
       {section.description}
     </Text>
   </TopPartContainer>
@@ -34,7 +38,7 @@ const FeatureItem = ({ feature, color }) => (
     </div>
     <div>
       <Text variant="button">{feature.title}</Text>
-      <Text variant="body" className="mt-2">
+      <Text variant="body" color="gray-light" className="mt-2">
         {feature.description}
       </Text>
     </div>
