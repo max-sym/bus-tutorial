@@ -5,11 +5,8 @@ import { HeroFeatures } from "./hero-features"
 import { BookingForm } from "./booking-form"
 
 const MainImage = tw.img`rounded-3xl shadow-lg`
-
 const Separator = tw.div`w-10 h-1 bg-blue-500`
-
 const Gradient = tw.div`absolute inset-0 bg-gradient-radial-hero`
-const BookingFormDummyDiv = tw.div`bg-white h-24 w-2/3 rounded-3xl shadow-xl`
 
 export const LogoTitle = () => (
   <div>
