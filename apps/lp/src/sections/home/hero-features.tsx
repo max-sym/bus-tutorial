@@ -16,8 +16,15 @@ const heroFeatures = [
   },
 ]
 
-const HeroFeatureItem = ({ item }) => (
-  <div>
+const HeroFeatureItem = ({ item, inView, index }) => (
+  <div
+    className={`transition duration-[1200ms] ${
+      inView ? "" : "translate-x-3 opacity-0"
+    }`}
+    style={{
+      transitionDelay: 200 * index + 1800 + "ms",
+    }}
+  >
     <Text variant="body" className="font-bold">
       {item.title}
     </Text>
@@ -25,10 +32,15 @@ const HeroFeatureItem = ({ item }) => (
   </div>
 )
 
-export const HeroFeatures = () => (
+export const HeroFeatures = ({ inView }) => (
   <div className="flex gap-4">
-    {heroFeatures.map(item => (
-      <HeroFeatureItem key={item.title} item={item} />
+    {heroFeatures.map((item, index) => (
+      <HeroFeatureItem
+        index={index}
+        inView={inView}
+        key={item.title}
+        item={item}
+      />
     ))}
   </div>
 )
