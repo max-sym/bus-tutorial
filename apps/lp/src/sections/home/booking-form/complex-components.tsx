@@ -1,19 +1,13 @@
 import React from "react"
 import { GuestOption, BookingForm as BookingFormType } from "react-booking-form"
-import {
-  GuestButton,
-  IconContainer,
-  OptionBase,
-  SmallText,
-  Text,
-} from "./components"
+import { GuestButton, IconContainer, OptionBase } from "./components"
 import { FaMapMarkerAlt } from "@react-icons/all-files/fa/FaMapMarkerAlt"
 import { FaCalendarAlt } from "@react-icons/all-files/fa/FaCalendarAlt"
 import { FaSpinner } from "@react-icons/all-files/fa/FaSpinner"
 import { FaPlus } from "@react-icons/all-files/fa/FaPlus"
 import { FaMinus } from "@react-icons/all-files/fa/FaMinus"
 import { FaUser } from "@react-icons/all-files/fa/FaUser"
-import { InputCore } from "components"
+import { InputCore, Text } from "components"
 
 type InputProps = {
   form?: BookingFormType
@@ -35,7 +29,13 @@ export const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="relative w-full group" ref={containerRef}>
-        <InputCore data-input ref={ref} name={name} {...props} />
+        <InputCore
+          data-input
+          ref={ref}
+          name={name}
+          className="cursor-pointer"
+          {...props}
+        />
         <IconContainer title="toggle" data-toggle>
           <InputIcon className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
         </IconContainer>
@@ -56,7 +56,7 @@ export const GuestOptionComponent = ({
   <OptionBase className="flex items-center justify-between">
     <div>
       <Text>{option.label}</Text>
-      <SmallText>{option.description}</SmallText>
+      <Text variant="subtitle">{option.description}</Text>
     </div>
     <div className="flex items-center justify-center gap-x-2">
       <GuestButton

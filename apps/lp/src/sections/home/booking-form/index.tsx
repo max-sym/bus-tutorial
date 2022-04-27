@@ -6,7 +6,7 @@ import {
   useReactBookingForm,
 } from "react-booking-form"
 import moment from "moment"
-import "flatpickr/dist/themes/material_green.css"
+import "flatpickr/dist/themes/dark.css"
 import { IoMdSwap } from "@react-icons/all-files/io/IoMdSwap"
 import {
   Container,
@@ -16,7 +16,6 @@ import {
   Menu,
   MenuContainer,
   OptionContainer,
-  SwapButton,
 } from "./components"
 import { Button } from "components"
 import { GuestOptionComponent, InputComponent } from "./complex-components"
@@ -48,13 +47,15 @@ export const BookingForm = () => {
         />
       </InputContainer>
       <InputContainer style={{ width: "auto" }}>
-        <SwapButton
+        <Button
           title="Swap Locations"
+          variant="round"
+          className="mt-6"
           aria-label="Swap Locations"
           onClick={() => form.swapLocations()}
         >
           <IoMdSwap className="w-4 h-4" />
-        </SwapButton>
+        </Button>
       </InputContainer>
       <InputContainer>
         <Label>{"To"}</Label>

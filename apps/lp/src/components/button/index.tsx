@@ -2,10 +2,27 @@ import React from "react"
 import tw from "tailwind-styled-components"
 import { Text } from "components"
 
-const ButtonCore = tw.button`bg-green-500 px-5 py-3 rounded-xl text-white font-bold uppercase`
+const variantClasses = {
+  round: "p-2 rounded-full",
+  base: "px-5 py-3 rounded-xl",
+}
 
-export const Button = ({ children, ...props }) => (
-  <ButtonCore {...props}>
+const ButtonCore = tw.button<{
+  $variant: keyof typeof variantClasses
+}>`bg-green-500 text-white font-bold uppercase flex items-center justify-center
+  ${({ $variant }) => variantClasses[$variant]}
+`
+
+export const Button = ({
+  children,
+  variant = "base",
+  ...props
+}: {
+  children: any
+  variant?: keyof typeof variantClasses
+  [key: string]: any
+}) => (
+  <ButtonCore $variant={variant} {...props}>
     <Text variant="button">{children}</Text>
   </ButtonCore>
 )
