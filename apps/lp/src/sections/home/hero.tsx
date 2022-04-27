@@ -33,8 +33,8 @@ export const LogoTitle = ({ inView }) => (
   </div>
 )
 
-const TextSection = ({ observe, inView }: any) => (
-  <div ref={observe}>
+const TextSection = ({ inView }: any) => (
+  <div>
     <div className="space-y-6">
       <LogoTitle inView={inView} />
       <DescriptionText
@@ -55,24 +55,17 @@ const TextSection = ({ observe, inView }: any) => (
   </div>
 )
 
-const GradientBackground = () => (
-  <div className="absolute left-0 right-0 top-0 h-[900px] z-0">
+const GradientBackgroundContainer = tw.div`absolute left-0 right-0 top-0 h-[900px] z-0 transition duration-700`
+
+const GradientBackground = ({ inView }) => (
+  <GradientBackgroundContainer className={`${inView ? "" : "opacity-0"}`}>
     <Gradient />
-  </div>
+  </GradientBackgroundContainer>
 )
 const BookingFormWrapper = tw.div`transform transition duration-1000`
 
-const WrappedBookingForm = ({
-  observe,
-  inView,
-}: {
-  observe?: any
-  inView?: boolean
-}) => (
-  <BookingFormWrapper
-    ref={observe}
-    className={`${inView ? "" : "translate-y-5 opacity-0"}`}
-  >
+const WrappedBookingForm = ({ inView }: { inView?: boolean }) => (
+  <BookingFormWrapper className={`${inView ? "" : "translate-y-5 opacity-0"}`}>
     <BookingForm />
   </BookingFormWrapper>
 )
@@ -80,8 +73,8 @@ const WrappedBookingForm = ({
 const ImageContainer = tw.div`rounded-3xl shadow-lg overflow-hidden transition ease-in-out delay-500 duration-[2000ms]`
 const MainImage = tw.img`w-full h-full object-cover transition transform ease-out duration-[14s]`
 
-const HeroImage = ({ observe, inView }: any) => (
-  <ImageContainer ref={observe} className={`${inView ? "" : "opacity-0"}`}>
+const HeroImage = ({ inView }: any) => (
+  <ImageContainer className={`${inView ? "" : "opacity-0"}`}>
     <MainImage
       className={`${inView ? "" : "scale-[1.15] rotate-2 translate-y-4"}`}
       src="https://source.unsplash.com/T5jzpRTVF1U"
@@ -90,27 +83,27 @@ const HeroImage = ({ observe, inView }: any) => (
   </ImageContainer>
 )
 
-export const HeroSection = () => (
-  <>
-    <GradientBackground />
+export const HeroSectionCore = ({ observe, inView }: any) => (
+  <div ref={observe}>
+    <GradientBackground inView={inView} />
     <Section className="h-[900px]">
       <div className="flex justify-center mt-16">
-        <InView unobserveOnEnter>
-          <WrappedBookingForm />
-        </InView>
+        <WrappedBookingForm inView={inView} />
       </div>
       <Container>
         <Column>
-          <InView unobserveOnEnter>
-            <TextSection />
-          </InView>
+          <TextSection inView={inView} />
         </Column>
         <Column>
-          <InView unobserveOnEnter>
-            <HeroImage />
-          </InView>
+          <HeroImage inView={inView} />
         </Column>
       </Container>
     </Section>
-  </>
+  </div>
+)
+
+export const HeroSection = () => (
+  <InView unobserveOnEnter>
+    <HeroSectionCore />
+  </InView>
 )
