@@ -11,6 +11,12 @@ cityRoute.get(
   cityController.getMany
 )
 
+cityRoute.get(
+  "/getSome",
+  validate(cityValidation.getSome),
+  cityController.getSome
+)
+
 /**
  * @swagger
  * tags:

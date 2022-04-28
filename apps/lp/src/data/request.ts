@@ -1,10 +1,12 @@
+const apiUrl = "http://localhost:3000/v1"
+
 export const request = async ({ url, method = "GET", params }) => {
   return new Promise(async (resolve, reject) => {
-    const endpoint =
-      "http://localhost:3000/v1" +
-      url +
-      "?" +
-      new URLSearchParams(params).toString()
+    const route = params
+      ? `${url}?${new URLSearchParams(params).toString()}`
+      : url
+
+    const endpoint = apiUrl + route
 
     await fetch(endpoint, {
       method,

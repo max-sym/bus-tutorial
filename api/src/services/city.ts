@@ -8,6 +8,15 @@ const getMany = async (query: string) => {
   })
 }
 
+const getSome = async (cities: string) => {
+  return await prisma.city.findMany({
+    where: {
+      slug: { in: cities.split(",") },
+    },
+  })
+}
+
 export const cityService = {
   getMany,
+  getSome,
 }

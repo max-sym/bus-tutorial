@@ -11,17 +11,8 @@ const searchPlace = async (query: string) => {
   return result.map(item => ({ value: item.slug, label: item.name }))
 }
 
-const formattedCities = cities.map(city => ({
-  value: city.toLowerCase(),
-  label: city,
-}))
-
-// This is what might happen on the backend in real-life application: it would search for the city.
-const filterAndMapCiies = (query: string) =>
-  formattedCities.filter(city => city.value.includes(query.toLowerCase()))
-
 // This is the list of cities to be shown initially when user didn't start the search of location yet.
-const defaultLocationOptions: LocationOption[] = formattedCities.slice(0, 5)
+const defaultLocationOptions: LocationOption[] = cities.slice(0, 5)
 
 const dateConfig = {
   altInput: true,

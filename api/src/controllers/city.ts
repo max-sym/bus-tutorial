@@ -6,6 +6,12 @@ const getMany = catchAsync(async (req, res) => {
   res.send(result)
 })
 
+const getSome = catchAsync(async (req, res) => {
+  const result = await cityService.getSome(req.query.cities)
+  res.send(result)
+})
+
 export const cityController = {
   getMany,
+  getSome,
 }
