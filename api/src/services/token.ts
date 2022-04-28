@@ -1,20 +1,16 @@
-const jwt = require("jsonwebtoken")
+import jwt from "jsonwebtoken"
 import moment from "moment"
 import httpStatus from "http-status"
-import { env } from "../config"
-import { userService } from "./user.service"
-const ApiError = require("../utils/ApiError")
-const { tokenTypes } = require("../config/tokens")
+import { env, tokenTypes } from "../config"
+import { userService } from "./user"
+import { ApiError } from "../utils"
 
-/**
- * Generate token
- * @param {ObjectId} userId
- * @param {Moment} expires
- * @param {string} type
- * @param {string} [secret]
- * @returns {string}
- */
-const generateToken = (userId, expires, type, secret = env.jwt.secret) => {
+const generateToken = (
+  userId: ObjectId,
+  expires: Moment,
+  type: string,
+  secret: string = env.jwt.secret
+): string => {
   const payload = {
     sub: userId,
     iat: moment().unix(),
@@ -24,16 +20,13 @@ const generateToken = (userId, expires, type, secret = env.jwt.secret) => {
   return jwt.sign(payload, secret)
 }
 
-/**
- * Save a token
- * @param {string} token
- * @param {ObjectId} userId
- * @param {Moment} expires
- * @param {string} type
- * @param {boolean} [blacklisted]
- * @returns {Promise<Token>}
- */
-const saveToken = async (token, userId, expires, type, blacklisted = false) => {
+const saveToken = async (
+  token: string,
+  userId: ObjectId,
+  expires: Moment,
+  type: string,
+  blacklisted: boolean = false
+): Promise<Token> => {
   const tokenDoc = await Token.create({
     token,
     user: userId,
@@ -44,13 +37,7 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
   return tokenDoc
 }
 
-/**
- * Verify token and return token doc (or throw an error if it is not valid)
- * @param {string} token
- * @param {string} type
- * @returns {Promise<Token>}
- */
-const verifyToken = async (token, type) => {
+const verifyToken = async (token: string, type: string): Promise<Token> => {
   const payload = jwt.verify(token, env.jwt.secret)
   const tokenDoc = await Token.findOne({
     token,
@@ -64,12 +51,7 @@ const verifyToken = async (token, type) => {
   return tokenDoc
 }
 
-/**
- * Generate auth tokens
- * @param {User} user
- * @returns {Promise<Object>}
- */
-const generateAuthTokens = async user => {
+const generateAuthTokens = async (user: User): Promise<object> => {
   const accessTokenExpires = moment().add(
     env.jwt.accessExpirationMinutes,
     "minutes"
@@ -108,12 +90,7 @@ const generateAuthTokens = async user => {
   }
 }
 
-/**
- * Generate reset password token
- * @param {string} email
- * @returns {Promise<string>}
- */
-const generateResetPasswordToken = async email => {
+const generateResetPasswordToken = async (email: string): Promise<string> => {
   const user = await userService.getUserByEmail(email)
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "No users found with this email")
@@ -136,12 +113,7 @@ const generateResetPasswordToken = async email => {
   return resetPasswordToken
 }
 
-/**
- * Generate verify email token
- * @param {User} user
- * @returns {Promise<string>}
- */
-const generateVerifyEmailToken = async user => {
+const generateVerifyEmailToken = async (user: User): Promise<string> => {
   const expires = moment().add(env.jwt.verifyEmailExpirationMinutes, "minutes")
   const verifyEmailToken = generateToken(
     user.id,

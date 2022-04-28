@@ -1,5 +1,5 @@
 // import { prisma } from "@prisma/client"
-import { JwtStrategy, ExtractJwt } from "passport-jwt"
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt"
 import { env } from "./env"
 import { tokenTypes } from "./tokens"
 

@@ -1,28 +1,33 @@
-const express = require("express")
-import authRoute from "./auth.route"
-import userRoute from "./user.route"
-import docsRoute from "./docs.route"
-import config from "../../config/env"
+import express from "express"
+// import authRoute from "./auth.route"
+// import userRoute from "./user.route"
+import { cityRoute } from "./city"
+// import { docsRouter } from "./docs"
+import { env } from "../../config"
 
 const router = express.Router()
 
 const defaultRoutes = [
+  // {
+  //   path: "/auth",
+  //   route: authRoute,
+  // },
+  // {
+  //   path: "/users",
+  //   route: userRoute,
+  // },
   {
-    path: "/auth",
-    route: authRoute,
-  },
-  {
-    path: "/users",
-    route: userRoute,
+    path: "/city",
+    route: cityRoute,
   },
 ]
 
 const devRoutes = [
   // routes available only in development mode
-  {
-    path: "/docs",
-    route: docsRoute,
-  },
+  // {
+  //   path: "/docs",
+  //   route: docsRouter,
+  // },
 ]
 
 defaultRoutes.forEach(route => {
@@ -30,7 +35,7 @@ defaultRoutes.forEach(route => {
 })
 
 /* istanbul ignore next */
-if (config.env === "development") {
+if (env.env === "development") {
   devRoutes.forEach(route => {
     router.use(route.path, route.route)
   })

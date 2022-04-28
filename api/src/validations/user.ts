@@ -1,5 +1,5 @@
 import Joi from "joi"
-import { customValidation } from "./custom.validation"
+import { customValidation } from "./custom"
 
 const createUser = {
   body: Joi.object().keys({

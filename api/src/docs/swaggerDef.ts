@@ -1,7 +1,7 @@
 import { version } from "../../package.json"
 import { env } from "../config"
 
-const swaggerDef = {
+export const swaggerDef = {
   openapi: "3.0.0",
   info: {
     title: "node-express-boilerplate API documentation",
@@ -17,5 +17,3 @@ const swaggerDef = {
     },
   ],
 }
-
-module.exports = swaggerDef

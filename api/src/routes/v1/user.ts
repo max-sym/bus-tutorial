@@ -1,8 +1,8 @@
 const express = require("express")
 import { auth } from "../../middlewares"
 import { validate } from "../../middlewares"
-import { userValidation } from "../../validations/user.validation"
-import { userController } from "../../controllers/user.controller"
+import { userValidation } from "../../validations/user"
+import { userController } from "../../controllers/user"
 
 const router = express.Router()
 
