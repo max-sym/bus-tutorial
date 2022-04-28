@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Text } from "components"
 import moment from "moment"
 import { RequestedTripType } from "."
-import { data } from "data"
+import { data, useLoadResource } from "data"
 
 const GuestsIndicator = ({
   requestedTrip,
@@ -36,34 +36,25 @@ export const Header = ({
     "DD-MM-YYYY"
   ).format("LL")
 
-  const [cities, setCities] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState(false)
-
   const loadCities = async () => {
     if (!requestedTrip.cityFromSlug || !requestedTrip.cityToSlug) return null
-
-    setIsLoading(true)
 
     const cities = await data.city.getSome([
       requestedTrip.cityFromSlug,
       requestedTrip.cityToSlug,
     ])
 
-    setIsLoading(false)
-
     const from = cities.find(city => city.slug === requestedTrip.cityFromSlug)
     const to = cities.find(city => city.slug === requestedTrip.cityToSlug)
 
-    setCities({ from, to })
+    return { from, to }
   }
 
-  useEffect(() => {
-    loadCities()
-  }, [])
+  const { resource, isLoading } = useLoadResource(loadCities)
 
-  if (!cities || isLoading) return null
+  if (!resource || isLoading) return null
 
-  const location = `${cities.from?.name} - ${cities.to?.name}`
+  const location = `${resource.from?.name} - ${resource.to?.name}`
 
   return (
     <div className="text-center">

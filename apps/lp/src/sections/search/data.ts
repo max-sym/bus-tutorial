@@ -1,5 +1,3 @@
-import { cities } from "sections/home/booking-form/cities"
-
 export type City = {
   id: number
   name: string
@@ -22,18 +20,3 @@ export type TripType = {
   price: number
   bus: Bus
 }
-
-export const busses = [
-  {
-    id: 1,
-    name: "Standard Bus",
-    seats: 32,
-  },
-  {
-    id: 2,
-    name: "Luxury Bus",
-    seats: 14,
-  },
-]
-
-export const trips: TripType[] = []
