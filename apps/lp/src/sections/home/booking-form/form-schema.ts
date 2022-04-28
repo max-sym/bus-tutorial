@@ -1,12 +1,15 @@
+import { data } from "data"
 import { FormSchema, LocationOption } from "react-booking-form"
 import { cities } from "./cities"
 
 // This is mocking a call to API that would return location search results
 // whenever user types into the location input field.
-const searchPlace = async (query: string) =>
-  new Promise((resolve, _reject) => {
-    setTimeout(() => resolve(filterAndMapCiies(query)), 600)
-  })
+const searchPlace = async (query: string) => {
+  const result = await data.city.getMany(query)
+  if (!result?.length) return []
+
+  return result.map(item => ({ value: item.slug, label: item.name }))
+}
 
 const formattedCities = cities.map(city => ({
   value: city.toLowerCase(),
