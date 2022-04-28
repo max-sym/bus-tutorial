@@ -24,6 +24,8 @@ model Trip {
   id         Int      @id @default(autoincrement())
   departure  DateTime
   arrival    DateTime
+  busId      Int
+  bus        Bus      @relation(fields: [busId], references: [id])
   cityFromId Int
   cityFrom   City     @relation("cityFrom", fields: [cityFromId], references: [id])
   cityToId   Int
@@ -31,4 +33,13 @@ model Trip {
   price      Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Bus {
+  id        Int      @id @default(autoincrement())
+  name      String
+  trips     Trip[]
+  seats     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
