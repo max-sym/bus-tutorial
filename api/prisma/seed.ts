@@ -1,13 +1,19 @@
-import { cities } from "./seed-data/cities"
+import * as seedData from "./seed-data"
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 async function main() {
-  const city = await prisma.city.createMany({
-    data: cities,
+  await prisma.city.createMany({
+    data: seedData.cities.slice(0, 20),
   })
 
-  console.log({ city })
+  const cities = await prisma.city.findMany()
+
+  const trips = await prisma.trip.createMany({
+    data: seedData.getFakeTrips({ cities }),
+  })
+
+  console.log({ cities, trips })
 }
 
 main()

@@ -16,4 +16,19 @@ model City {
   slug      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tripsFrom Trip[]   @relation("cityFrom")
+  tripsTo   Trip[]   @relation("cityTo")
+}
+
+model Trip {
+  id         Int      @id @default(autoincrement())
+  departure  DateTime
+  arrival    DateTime
+  cityFromId Int
+  cityFrom   City     @relation("cityFrom", fields: [cityFromId], references: [id])
+  cityToId   Int
+  cityTo     City     @relation("cityTo", fields: [cityToId], references: [id])
+  price      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
