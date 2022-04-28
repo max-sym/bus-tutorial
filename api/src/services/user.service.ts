@@ -1,13 +1,13 @@
 const httpStatus = require("http-status")
 const { User } = require("../models")
-import ApiError from "../utils/ApiError"
+import { ApiError } from "../utils"
 
 /**
  * Create a user
  * @param {Object} userBody
  * @returns {Promise<User>}
  */
-const createUser = async userBody => {
+const create = async userBody => {
   if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken")
   }
@@ -23,7 +23,7 @@ const createUser = async userBody => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryUsers = async (filter, options) => {
+const query = async (filter, options) => {
   const users = await User.paginate(filter, options)
   return users
 }
@@ -33,7 +33,7 @@ const queryUsers = async (filter, options) => {
  * @param {ObjectId} id
  * @returns {Promise<User>}
  */
-const getUserById = async id => {
+const getById = async id => {
   return User.findById(id)
 }
 
@@ -42,7 +42,7 @@ const getUserById = async id => {
  * @param {string} email
  * @returns {Promise<User>}
  */
-const getUserByEmail = async email => {
+const getByEmail = async email => {
   return User.findOne({ email })
 }
 
@@ -52,7 +52,7 @@ const getUserByEmail = async email => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
-const updateUserById = async (userId, updateBody) => {
+const updateById = async (userId, updateBody) => {
   const user = await getUserById(userId)
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found")
@@ -70,7 +70,7 @@ const updateUserById = async (userId, updateBody) => {
  * @param {ObjectId} userId
  * @returns {Promise<User>}
  */
-const deleteUserById = async userId => {
+const deleteById = async userId => {
   const user = await getUserById(userId)
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found")
@@ -79,11 +79,11 @@ const deleteUserById = async userId => {
   return user
 }
 
-module.exports = {
-  createUser,
-  queryUsers,
-  getUserById,
-  getUserByEmail,
-  updateUserById,
-  deleteUserById,
+export const userService = {
+  create,
+  query,
+  getById,
+  getByEmail,
+  updateById,
+  deleteById,
 }

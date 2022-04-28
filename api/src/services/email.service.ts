@@ -1,10 +1,9 @@
 const nodemailer = require("nodemailer")
-import config from "../config/config"
-import logger from "../config/logger"
+import { env, logger } from "../config"
 
-const transport = nodemailer.createTransport(config.email.smtp)
+const transport = nodemailer.createTransport(env.email.smtp)
 /* istanbul ignore next */
-if (config.env !== "test") {
+if (env.env !== "test") {
   transport
     .verify()
     .then(() => logger.info("Connected to email server"))
@@ -15,25 +14,19 @@ if (config.env !== "test") {
     )
 }
 
-/**
- * Send an email
- * @param {string} to
- * @param {string} subject
- * @param {string} text
- * @returns {Promise}
- */
-const sendEmail = async (to, subject, text) => {
-  const msg = { from: config.email.from, to, subject, text }
+const sendEmail = async (
+  to: string,
+  subject: string,
+  text: string
+): Promise<any> => {
+  const msg = { from: env.email.from, to, subject, text }
   await transport.sendMail(msg)
 }
 
-/**
- * Send reset password email
- * @param {string} to
- * @param {string} token
- * @returns {Promise}
- */
-const sendResetPasswordEmail = async (to, token) => {
+const sendResetPasswordEmail = async (
+  to: string,
+  token: string
+): Promise<any> => {
   const subject = "Reset password"
   // replace this url with the link to the reset password page of your front-end app
   const resetPasswordUrl = `http://link-to-app/reset-password?token=${token}`
@@ -43,13 +36,10 @@ If you did not request any password resets, then ignore this email.`
   await sendEmail(to, subject, text)
 }
 
-/**
- * Send verification email
- * @param {string} to
- * @param {string} token
- * @returns {Promise}
- */
-const sendVerificationEmail = async (to, token) => {
+const sendVerificationEmail = async (
+  to: string,
+  token: string
+): Promise<any> => {
   const subject = "Email Verification"
   // replace this url with the link to the email verification page of your front-end app
   const verificationEmailUrl = `http://link-to-app/verify-email?token=${token}`
@@ -59,7 +49,7 @@ If you did not create an account, then ignore this email.`
   await sendEmail(to, subject, text)
 }
 
-module.exports = {
+export const emailService = {
   transport,
   sendEmail,
   sendResetPasswordEmail,

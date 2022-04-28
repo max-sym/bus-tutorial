@@ -1,5 +1,5 @@
 import httpStatus from "http-status"
-import catchAsync from "../utils/catchAsync"
+import { catchAsync } from "../utils"
 import {
   authService,
   userService,
@@ -54,7 +54,7 @@ const verifyEmail = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send()
 })
 
-module.exports = {
+export const authController = {
   register,
   login,
   logout,

@@ -1,23 +1,21 @@
 import httpStatus from "http-status"
-import pick from "../utils/pick"
-import ApiError from "../utils/ApiError"
-import catchAsync from "../utils/catchAsync"
+import { catchAsync, ApiError, pick } from "../utils"
 import { userService } from "../services"
 
 const createUser = catchAsync(async (req, res) => {
-  const user = await userService.createUser(req.body)
+  const user = await userService.create(req.body)
   res.status(httpStatus.CREATED).send(user)
 })
 
 const getUsers = catchAsync(async (req, res) => {
   const filter = pick(req.query, ["name", "role"])
   const options = pick(req.query, ["sortBy", "limit", "page"])
-  const result = await userService.queryUsers(filter, options)
+  const result = await userService.query(filter, options)
   res.send(result)
 })
 
 const getUser = catchAsync(async (req, res) => {
-  const user = await userService.getUserById(req.params.userId)
+  const user = await userService.getById(req.params.userId)
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found")
   }
@@ -25,16 +23,16 @@ const getUser = catchAsync(async (req, res) => {
 })
 
 const updateUser = catchAsync(async (req, res) => {
-  const user = await userService.updateUserById(req.params.userId, req.body)
+  const user = await userService.updateById(req.params.userId, req.body)
   res.send(user)
 })
 
 const deleteUser = catchAsync(async (req, res) => {
-  await userService.deleteUserById(req.params.userId)
+  await userService.deleteById(req.params.userId)
   res.status(httpStatus.NO_CONTENT).send()
 })
 
-module.exports = {
+export const userController = {
   createUser,
   getUsers,
   getUser,

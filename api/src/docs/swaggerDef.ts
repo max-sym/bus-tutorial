@@ -1,5 +1,5 @@
 import { version } from "../../package.json"
-import config from "../config/config"
+import { env } from "../config"
 
 const swaggerDef = {
   openapi: "3.0.0",
@@ -13,7 +13,7 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `http://localhost:${config.port}/v1`,
+      url: `http://localhost:${env.port}/v1`,
     },
   ],
 }

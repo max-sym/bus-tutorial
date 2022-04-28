@@ -1,11 +1,10 @@
-import app from "./app"
-import config from "./config/config"
-import logger from "./config/logger"
+import { app } from "./app"
+import { env, logger } from "./config"
 
 let server
 
-server = app.listen(config.port, () => {
-  logger.info(`Listening to port ${config.port}`)
+server = app.listen(env.port, () => {
+  logger.info(`Listening to port ${env.port}`)
 })
 
 const exitHandler = () => {
