@@ -2,6 +2,7 @@ import express from "express"
 // import authRoute from "./auth.route"
 // import userRoute from "./user.route"
 import { cityRoute } from "./city"
+import { tripRoute } from "./trip"
 // import { docsRouter } from "./docs"
 import { env } from "../../config"
 
@@ -19,6 +20,10 @@ const defaultRoutes = [
   {
     path: "/city",
     route: cityRoute,
+  },
+  {
+    path: "/trip",
+    route: tripRoute,
   },
 ]
 
