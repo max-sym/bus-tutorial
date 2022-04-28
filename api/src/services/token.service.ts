@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken")
-const moment = require("moment")
-const httpStatus = require("http-status")
-const config = require("../config/config")
-const userService = require("./user.service")
-const { Token } = require("../models")
+import moment from "moment"
+import httpStatus from "http-status"
+import config from "../config/config"
+import userService from "./user.service"
+import moment from "moment"
 const ApiError = require("../utils/ApiError")
 const { tokenTypes } = require("../config/tokens")
 

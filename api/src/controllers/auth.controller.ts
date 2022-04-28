@@ -1,11 +1,11 @@
-const httpStatus = require("http-status")
-const catchAsync = require("../utils/catchAsync")
-const {
+import httpStatus from "http-status"
+import catchAsync from "../utils/catchAsync"
+import {
   authService,
   userService,
   tokenService,
   emailService,
-} = require("../services")
+} from "../services"
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body)

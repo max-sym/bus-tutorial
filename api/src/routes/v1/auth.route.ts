@@ -1,8 +1,8 @@
 const express = require("express")
-const validate = require("../../middlewares/validate")
-const authValidation = require("../../validations/auth.validation")
-const authController = require("../../controllers/auth.controller")
-const auth = require("../../middlewares/auth")
+import validate from "../../middlewares/validate"
+import authValidation from "../../validations/auth.validation"
+import authController from "../../controllers/auth.controller"
+import auth from "../../middlewares/auth"
 
 const router = express.Router()
 

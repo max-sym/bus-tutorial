@@ -1,8 +1,8 @@
-const mongoose = require("mongoose")
-const httpStatus = require("http-status")
-const config = require("../config/config")
-const logger = require("../config/logger")
-const ApiError = require("../utils/ApiError")
+import mongoose from "mongoose"
+import httpStatus from "http-status"
+import config from "../config/config"
+import logger from "../config/logger"
+import ApiError from "../utils/ApiError"
 
 const errorConverter = (err, req, res, next) => {
   let error = err
