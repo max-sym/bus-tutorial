@@ -16,7 +16,7 @@
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
-    "build": "yarn global add rimraf && rimraf build && yarn tsc -p tsconfig.json",
+    "build": "esbuild ./src/index.ts --bundle --platform=node --outdir=./build --external:./node_modules/*",
     "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.7",
+    "esbuild": "^0.14.38",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^8.1.0",
