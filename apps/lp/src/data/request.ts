@@ -1,6 +1,21 @@
 const apiUrl = process.env.GATSBY_API_URL
 
-export const request = async ({ url, method = "GET", params }) => {
+type MethodType = "GET" | "POST" | "PATCH" | "PUT"
+type RequestType = {
+  url: string
+  method?: MethodType
+  params?: any
+  body?: {
+    [key: string]: any
+  }
+}
+
+export const request = async ({
+  url,
+  method = "GET",
+  params,
+  body,
+}: RequestType) => {
   return new Promise(async (resolve, reject) => {
     const route = params
       ? `${url}?${new URLSearchParams(params).toString()}`
@@ -10,6 +25,10 @@ export const request = async ({ url, method = "GET", params }) => {
 
     await fetch(endpoint, {
       method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
     })
       .then(async response => {
         const result = await response.json()

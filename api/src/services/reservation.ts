@@ -38,6 +38,7 @@ const addReservedTrip = async (token: string, body) => {
     },
     where: { token },
   })
+
   return reservation
 }
 
