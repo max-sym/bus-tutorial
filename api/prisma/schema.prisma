@@ -21,18 +21,19 @@ model City {
 }
 
 model Trip {
-  id         Int      @id @default(autoincrement())
-  departure  DateTime
-  arrival    DateTime
-  busId      Int
-  bus        Bus      @relation(fields: [busId], references: [id])
-  cityFromId Int
-  cityFrom   City     @relation("cityFrom", fields: [cityFromId], references: [id])
-  cityToId   Int
-  cityTo     City     @relation("cityTo", fields: [cityToId], references: [id])
-  price      Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            Int            @id @default(autoincrement())
+  departure     DateTime
+  arrival       DateTime
+  busId         Int
+  bus           Bus            @relation(fields: [busId], references: [id])
+  cityFromId    Int
+  cityFrom      City           @relation("cityFrom", fields: [cityFromId], references: [id])
+  cityToId      Int
+  cityTo        City           @relation("cityTo", fields: [cityToId], references: [id])
+  price         Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  reservedTrips ReservedTrip[]
 }
 
 model Bus {
@@ -42,4 +43,27 @@ model Bus {
   seats     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ReservedTrip {
+  id            Int         @id @default(autoincrement())
+  trip          Trip        @relation(fields: [tripId], references: [id])
+  tripId        Int
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+  reservationId Int
+}
+
+enum ReservationState {
+  CREATED
+  PAID
+  ONBOARDED
+}
+
+model Reservation {
+  id            Int              @id @default(autoincrement())
+  token         String           @unique
+  reservedTrips ReservedTrip[]
+  state         ReservationState @default(CREATED)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 }
