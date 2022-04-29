@@ -3,6 +3,7 @@ import express from "express"
 // import userRoute from "./user.route"
 import { cityRoute } from "./city"
 import { tripRoute } from "./trip"
+import { reservationRoute } from "./reservation"
 // import { docsRouter } from "./docs"
 import { env } from "../../config"
 
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: "/trip",
     route: tripRoute,
+  },
+  {
+    path: "/reservation",
+    route: reservationRoute,
   },
 ]
 
