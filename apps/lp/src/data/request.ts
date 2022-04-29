@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000/v1"
+const apiUrl = process.env.GATSBY_API_URL
 
 export const request = async ({ url, method = "GET", params }) => {
   return new Promise(async (resolve, reject) => {

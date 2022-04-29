@@ -38,8 +38,7 @@ app.use(xss())
 app.use(compression())
 
 // enable cors
-app.use(cors())
-app.options("*", cors())
+app.use(cors({ origin: env.cors }))
 
 // jwt authentication
 // app.use(passport.initialize())

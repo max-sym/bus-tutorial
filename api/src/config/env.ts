@@ -10,6 +10,7 @@ const envVarsSchema = Joi.object()
       .valid("production", "development", "test")
       .required(),
     PORT: Joi.number().default(3000),
+    CORS: Joi.string(),
     JWT_SECRET: Joi.string().required().description("JWT secret key"),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number()
       .default(30)
@@ -43,6 +44,7 @@ if (error) {
 
 export const env = {
   env: envVars.NODE_ENV,
+  cors: envVars.CORS,
   port: envVars.PORT,
   jwt: {
     secret: envVars.JWT_SECRET,
