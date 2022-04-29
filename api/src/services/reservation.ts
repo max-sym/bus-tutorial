@@ -24,6 +24,21 @@ const create = async () => {
   return reservation
 }
 
+const addReservedTrip = async (token: string, body) => {
+  const reservation = await prisma.reservation.update({
+    data: {
+      reservedTrips: {
+        create: {
+          tripId: body.tripId,
+        },
+      },
+    },
+    where: { token },
+  })
+  return reservation
+}
+
 export const reservationService = {
   create,
+  addReservedTrip
 }

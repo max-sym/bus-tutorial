@@ -1,10 +1,17 @@
 const express = require("express")
-// import { validate } from "../../middlewares"
+import { validate } from "../../middlewares"
 import { reservationController } from "../../controllers"
+import { reservationValidation } from "../../validations"
 
 export const reservationRoute = express.Router()
 
 reservationRoute.post("/", reservationController.create)
+
+reservationRoute.patch(
+  "/:token",
+  validate(reservationValidation.addReservedTrip),
+  reservationController.addReservedTrip
+)
 
 /**
  * @swagger
