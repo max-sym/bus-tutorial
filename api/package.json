@@ -2,8 +2,7 @@
   "name": "@bus/api",
   "version": "1.7.0",
   "description": "Bus API",
-  "bin": "bin/createNodejsApp.js",
-  "main": "src/index.ts",
+  "main": "build/index.ts",
   "license": "MIT",
   "engines": {
     "node": ">=12.0.0"
@@ -17,6 +16,7 @@
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
+    "build": "yarn global add rimraf && rimraf build && yarn tsc -p tsconfig.json",
     "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
