@@ -2,21 +2,23 @@ import moment from "moment"
 import { prisma } from "../config"
 import { uid } from "../utils"
 
-const create = async () => {
-  const reservation = await prisma.reservation.create({
+const include = {
+  reservedTrips: {
     include: {
-      reservedTrips: {
+      trip: {
         include: {
-          trip: {
-            include: {
-              cityFrom: true,
-              cityTo: true,
-              bus: true,
-            },
-          },
+          cityFrom: true,
+          cityTo: true,
+          bus: true,
         },
       },
     },
+  },
+}
+
+const create = async () => {
+  const reservation = await prisma.reservation.create({
+    include,
     data: {
       token: uid(),
     },
@@ -26,6 +28,7 @@ const create = async () => {
 
 const addReservedTrip = async (token: string, body) => {
   const reservation = await prisma.reservation.update({
+    include,
     data: {
       reservedTrips: {
         create: {
@@ -40,5 +43,5 @@ const addReservedTrip = async (token: string, body) => {
 
 export const reservationService = {
   create,
-  addReservedTrip
+  addReservedTrip,
 }
