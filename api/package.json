@@ -2,8 +2,7 @@
   "name": "@bus/api",
   "version": "1.7.0",
   "description": "Bus API",
-  "bin": "bin/createNodejsApp.js",
-  "main": "src/index.ts",
+  "main": "build/index.js",
   "license": "MIT",
   "engines": {
     "node": ">=12.0.0"
@@ -14,6 +13,7 @@
     "db:init": "prisma migrate reset --force",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
+    "build": "esbuild ./src/index.ts --outdir=./build --bundle --platform=node --external:./node_modules/*",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
@@ -49,8 +49,6 @@
     "passport-jwt": "^4.0.0",
     "pm2": "^5.1.0",
     "prisma": "^3.13.0",
-    "swagger-jsdoc": "^6.0.8",
-    "swagger-ui-express": "^4.1.6",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3",
     "validator": "^13.0.0",
@@ -59,6 +57,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.7",
+    "esbuild": "^0.14.38",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^8.1.0",
@@ -72,6 +71,8 @@
     "node-mocks-http": "^1.8.0",
     "nodemon": "^2.0.0",
     "prettier": "^2.0.5",
-    "supertest": "^6.0.1"
+    "supertest": "^6.0.1",
+    "swagger-jsdoc": "^6.0.8",
+    "swagger-ui-express": "^4.1.6"
   }
 }
