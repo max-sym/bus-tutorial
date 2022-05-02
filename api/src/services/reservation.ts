@@ -51,8 +51,18 @@ const deleteReservedTrip = async (token: string, reservedTripId: number) => {
   return result
 }
 
+const deleteOne = async (token: string) => {
+  const result = await prisma.reservation.delete({
+    include,
+    where: { token },
+  })
+
+  return result
+}
+
 export const reservationService = {
   create,
   addReservedTrip,
   deleteReservedTrip,
+  deleteOne,
 }

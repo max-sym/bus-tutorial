@@ -32,4 +32,11 @@ export const reservation = {
     })
     return result
   },
+  deleteOne: async (reservation: ReservationType): Promise<any> => {
+    const result = await request({
+      url: `/reservation/${reservation.token}`,
+      method: "DELETE",
+    })
+    return result
+  },
 }

@@ -26,8 +26,16 @@ const deleteReservedTrip = catchAsync(async (req: Request, res) => {
   res.send(result)
 })
 
+const deleteOne = catchAsync(async (req: Request, res) => {
+  const token = req.params.token
+  const result = await reservationService.deleteOne(token)
+
+  res.send(result)
+})
+
 export const reservationController = {
   create,
   addReservedTrip,
   deleteReservedTrip,
+  deleteOne,
 }

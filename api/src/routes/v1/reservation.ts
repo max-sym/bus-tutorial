@@ -19,6 +19,12 @@ reservationRoute.delete(
   reservationController.deleteReservedTrip
 )
 
+reservationRoute.delete(
+  "/:token",
+  validate(reservationValidation.deleteOne),
+  reservationController.deleteOne
+)
+
 /**
  * @swagger
  * tags:
