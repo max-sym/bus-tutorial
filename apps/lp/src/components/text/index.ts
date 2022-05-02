@@ -6,6 +6,7 @@ const colorClasses = {
   base: "text-gray-900 dark:text-white",
   "gray-light": "text-gray-600 dark:text-gray-400",
   green: "text-green-500",
+  red: "text-red-500",
 }
 
 const variantClasses = {

@@ -12,3 +12,4 @@ export const CardTitle = ({ children, ...props }) => (
 )
 
 export const CardHeading = tw.div`px-4 pt-4`
+export const CardFooter = tw.div`px-4 py-4`
