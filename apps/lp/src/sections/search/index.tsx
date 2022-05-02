@@ -6,6 +6,7 @@ import { ReservationBar } from "./reservation-bar"
 import { Trips } from "./trips"
 import { data, useLoadResource } from "data"
 import { useGetRequestedTrip } from "./use-get-requested-trip"
+import { TopBar } from "./top-bar"
 
 export const SearchSection = () => {
   const { requestedTrip } = useGetRequestedTrip()
@@ -40,6 +41,7 @@ export const SearchSection = () => {
         </div>
         <div className="flex flex-col flex-1">
           <Header requestedTrip={requestedTrip} />
+          <TopBar trips={resource} />
           <Trips trips={resource} />
         </div>
         <div className="w-1/4">
