@@ -5,6 +5,7 @@ import moment from "moment"
 
 export const useReservationCountdown = () => {
   const reservation = useStore(store => store.reservation)
+  const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
 
   const getTimeLeft = () => {
     if (!reservation) return
@@ -16,8 +17,10 @@ export const useReservationCountdown = () => {
   }
 
   useEffect(() => {
-    // cleanup reservation
-  }, [])
+    if (reservationTimeLeft === null || reservationTimeLeft > 0) return
+
+    useStore.setState({ reservation: null })
+  }, [reservationTimeLeft])
 
   useEffect(() => {
     if (reservation) return
