@@ -6,6 +6,7 @@ import { ReservationBar } from "./reservation-bar"
 import { Trips } from "./trips"
 import { data, useLoadResource } from "data"
 import { useGetRequestedTrip } from "./use-get-requested-trip"
+import { useSortTrips } from "./use-sort-trips"
 import { TopBar } from "./top-bar"
 
 export const SearchSection = () => {
@@ -31,6 +32,8 @@ export const SearchSection = () => {
 
   const { resource, isLoading } = useLoadResource(loadTrips, [requestedTrip])
 
+  const { sortedTrips, sortBy, setSortBy } = useSortTrips({ trips: resource })
+
   if (!requestedTrip || !resource || isLoading) return null
 
   return (
@@ -41,8 +44,8 @@ export const SearchSection = () => {
         </div>
         <div className="flex flex-col flex-1">
           <Header requestedTrip={requestedTrip} />
-          <TopBar trips={resource} />
-          <Trips trips={resource} />
+          <TopBar trips={sortedTrips} sortBy={sortBy} setSortBy={setSortBy} />
+          <Trips trips={sortedTrips} />
         </div>
         <div className="w-1/4">
           <ReservationBar />

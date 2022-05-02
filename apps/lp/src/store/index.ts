@@ -17,8 +17,8 @@ export type TripType = {
   id: number
   cityFrom: City
   cityTo: City
-  departure: Date
-  arrival: Date
+  departure: string
+  arrival: string
   distance: number
   price: number
   bus: Bus

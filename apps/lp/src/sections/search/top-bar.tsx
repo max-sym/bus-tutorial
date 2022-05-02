@@ -1,18 +1,12 @@
 import React, { useState } from "react"
 import { Text, Select } from "components"
+import { options } from "./use-sort-trips"
 
-const options = [
-  { name: "Price Asc", value: "a" },
-  { name: "Time Desc", value: "b" },
-]
-
-export const TopBar = ({ trips }) => {
+export const TopBar = ({ trips, sortBy, setSortBy }) => {
   const count = trips.length
 
-  const [value, setValue] = useState("b")
-
   const onChange = option => {
-    setValue(option.value)
+    setSortBy(option.value)
   }
 
   return (
@@ -21,7 +15,7 @@ export const TopBar = ({ trips }) => {
       <div>
         <div className="flex items-center gap-2">
           <Text>{"Sort by:"}</Text>
-          <Select options={options} value={value} onChange={onChange} />
+          <Select options={options} value={sortBy} onChange={onChange} />
         </div>
       </div>
     </div>
