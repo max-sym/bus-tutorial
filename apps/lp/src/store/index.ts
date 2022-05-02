@@ -26,7 +26,7 @@ export type TripType = {
 export type ReservedTripType = {
   id: number
   trip: TripType
-  tripId: TripType
+  tripId: number
   reservationId: number
   reservation: ReservationType
 }

@@ -33,8 +33,14 @@ export const useTripsAction = ({ trip }: { trip: TripType }) => {
     addReservedTrip(newReservation, trip)
   }
 
-  const onRemoveClick = async (reservedTrip: ReservedTripType) => {
-    if (!reservation || !reservedTrip) return
+  const onRemoveClick = async () => {
+    if (!reservation) return
+
+    const reservedTrip = reservation.reservedTrips.find(
+      reservedTrip => trip.id === reservedTrip.tripId
+    )
+
+    if (!reservedTrip) return
 
     data.reservation
       .deleteReservedTrip(reservation, reservedTrip)

@@ -20,10 +20,6 @@ const ReservedTrip = ({ reservedTrip }: { reservedTrip: ReservedTripType }) => {
 
   const { onRemoveClick } = useTripsAction({ trip })
 
-  const onClick = () => {
-    onRemoveClick(reservedTrip)
-  }
-
   return (
     <div className="flex justify-between">
       <div>
@@ -38,7 +34,7 @@ const ReservedTrip = ({ reservedTrip }: { reservedTrip: ReservedTripType }) => {
         </div>
       </div>
       <div className="flex flex-col items-end">
-        <Button variant="round" color="red" onClick={onClick}>
+        <Button variant="round" color="red" onClick={onRemoveClick}>
           <RiCloseFill className="w-full h-full" />
         </Button>
         <Text className="mt-2 font-bold">{priceText}</Text>
