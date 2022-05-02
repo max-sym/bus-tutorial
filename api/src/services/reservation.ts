@@ -21,6 +21,7 @@ const create = async () => {
     include,
     data: {
       token: uid(),
+      expiresAt: moment().add(10, "minutes").toDate(),
     },
   })
   return reservation

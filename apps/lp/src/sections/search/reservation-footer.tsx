@@ -1,15 +1,17 @@
 import React from "react"
 import { Button, Text } from "components"
-import { ReservationType } from "store"
-import { getTotalPrice } from "utils"
+import { ReservationType, useStore } from "store"
+import { getFormattedTimeLeft, getTotalPrice } from "utils"
 
 const TimeLeftText = () => {
-  const reservationTimeLeft = 1000
+  const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
+
+  if (!reservationTimeLeft) return null
 
   return (
     <Text className="text-right" color="red">
       <span>{"Time left to confirm your order: "}</span>
-      <span>{reservationTimeLeft}</span>
+      <span>{getFormattedTimeLeft(reservationTimeLeft)}</span>
     </Text>
   )
 }

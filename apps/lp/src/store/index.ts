@@ -38,14 +38,17 @@ export type ReservationType = {
   token: string
   reservedTrips: ReservedTripType[]
   state: ReservationStateType
+  expiresAt: string
   createdAt: string
   updatedAt: string
 }
 
 export type StoreType = {
   reservation: ReservationType | null
+  reservationTimeLeft: number | null
 }
 
 export const useStore = create<StoreType>(set => ({
   reservation: null,
+  reservationTimeLeft: null,
 }))

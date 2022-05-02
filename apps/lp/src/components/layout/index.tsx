@@ -1,5 +1,6 @@
 import React from "react"
 import tw from "tailwind-styled-components"
+import { useReservationCountdown } from "utils"
 import { Footer } from "./footer"
 import { Navbar } from "./navbar"
 
@@ -8,6 +9,8 @@ const ContentContainer = tw.div`pt-14`
 export * from "./seo"
 
 export const Layout = ({ children }) => {
+  useReservationCountdown()
+
   return (
     <Container>
       <Navbar />

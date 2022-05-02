@@ -64,6 +64,7 @@ model Reservation {
   token         String           @unique
   reservedTrips ReservedTrip[]
   state         ReservationState @default(CREATED)
+  expiresAt     DateTime
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
 }
