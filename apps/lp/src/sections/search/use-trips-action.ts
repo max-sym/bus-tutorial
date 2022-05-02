@@ -4,14 +4,13 @@ import { data } from "data"
 
 export const useTripsAction = ({ trip }: { trip: TripType }) => {
   const reservation = useStore(store => store.reservation)
+  const setReservation = useStore(store => store.setReservation)
 
   const isReserved =
     !!reservation?.reservedTrips.length &&
     !!reservation.reservedTrips.find(
       reservedTrip => reservedTrip.trip.id === trip.id
     )
-
-  const setReservation = data => useStore.setState({ reservation: data })
 
   const addReservedTrip = async (
     reservation: ReservationType,

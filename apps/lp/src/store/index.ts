@@ -1,3 +1,4 @@
+import { getLocalStorageItem, setLocalStorageItem } from "utils"
 import create from "zustand"
 
 export type City = {
@@ -45,10 +46,15 @@ export type ReservationType = {
 
 export type StoreType = {
   reservation: ReservationType | null
+  setReservation: (value: ReservationType | null) => void
   reservationTimeLeft: number | null
 }
 
 export const useStore = create<StoreType>(set => ({
-  reservation: null,
+  reservation: getLocalStorageItem("reservation"),
+  setReservation: value => {
+    setLocalStorageItem("reservation", value)
+    set(() => ({ reservation: value }))
+  },
   reservationTimeLeft: null,
 }))
