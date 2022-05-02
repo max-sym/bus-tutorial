@@ -1,6 +1,6 @@
 const apiUrl = process.env.GATSBY_API_URL
 
-type MethodType = "GET" | "POST" | "PATCH" | "PUT"
+type MethodType = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
 type RequestType = {
   url: string
   method?: MethodType

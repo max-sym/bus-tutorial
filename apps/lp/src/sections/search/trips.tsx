@@ -1,39 +1,22 @@
 import { Text, Card, CardContent, Button } from "components"
 import React from "react"
 import moment from "moment"
-import { data } from "data"
 import { getPrice } from "utils"
-import { ReservationType, TripType, useStore } from "store"
+import { TripType } from "store"
+import { useTripsAction } from "./use-trips-action"
 
 const ActionButton = ({ trip }: { trip: TripType }) => {
-  const reservation = useStore(store => store.reservation)
-  const isReserved =
-    !!reservation?.reservedTrips.length &&
-    !!reservation.reservedTrips.find(
-      reservedTrip => reservedTrip.trip.id === trip.id
-    )
+  const { isReserved, onAddClick, onRemoveClick } = useTripsAction({ trip })
 
-  const addReservedTrip = async (
-    reservation: ReservationType,
-    trip: TripType
-  ) => {
-    await data.reservation.addReservedTrip(reservation, trip).then(data => {
-      useStore.setState({ reservation: data })
-    })
-  }
-
-  const onClick = async () => {
-    if (reservation) {
-      addReservedTrip(reservation, trip)
-      return
-    }
-
-    const newReservation = await data.reservation.create()
-
-    addReservedTrip(newReservation, trip)
-  }
-
-  return <Button onClick={onClick}>{isReserved ? "Remove" : "Add"}</Button>
+  return isReserved ? (
+    <Button color={"red"} onClick={onRemoveClick}>
+      {"Remove"}
+    </Button>
+  ) : (
+    <Button color={"primary"} onClick={onAddClick}>
+      {"Add"}
+    </Button>
+  )
 }
 
 const Actions = ({

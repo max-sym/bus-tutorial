@@ -4,6 +4,7 @@ import { ReservationType, ReservedTripType } from "store"
 import moment from "moment"
 import { getPrice } from "utils"
 import { RiCloseFill } from "@react-icons/all-files/ri/RiCloseFill"
+import { useTripsAction } from "./use-trips-action"
 
 const ReservedTrip = ({ reservedTrip }: { reservedTrip: ReservedTripType }) => {
   const trip = reservedTrip.trip
@@ -17,7 +18,11 @@ const ReservedTrip = ({ reservedTrip }: { reservedTrip: ReservedTripType }) => {
 
   const arrivalTimeText = moment(trip.arrival).format("hh:mm")
 
-  const onClick = () => {}
+  const { onRemoveClick } = useTripsAction({ trip })
+
+  const onClick = () => {
+    onRemoveClick(reservedTrip)
+  }
 
   return (
     <div className="flex justify-between">

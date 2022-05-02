@@ -1,4 +1,4 @@
-import { ReservationType, TripType } from "store"
+import { ReservationType, ReservedTripType, TripType } from "store"
 import { request } from "./request"
 
 export const reservation = {
@@ -19,6 +19,16 @@ export const reservation = {
       body: {
         tripId: trip.id,
       },
+    })
+    return result
+  },
+  deleteReservedTrip: async (
+    reservation: ReservationType,
+    reservedTrip: ReservedTripType
+  ): Promise<any> => {
+    const result = await request({
+      url: `/reservation/${reservation.token}/${reservedTrip.id}`,
+      method: "DELETE",
     })
     return result
   },

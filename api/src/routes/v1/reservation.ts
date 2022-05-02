@@ -13,6 +13,12 @@ reservationRoute.patch(
   reservationController.addReservedTrip
 )
 
+reservationRoute.delete(
+  "/:token/:reservedTripId",
+  validate(reservationValidation.deleteReservedTrip),
+  reservationController.deleteReservedTrip
+)
+
 /**
  * @swagger
  * tags:
