@@ -8,6 +8,7 @@ import { data, useLoadResource } from "data"
 import { useGetRequestedTrip } from "./use-get-requested-trip"
 import { useSortTrips } from "./use-sort-trips"
 import { TopBar } from "./top-bar"
+import { useFilterTrips } from "./use-filter-trips"
 
 export const SearchSection = () => {
   const { requestedTrip } = useGetRequestedTrip()
@@ -32,7 +33,13 @@ export const SearchSection = () => {
 
   const { resource, isLoading } = useLoadResource(loadTrips, [requestedTrip])
 
-  const { sortedTrips, sortBy, setSortBy } = useSortTrips({ trips: resource })
+  const { filteredTrips, filterBy, toggleFilterItem } = useFilterTrips({
+    trips: resource,
+  })
+
+  const { sortedTrips, sortBy, setSortBy } = useSortTrips({
+    trips: filteredTrips,
+  })
 
   if (!requestedTrip || !resource || isLoading) return null
 
@@ -40,7 +47,7 @@ export const SearchSection = () => {
     <Section className="mt-20">
       <div className="flex justify-between gap-x-4">
         <div className="w-1/4">
-          <Sidebar />
+          <Sidebar filterBy={filterBy} toggleFilterItem={toggleFilterItem} />
         </div>
         <div className="flex flex-col flex-1">
           <Header requestedTrip={requestedTrip} />

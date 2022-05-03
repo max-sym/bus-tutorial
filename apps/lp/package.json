@@ -17,6 +17,7 @@
     "gatsby-plugin-sharp": "^4.12.1",
     "gatsby-source-filesystem": "^4.12.1",
     "gatsby-transformer-sharp": "^4.12.1",
+    "immer": "^9.0.12",
     "moment": "^2.29.3",
     "prop-types": "^15.8.1",
     "react": "^17.0.1",
