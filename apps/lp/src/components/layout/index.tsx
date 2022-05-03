@@ -1,6 +1,6 @@
 import React from "react"
 import tw from "tailwind-styled-components"
-import { useReservationCountdown } from "utils"
+import { useReservationCountdown, useSnipcart } from "utils"
 import { Footer } from "./footer"
 import { Navbar } from "./navbar"
 
@@ -10,6 +10,7 @@ export * from "./seo"
 
 export const Layout = ({ children }) => {
   useReservationCountdown()
+  useSnipcart()
 
   return (
     <Container>
