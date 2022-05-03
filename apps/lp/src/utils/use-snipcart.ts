@@ -23,6 +23,8 @@ export const useSnipcart = () => {
   const setReservation = useStore(store => store.setReservation)
 
   useEffect(() => {
+    if (!window?.Snipcart) return
+
     window.Snipcart.events.on("snipcart.initialized", () => {
       customizePaymentFormTheme()
       window.Snipcart.events.on("cart.confirmed", () => {

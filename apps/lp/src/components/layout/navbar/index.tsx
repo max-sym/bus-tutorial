@@ -6,6 +6,7 @@ import { InView } from "react-cool-inview"
 import { DarkModeSwitch } from "./dark-mode-switch"
 import { FaBus } from "@react-icons/all-files/fa/FaBus"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
+import { useUiStore } from "store"
 
 const Container = tw.div`fixed left-0 right-0 top-0 z-20 transition duration-[2000ms] delay-500`
 const Box = tw.div`bg-black bg-opacity-50 w-full backdrop-filter backdrop-blur`
@@ -61,8 +62,8 @@ const NavLogoSection = () => (
 const NavItemContainer = tw.div`px-2 py-4`
 const BusLogo = tw(FaBus)`text-white`
 
-const NavItem = ({ children }) => (
-  <NavItemContainer>
+const NavItem = ({ children, ...props }) => (
+  <NavItemContainer {...props}>
     <Text variant="subtitle" className="uppercase" color="white">
       {children}
     </Text>
@@ -94,11 +95,17 @@ const DesktopNavbarContent = () => (
   </div>
 )
 
-const MenuLauncher = () => (
-  <NavItem>
-    <HiOutlineMenu className="w-8 h-8" />
-  </NavItem>
-)
+const MenuLauncher = () => {
+  const onClick = () => {
+    useUiStore.setState({ isSidebarOpen: true })
+  }
+
+  return (
+    <NavItem onClick={onClick}>
+      <HiOutlineMenu className="w-8 h-8" />
+    </NavItem>
+  )
+}
 
 const MobileNavbarContent = () => (
   <div className="md:hidden">
