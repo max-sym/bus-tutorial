@@ -1,7 +1,8 @@
 import React from "react"
 import { Button, Text } from "components"
 import { ReservationType, useStore } from "store"
-import { getFormattedTimeLeft, getTotalPrice, getPrice } from "utils"
+import { getFormattedTimeLeft, getTotalPrice } from "utils"
+import { data } from "data"
 
 const TimeLeftText = () => {
   const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
@@ -24,16 +25,9 @@ const TotalPrice = ({ reservation }: { reservation: ReservationType }) => (
 
 const ConfirmButton = ({ reservation }: { reservation: ReservationType }) => {
   const onClick = async () => {
-    const items = reservation.reservedTrips.map(item => ({
-      id: item.id,
-      name: "Trip",
-      price: getPrice(item.trip.price),
-      url: "/",
-      quantity: 1,
-      maxQuantity: 1,
-      minQuantity: 1,
-      description: "Trip from A to B",
-    }))
+    const items = await data.reservation.getInSnipcartFormat(reservation)
+
+    if (!items.length) return
 
     try {
       await window.Snipcart.api.cart.items.add(...items).then(() => {

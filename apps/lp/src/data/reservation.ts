@@ -39,4 +39,11 @@ export const reservation = {
     })
     return result
   },
+  getInSnipcartFormat: async (reservation: ReservationType): Promise<any> => {
+    const result = await request({
+      url: `/reservation/${reservation.token}/snipcart-format`,
+      method: "GET",
+    })
+    return result
+  },
 }

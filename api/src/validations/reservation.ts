@@ -22,8 +22,15 @@ const deleteOne = {
   }),
 }
 
+const getInSnipcartFormat = {
+  params: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
+}
+
 export const reservationValidation = {
   addReservedTrip,
   deleteReservedTrip,
   deleteOne,
+  getInSnipcartFormat,
 }

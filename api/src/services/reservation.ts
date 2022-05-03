@@ -1,6 +1,6 @@
 import moment from "moment"
 import { prisma } from "../config"
-import { uid } from "../utils"
+import { ApiError, getPrice, uid } from "../utils"
 
 const include = {
   reservedTrips: {
@@ -60,9 +60,34 @@ const deleteOne = async (token: string) => {
   return result
 }
 
+const getInSnipcartFormat = async (token: string) => {
+  const reservation = await prisma.reservation.findFirst({
+    include,
+    where: { token },
+  })
+
+  if (!reservation) throw new ApiError(404, "Reservation not found.")
+
+  const items = reservation.reservedTrips.map(reservedTrip => ({
+    id: "" + reservedTrip.id,
+    name: "Trip",
+    description: `From ${reservedTrip.trip.cityFrom.name} to ${
+      reservedTrip.trip.cityTo.name
+    } at ${moment(reservedTrip.trip.departure).format("llll")}`,
+    price: getPrice(reservedTrip.trip.price),
+    url: "/",
+    quantity: 1,
+    maxQuantity: 1,
+    minQuantity: 1,
+  }))
+
+  return items
+}
+
 export const reservationService = {
   create,
   addReservedTrip,
   deleteReservedTrip,
   deleteOne,
+  getInSnipcartFormat,
 }

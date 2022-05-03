@@ -25,6 +25,12 @@ reservationRoute.delete(
   reservationController.deleteOne
 )
 
+reservationRoute.get(
+  "/:token/snipcart-format",
+  validate(reservationValidation.getInSnipcartFormat),
+  reservationController.getInSnipcartFormat
+)
+
 /**
  * @swagger
  * tags:

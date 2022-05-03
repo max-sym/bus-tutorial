@@ -33,9 +33,17 @@ const deleteOne = catchAsync(async (req: Request, res) => {
   res.send(result)
 })
 
+const getInSnipcartFormat = catchAsync(async (req: Request, res) => {
+  const token = req.params.token
+  const result = await reservationService.getInSnipcartFormat(token)
+
+  res.send(result)
+})
+
 export const reservationController = {
   create,
   addReservedTrip,
   deleteReservedTrip,
   deleteOne,
+  getInSnipcartFormat,
 }
