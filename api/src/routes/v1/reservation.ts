@@ -31,6 +31,12 @@ reservationRoute.get(
   reservationController.getInSnipcartFormat
 )
 
+reservationRoute.post(
+  "/snipcart-webhooks",
+  // validate(reservationValidation.snipcartWebhooks),
+  reservationController.snipcartWebhooks
+)
+
 /**
  * @swagger
  * tags:

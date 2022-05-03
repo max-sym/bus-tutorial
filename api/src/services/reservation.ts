@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client"
 import moment from "moment"
 import { env, prisma } from "../config"
 import { ApiError, getPrice, uid } from "../utils"
@@ -84,10 +85,24 @@ const getInSnipcartFormat = async (token: string) => {
   return items
 }
 
+const update = async (
+  token: string,
+  data: Partial<Prisma.ReservationUpdateInput>
+) => {
+  const reservation = await prisma.reservation.update({
+    include,
+    data,
+    where: { token },
+  })
+
+  return reservation
+}
+
 export const reservationService = {
   create,
   addReservedTrip,
   deleteReservedTrip,
   deleteOne,
   getInSnipcartFormat,
+  update,
 }

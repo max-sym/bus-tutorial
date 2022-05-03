@@ -25,6 +25,9 @@ const TotalPrice = ({ reservation }: { reservation: ReservationType }) => (
 
 const ConfirmButton = ({ reservation }: { reservation: ReservationType }) => {
   const onClick = async () => {
+    await window.Snipcart.api.cart.update({
+      metadata: { reservationToken: reservation.token },
+    })
     const items = await data.reservation.getInSnipcartFormat(reservation)
 
     if (!items.length) return
