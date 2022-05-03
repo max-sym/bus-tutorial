@@ -74,7 +74,7 @@ const TripItem = ({ trip }: { trip: TripType }) => {
 }
 
 export const Trips = ({ trips }: { trips: TripType[] }) => (
-  <div className="space-y-4 mt-14">
+  <div className="mt-4 space-y-4">
     {trips.map(trip => (
       <TripItem key={trip.id} trip={trip} />
     ))}

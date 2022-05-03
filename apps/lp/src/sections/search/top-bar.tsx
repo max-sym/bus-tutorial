@@ -10,7 +10,7 @@ export const TopBar = ({ trips, sortBy, setSortBy }) => {
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between mt-8">
       <Text>{`${count} results found`}</Text>
       <div>
         <div className="flex items-center gap-2">
