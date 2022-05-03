@@ -37,7 +37,7 @@ const getInSnipcartFormat = catchAsync(async (req: Request, res) => {
   const token = req.params.token
   const result = await reservationService.getInSnipcartFormat(token)
 
-  res.send(result)
+  res.json(result)
 })
 
 export const reservationController = {

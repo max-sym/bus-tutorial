@@ -11,6 +11,7 @@ const envVarsSchema = Joi.object()
       .required(),
     PORT: Joi.number().default(3000),
     CORS: Joi.string(),
+    SNIPCART_API_URL: Joi.string(),
     JWT_SECRET: Joi.string().required().description("JWT secret key"),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number()
       .default(30)
@@ -46,6 +47,7 @@ export const env = {
   env: envVars.NODE_ENV,
   cors: envVars.CORS,
   port: envVars.PORT,
+  snipcartApiUrl: envVars.SNIPCART_API_URL,
   jwt: {
     secret: envVars.JWT_SECRET,
     accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,

@@ -1,5 +1,5 @@
 import moment from "moment"
-import { prisma } from "../config"
+import { env, prisma } from "../config"
 import { ApiError, getPrice, uid } from "../utils"
 
 const include = {
@@ -75,7 +75,7 @@ const getInSnipcartFormat = async (token: string) => {
       reservedTrip.trip.cityTo.name
     } at ${moment(reservedTrip.trip.departure).format("llll")}`,
     price: getPrice(reservedTrip.trip.price),
-    url: "/",
+    url: `${env.snipcartApiUrl}/reservation/${token}/snipcart-format`,
     quantity: 1,
     maxQuantity: 1,
     minQuantity: 1,
