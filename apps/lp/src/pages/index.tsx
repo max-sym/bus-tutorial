@@ -102,12 +102,12 @@ const IndexPage = () => (
   <Layout>
     <Seo title="Home" />
     <HeroSection />
-    <MidSection section={sections.features} />
+    {/* <MidSection section={sections.features} />
     <MidSection section={sections.features2} />
     <StatsSection />
     <ReviewsSection />
     <FaqSection />
-    <BottomHeroSection />
+    <BottomHeroSection /> */}
   </Layout>
 )
 

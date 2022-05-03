@@ -16,7 +16,7 @@ const DescriptionText = tw(
 const ButtonContainer = tw.div`delay-[1500ms] transition duration-[2000ms] mt-8`
 const Separator = tw.div`w-12 h-1 bg-blue-500 mt-4 transform transition duration-1000 delay-[1500ms] origin-left`
 
-const GradientBackgroundContainer = tw.div`absolute left-0 right-0 top-0 h-[900px] z-0 transition duration-700`
+const GradientBackgroundContainer = tw.div`hidden md:block absolute left-0 right-0 top-0 h-[900px] z-0 transition duration-700`
 const Gradient = tw.div`absolute inset-0 bg-gradient-radial-hero dark:opacity-0 transition z-0`
 const GradientDark = tw.div`absolute inset-0 bg-gradient-to-r w-2/3 from-black to-transparent opacity-0 dark:opacity-100 transition z-0`
 const Glow = tw.div`absolute z-20 bg-[radial-gradient(#06f4,transparent,transparent)] transition dark:opacity-100 opacity-0`
@@ -106,7 +106,7 @@ export const HeroSectionCore = ({ observe, inView }: any) => (
   <div ref={observe}>
     <GradientBackground inView={inView} />
     <Section className="h-[740px]">
-      <div className="flex justify-center mt-16">
+      {/* <div className="flex justify-center mt-16">
         <WrappedBookingForm inView={inView} />
       </div>
       <Container>
@@ -116,7 +116,7 @@ export const HeroSectionCore = ({ observe, inView }: any) => (
         <Column>
           <HeroImage inView={inView} />
         </Column>
-      </Container>
+      </Container> */}
     </Section>
   </div>
 )
