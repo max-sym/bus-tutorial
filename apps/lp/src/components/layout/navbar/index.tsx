@@ -141,7 +141,7 @@ export const NavbarCore = ({ observe, inView, children }: any) => (
 )
 
 export const Navbar = () => (
-  <InView>
+  <InView unobserveOnEnter>
     <NavbarCore>
       <DesktopNavbarContent />
       <MobileNavbarContent />

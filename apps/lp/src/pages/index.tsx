@@ -107,7 +107,7 @@ const IndexPage = () => (
     <StatsSection />
     <ReviewsSection />
     <FaqSection />
-    {/* <BottomHeroSection /> */}
+    <BottomHeroSection />
   </Layout>
 )
 

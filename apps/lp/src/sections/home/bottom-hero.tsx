@@ -9,7 +9,7 @@ export const BottomHeroSectionCore = ({ observe, inView }: any) => (
       <LogoTitle inView={inView} />
     </div>
     <div
-      className={`flex flex-col items-center w-1/3 mx-auto mt-8 text-center transition duration-700 delay-[1400ms] ${
+      className={`flex flex-col items-center md:w-1/3 mx-auto mt-8 text-center transition duration-700 delay-[1400ms] ${
         inView ? "" : "opacity-0"
       }`}
     >
@@ -26,7 +26,7 @@ export const BottomHeroSectionCore = ({ observe, inView }: any) => (
 )
 
 export const BottomHeroSection = () => (
-  <InView>
+  <InView unobserveOnEnter>
     <BottomHeroSectionCore />
   </InView>
 )
