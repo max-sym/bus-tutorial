@@ -22,6 +22,7 @@ import { Button } from "../../../components"
 import { GuestOptionComponent, InputComponent } from "./complex-components"
 import { formSchema } from "./form-schema"
 import { navigate } from "gatsby"
+import { Portal } from "@headlessui/react"
 
 export const BookingForm = () => {
   const form = useReactBookingForm({ formSchema })
@@ -46,6 +47,7 @@ export const BookingForm = () => {
           name="from"
           emptyOption="Nothing was found :("
           placeholder="Where from?"
+          portal={Portal}
         />
       </InputContainer>
       <InputContainer style={{ width: "auto" }}>
@@ -70,6 +72,7 @@ export const BookingForm = () => {
           name="to"
           emptyOption="Nothing was found :("
           placeholder="Where to?"
+          portal={Portal}
         />
       </InputContainer>
       <InputContainer>
@@ -94,6 +97,7 @@ export const BookingForm = () => {
           okText="Ok!"
           placeholder="Add guests"
           name={"guests"}
+          portal={Portal}
         />
       </InputContainer>
       <InputContainer>

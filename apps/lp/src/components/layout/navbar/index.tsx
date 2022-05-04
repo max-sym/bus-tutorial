@@ -1,10 +1,11 @@
 import React from "react"
 import tw from "tailwind-styled-components"
 import { Link } from "gatsby"
+import { Dialog } from "@headlessui/react"
 import { InView } from "react-cool-inview"
 import { FaBus } from "@react-icons/all-files/fa/FaBus"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
-import { Text, Button, useModal } from "components"
+import { Text, Button, useModal, Modal } from "components"
 import { DarkModeSwitch } from "./dark-mode-switch"
 import { useUiStore } from "store"
 import { BookingForm } from "sections/home/booking-form"
@@ -108,8 +109,10 @@ const MenuLauncher = () => {
   )
 }
 
+const MobileBookingForm = () => <BookingForm />
+
 const MobileNavbarContent = () => {
-  const modal = useModal({ customComponent: BookingForm })
+  const modal = useModal({ customComponent: <MobileBookingForm /> })
 
   const launchMobileBookingForm = () => {
     modal.setIsOpen(true)
@@ -122,7 +125,7 @@ const MobileNavbarContent = () => {
         <Button variant="sm" onClick={launchMobileBookingForm}>
           {"Where are you going?"}
         </Button>
-        {/* <Modal modal={modal} /> */}
+        <Modal modal={modal} />
         <MenuLauncher />
       </NavItemsContainer>
     </div>

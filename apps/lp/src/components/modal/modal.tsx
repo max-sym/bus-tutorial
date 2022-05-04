@@ -52,10 +52,15 @@ export const Modal = ({ modal }: { modal: ModalType }) => {
 
   return (
     <Dialog
-      className="fixed inset-0 z-10 flex items-center justify-center h-screen transition backdrop-blur-md"
+      className="fixed inset-0 z-30 flex items-center justify-center h-screen transition backdrop-blur-md"
       onClose={onClose}
       open={modal.isOpen}
     >
+      <div
+        onClick={onClose}
+        className="fixed inset-0 bg-black/30"
+        aria-hidden="true"
+      />
       {!!modal.customComponent ? (
         modal.customComponent
       ) : (
