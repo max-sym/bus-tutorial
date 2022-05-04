@@ -99,7 +99,7 @@ const sections = {
 }
 
 const IndexPage = () => (
-  <Layout>
+  <>
     <Seo title="Home" />
     <HeroSection />
     <MidSection section={sections.features} />
@@ -108,7 +108,7 @@ const IndexPage = () => (
     <ReviewsSection />
     <FaqSection />
     <BottomHeroSection />
-  </Layout>
+  </>
 )
 
 export default IndexPage
