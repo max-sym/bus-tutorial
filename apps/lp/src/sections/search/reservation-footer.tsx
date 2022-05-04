@@ -23,7 +23,11 @@ const TotalPrice = ({ reservation }: { reservation: ReservationType }) => (
   </div>
 )
 
-const ConfirmButton = ({ reservation }: { reservation: ReservationType }) => {
+export const ConfirmButton = ({
+  reservation,
+}: {
+  reservation: ReservationType
+}) => {
   const onClick = async () => {
     await window.Snipcart.api.cart.update({
       metadata: { reservationToken: reservation.token },

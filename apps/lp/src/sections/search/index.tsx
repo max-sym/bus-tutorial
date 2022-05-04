@@ -8,6 +8,7 @@ import { data, useLoadResource } from "data"
 import { useGetRequestedTrip } from "./use-get-requested-trip"
 import { useSortTrips } from "./use-sort-trips"
 import { TopBar } from "./top-bar"
+import { MobileReservationBar } from "./mobile-reservation-bar"
 import { useFilterTrips } from "./use-filter-trips"
 
 export const SearchSection = () => {
@@ -57,6 +58,7 @@ export const SearchSection = () => {
         <div className="hidden w-1/4 md:block">
           <ReservationBar />
         </div>
+        <MobileReservationBar />
       </div>
     </Section>
   )
