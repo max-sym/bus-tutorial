@@ -106,10 +106,10 @@ export const HeroSectionCore = ({ observe, inView }: any) => (
   <div ref={observe}>
     <GradientBackground inView={inView} />
     <Section className="h-[740px]">
-      {/* <div className="flex justify-center mt-16">
+      <div className="justify-center hidden mt-16 md:flex">
         <WrappedBookingForm inView={inView} />
       </div>
-      <Container>
+      {/* <Container>
         <Column>
           <TextSection inView={inView} />
         </Column>

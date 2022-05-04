@@ -1,6 +1,6 @@
 import React from "react"
 import tw from "tailwind-styled-components"
-import { Text } from "components"
+import { Text, Button } from "components"
 import { Link } from "gatsby"
 import { InView } from "react-cool-inview"
 import { DarkModeSwitch } from "./dark-mode-switch"
@@ -107,14 +107,23 @@ const MenuLauncher = () => {
   )
 }
 
-const MobileNavbarContent = () => (
-  <div className="md:hidden">
-    <NavItemsContainer>
-      <NavLogoSection />
-      <MenuLauncher />
-    </NavItemsContainer>
-  </div>
-)
+const MobileNavbarContent = () => {
+  const launchMobileBookingForm = () => {
+    //
+  }
+
+  return (
+    <div className="md:hidden">
+      <NavItemsContainer>
+        <NavLogoSection />
+        <Button onClick={launchMobileBookingForm}>
+          {"Where are you going?"}
+        </Button>
+        <MenuLauncher />
+      </NavItemsContainer>
+    </div>
+  )
+}
 
 export const NavbarCore = ({ observe, inView, children }: any) => (
   <Container ref={observe} className={`${inView ? "" : "opacity-0"}`}>
