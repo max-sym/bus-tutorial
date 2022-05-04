@@ -61,7 +61,7 @@ const sections = {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
     featuresTitle: "Features",
-    imageUrl: "https://source.unsplash.com/eGA5dZG4sCw",
+    imageUrl: "https://source.unsplash.com/eiJfBem7cPw",
     imageAlt: "Bus",
     features: [
       {
@@ -102,9 +102,9 @@ const IndexPage = () => (
   <Layout>
     <Seo title="Home" />
     <HeroSection />
-    {/* <MidSection section={sections.features} />
+    <MidSection section={sections.features} />
     <MidSection section={sections.features2} />
-    <StatsSection />
+    {/* <StatsSection />
     <ReviewsSection />
     <FaqSection />
     <BottomHeroSection /> */}
