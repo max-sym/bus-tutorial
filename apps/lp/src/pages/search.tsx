@@ -5,7 +5,7 @@ import { SearchSection } from "sections"
 const SearchPage = () => (
   <Layout>
     <Seo title="Search" />
-    <SearchSection />
+    {/* <SearchSection /> */}
   </Layout>
 )
 

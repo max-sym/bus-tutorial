@@ -9,6 +9,7 @@ import { Text, Button, useModal, Modal } from "components"
 import { DarkModeSwitch } from "./dark-mode-switch"
 import { useUiStore } from "store"
 import { BookingForm } from "sections/home/booking-form"
+import { useLocation } from "@reach/router"
 
 const Container = tw.div`fixed left-0 right-0 top-0 z-20 transition duration-[2000ms] delay-500`
 const Box = tw.div`bg-black bg-opacity-50 w-full backdrop-filter backdrop-blur`
@@ -113,18 +114,25 @@ const MobileBookingForm = () => <BookingForm />
 
 const MobileNavbarContent = () => {
   const modal = useModal({ customComponent: <MobileBookingForm /> })
+  const location = useLocation()
 
   const launchMobileBookingForm = () => {
     modal.setIsOpen(true)
   }
 
+  const showActionButton = location.pathname !== "/search"
+
   return (
     <div className="md:hidden">
       <NavItemsContainer>
         <NavLogoSection />
-        <Button variant="sm" onClick={launchMobileBookingForm}>
-          {"Where are you going?"}
-        </Button>
+
+        {showActionButton && (
+          <Button variant="sm" onClick={launchMobileBookingForm}>
+            {"Where are you going?"}
+          </Button>
+        )}
+
         <Modal modal={modal} />
         <MenuLauncher />
       </NavItemsContainer>
