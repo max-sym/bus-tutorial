@@ -106,8 +106,8 @@ const IndexPage = () => (
     <MidSection section={sections.features2} />
     <StatsSection />
     <ReviewsSection />
-    {/* <FaqSection />
-    <BottomHeroSection /> */}
+    <FaqSection />
+    {/* <BottomHeroSection /> */}
   </Layout>
 )
 

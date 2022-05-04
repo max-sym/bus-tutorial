@@ -4,7 +4,7 @@ import tw from "tailwind-styled-components"
 import { FaChevronDown } from "@react-icons/all-files/fa/FaChevronDown"
 import { InView } from "react-cool-inview"
 
-const CardsContainer = tw.div`space-y-4 mt-14`
+const CardsContainer = tw.div`space-y-4 mt-8 md:mt-14`
 
 type FaqItemType = {
   title: string
@@ -50,7 +50,9 @@ const FaqItem = ({ item }: { item: FaqItemType }) => {
             {item.title}
           </Text>
           <FaChevronDown
-            className={`w-4 h-4 transition ${isOpen ? "-rotate-180" : ""}`}
+            className={`w-4 h-4 transition text-gray-800 dark:text-white ${
+              isOpen ? "-rotate-180" : ""
+            }`}
           />
         </div>
         <div
@@ -65,7 +67,7 @@ const FaqItem = ({ item }: { item: FaqItemType }) => {
               isOpen ? "delay-150" : "opacity-0"
             }`}
           >
-            <Text className="pt-6">{item.description}</Text>
+            <Text className="pt-4 md:pt-6">{item.description}</Text>
           </div>
         </div>
       </CardContent>
