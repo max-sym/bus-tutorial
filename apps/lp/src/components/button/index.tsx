@@ -5,6 +5,7 @@ import { Text } from "components"
 const variantClasses = {
   round: "p-2 rounded-full",
   base: "px-6 py-2 rounded-xl",
+  sm: "px-2 py-1 rounded-md",
 }
 
 const colorClasses = {
@@ -16,7 +17,7 @@ const colorClasses = {
 const ButtonCore = tw.button<{
   $variant: keyof typeof variantClasses
   $color: keyof typeof colorClasses
-}>`font-bold uppercase flex items-center justify-center border transition ease-out
+}>`font-bold uppercase flex items-center justify-center border transition ease-out whitespace-nowrap
   ${({ $variant }) => variantClasses[$variant]}
   ${({ $color }) => colorClasses[$color]}
 `
