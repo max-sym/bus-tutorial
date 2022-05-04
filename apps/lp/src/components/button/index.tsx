@@ -33,7 +33,7 @@ export const Button = ({
   [key: string]: any
 }) => (
   <ButtonCore $variant={variant} $color={color} {...props}>
-    <Text color="no" className="ease-out" variant="button">
+    <Text color="none" className="ease-out" variant="button">
       {children}
     </Text>
   </ButtonCore>

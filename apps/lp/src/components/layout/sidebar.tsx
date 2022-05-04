@@ -45,7 +45,7 @@ const SidebarLink = ({ isSidebarOpen, navLink, index, closeSidebar }) => (
         transitionDelay: isSidebarOpen ? index * 50 + "ms" : undefined,
       }}
     >
-      <Text color="no" className="text-white" variant="button">
+      <Text color="none" className="text-white" variant="button">
         {navLink.title}
       </Text>
     </SidebarLinkContainer>
