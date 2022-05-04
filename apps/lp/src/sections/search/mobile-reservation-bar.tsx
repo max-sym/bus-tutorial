@@ -1,13 +1,31 @@
 import React from "react"
 import { useStore } from "store"
-import { CardNotRounded, CardContent, Text, Button } from "components"
+import {
+  CardNotRounded,
+  CardContent,
+  Text,
+  Button,
+  useModal,
+  Modal,
+} from "components"
 import { getFormattedTimeLeft } from "utils"
+import { ReservationBar } from "./reservation-bar"
+
+const MobileReservationModal = () => {
+  return <ReservationBar />
+}
 
 export const MobileReservationBar = () => {
   const reservation = useStore(store => store.reservation)
   const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
 
+  const modal = useModal({ customComponent: <MobileReservationModal /> })
+
   const isOpen = !!reservation
+
+  const onProceedClick = () => {
+    modal.setIsOpen(true)
+  }
 
   if (!isOpen || !reservationTimeLeft) return null
 
@@ -22,9 +40,10 @@ export const MobileReservationBar = () => {
               {getFormattedTimeLeft(reservationTimeLeft) + " left"}
             </Text>
           </div>
-          <Button>{"Proceed"}</Button>
+          <Button onClick={onProceedClick}>{"Proceed"}</Button>
         </CardContent>
       </CardNotRounded>
+      <Modal modal={modal} />
     </div>
   )
 }
