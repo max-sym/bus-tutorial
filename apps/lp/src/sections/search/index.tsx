@@ -46,7 +46,7 @@ export const SearchSection = () => {
   return (
     <Section className="mt-20">
       <div className="flex justify-between gap-x-4">
-        <div className="w-1/4">
+        <div className="hidden w-1/4 md:block">
           <Sidebar filterBy={filterBy} toggleFilterItem={toggleFilterItem} />
         </div>
         <div className="flex flex-col flex-1">
@@ -54,7 +54,7 @@ export const SearchSection = () => {
           <TopBar trips={sortedTrips} sortBy={sortBy} setSortBy={setSortBy} />
           <Trips trips={sortedTrips} />
         </div>
-        <div className="w-1/4">
+        <div className="hidden w-1/4 md:block">
           <ReservationBar />
         </div>
       </div>
