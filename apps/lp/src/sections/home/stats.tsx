@@ -7,7 +7,7 @@ import { BsPersonCheckFill } from "@react-icons/all-files/bs/BsPersonCheckFill"
 import { InView } from "react-cool-inview"
 import CountUp from "react-countup"
 
-const CardsContainer = tw.div`flex justify-center gap-4 mt-14`
+const CardsContainer = tw.div`flex justify-center gap-4 mt-14 md:flex-row flex-col`
 
 const stats = [
   {
