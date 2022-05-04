@@ -6,7 +6,6 @@ import {
   useReactBookingForm,
 } from "react-booking-form"
 import moment from "moment"
-import "flatpickr/dist/themes/dark.css"
 import { IoMdSwap } from "@react-icons/all-files/io/IoMdSwap"
 import {
   Container,
@@ -17,7 +16,9 @@ import {
   MenuContainer,
   OptionContainer,
 } from "./components"
-import { Button } from "components"
+// Temporary fix is to use a relative import here for webpack alias import issue:
+// https://stackoverflow.com/questions/70015963/runtime-error-appeared-after-updating-to-webpack-5-typeerror-cannot-read-prope
+import { Button } from "../../../components"
 import { GuestOptionComponent, InputComponent } from "./complex-components"
 import { formSchema } from "./form-schema"
 import { navigate } from "gatsby"

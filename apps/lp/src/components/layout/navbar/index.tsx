@@ -1,12 +1,13 @@
 import React from "react"
 import tw from "tailwind-styled-components"
-import { Text, Button } from "components"
 import { Link } from "gatsby"
 import { InView } from "react-cool-inview"
-import { DarkModeSwitch } from "./dark-mode-switch"
 import { FaBus } from "@react-icons/all-files/fa/FaBus"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
+import { Text, Button, useModal } from "components"
+import { DarkModeSwitch } from "./dark-mode-switch"
 import { useUiStore } from "store"
+import { BookingForm } from "sections/home/booking-form"
 
 const Container = tw.div`fixed left-0 right-0 top-0 z-20 transition duration-[2000ms] delay-500`
 const Box = tw.div`bg-black bg-opacity-50 w-full backdrop-filter backdrop-blur`
@@ -108,8 +109,10 @@ const MenuLauncher = () => {
 }
 
 const MobileNavbarContent = () => {
+  const modal = useModal({ customComponent: BookingForm })
+
   const launchMobileBookingForm = () => {
-    //
+    modal.setIsOpen(true)
   }
 
   return (
@@ -119,6 +122,7 @@ const MobileNavbarContent = () => {
         <Button variant="sm" onClick={launchMobileBookingForm}>
           {"Where are you going?"}
         </Button>
+        {/* <Modal modal={modal} /> */}
         <MenuLauncher />
       </NavItemsContainer>
     </div>
