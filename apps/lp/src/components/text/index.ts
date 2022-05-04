@@ -10,12 +10,12 @@ const colorClasses = {
 }
 
 const variantClasses = {
-  h3: "text-5xl md:text-5xl font-title font-bold uppercase",
-  h4: "text-4xl md:text-4xl font-title font-bold uppercase",
-  h5: "text-3xl md:text-3xl font-title font-bold uppercase",
-  h6: "text-2xl md:text-2xl font-title font-bold uppercase",
-  bodyBig: "text-xl md:text-xl font-title",
-  body: "text-lg md:text-lg font-title",
+  h3: "text-4xl md:text-5xl font-title font-bold uppercase",
+  h4: "text-3xl md:text-4xl font-title font-bold uppercase",
+  h5: "text-2xl md:text-3xl font-title font-bold uppercase",
+  h6: "text-xl md:text-2xl font-title font-bold uppercase",
+  bodyBig: "md:text-xl font-title",
+  body: "md:text-lg font-title",
   subtitle: "text-sm md:text-sm font-title",
   button: "text-base md:text-lg font-title font-bold uppercase",
   caption: "text-xs md:text-xs font-title",

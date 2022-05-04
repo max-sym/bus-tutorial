@@ -6,13 +6,13 @@ import { BookingForm } from "./booking-form"
 import { InView } from "react-cool-inview"
 
 const Container = tw.div`mt-16 flex justify-between items-center gap-x-8`
-const Column = tw.div`w-1/2`
+const Column = tw.div`md:w-1/2`
 
 const SmallHeadingText = tw(Text)`delay-500 duration-1000 ease-in-out`
 const BigHeadingText = tw(Text)`mt-1 delay-1000 duration-1000 ease-in-out`
 const DescriptionText = tw(
   Text
-)`mt-6 delay-[1500ms] duration-[2000ms] ease-in-out w-2/3`
+)`mt-6 delay-[1500ms] duration-[2000ms] ease-in-out md:w-2/3`
 const ButtonContainer = tw.div`delay-[1500ms] transition duration-[2000ms] mt-8`
 const Separator = tw.div`w-12 h-1 bg-blue-500 mt-4 transform transition duration-1000 delay-[1500ms] origin-left`
 
@@ -53,7 +53,7 @@ const TextSection = ({ inView }: any) => (
         <Button>{"Create Account"}</Button>
       </ButtonContainer>
     </div>
-    <div className="mt-32">
+    <div className="mt-10 md:mt-32">
       <HeroFeatures inView={inView} />
     </div>
   </div>
@@ -109,14 +109,14 @@ export const HeroSectionCore = ({ observe, inView }: any) => (
       <div className="justify-center hidden mt-16 md:flex">
         <WrappedBookingForm inView={inView} />
       </div>
-      {/* <Container>
+      <Container>
         <Column>
           <TextSection inView={inView} />
         </Column>
-        <Column>
+        <Column className="hidden md:block">
           <HeroImage inView={inView} />
         </Column>
-      </Container> */}
+      </Container>
     </Section>
   </div>
 )
