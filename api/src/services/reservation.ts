@@ -62,10 +62,7 @@ const deleteOne = async (token: string) => {
 }
 
 const getInSnipcartFormat = async (token: string) => {
-  const reservation = await prisma.reservation.findFirst({
-    include,
-    where: { token },
-  })
+  const reservation = await getOne(token)
 
   if (!reservation) throw new ApiError(404, "Reservation not found.")
 
@@ -98,6 +95,15 @@ const update = async (
   return reservation
 }
 
+const getOne = async (token: string) => {
+  const reservation = await prisma.reservation.findFirst({
+    include,
+    where: { token },
+  })
+
+  return reservation
+}
+
 export const reservationService = {
   create,
   addReservedTrip,
@@ -105,4 +111,5 @@ export const reservationService = {
   deleteOne,
   getInSnipcartFormat,
   update,
+  getOne,
 }

@@ -23,12 +23,23 @@ const TotalPrice = ({ reservation }: { reservation: ReservationType }) => (
   </div>
 )
 
+const clearCart = async () => {
+  await Promise.all(
+    window.Snipcart.store.getState().cart.items.items.map(async item => {
+      if (!item?.id) return true
+
+      return await window.Snipcart.api.cart.items.remove(item.uniqueId)
+    })
+  )
+}
+
 export const ConfirmButton = ({
   reservation,
 }: {
   reservation: ReservationType
 }) => {
   const onClick = async () => {
+    await clearCart()
     await window.Snipcart.api.cart.update({
       metadata: { reservationToken: reservation.token },
     })

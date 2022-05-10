@@ -1,6 +1,6 @@
 import { ApiError, catchAsync, pick } from "../utils"
-import { reservationService } from "../services"
-import { Request } from "express"
+import { reservationPdf, reservationService } from "../services"
+import { Request, Response } from "express"
 import Prisma from "@prisma/client"
 
 const create = catchAsync(async (req, res) => {
@@ -63,6 +63,15 @@ const snipcartWebhooks = catchAsync(async (req: Request, res) => {
   res.json("ok")
 })
 
+const pdf = catchAsync(async (req: Request, res: Response) => {
+  const token = req.params.token
+  const reservation = await reservationService.getOne(token)
+
+  if (!reservation) throw new ApiError(404, "Reservation not found")
+
+  reservationPdf.generate({ reservation, res })
+})
+
 export const reservationController = {
   create,
   addReservedTrip,
@@ -70,4 +79,5 @@ export const reservationController = {
   deleteOne,
   getInSnipcartFormat,
   snipcartWebhooks,
+  pdf,
 }

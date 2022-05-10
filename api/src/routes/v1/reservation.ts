@@ -7,6 +7,12 @@ export const reservationRoute = express.Router()
 
 reservationRoute.post("/", reservationController.create)
 
+reservationRoute.get(
+  "/pdf/:token",
+  // validate(reservationValidation.addReservedTrip),
+  reservationController.pdf
+)
+
 reservationRoute.patch(
   "/:token",
   validate(reservationValidation.addReservedTrip),
