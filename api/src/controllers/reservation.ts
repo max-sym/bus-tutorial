@@ -2,6 +2,7 @@ import { ApiError, catchAsync, pick } from "../utils"
 import { reservationPdf, reservationService } from "../services"
 import { Request, Response } from "express"
 import Prisma from "@prisma/client"
+import { emailService } from "../services/email"
 
 const create = catchAsync(async (req, res) => {
   const result = await reservationService.create()
@@ -59,6 +60,14 @@ const snipcartWebhooks = catchAsync(async (req: Request, res) => {
   }
 
   await reservationService.update(reservationToken, data)
+
+  emailService.reservationPdf({
+    to: {
+      email: body.content.user.email,
+      name: body.content.user.billingAddressName,
+    },
+    reservationToken,
+  })
 
   res.json("ok")
 })
