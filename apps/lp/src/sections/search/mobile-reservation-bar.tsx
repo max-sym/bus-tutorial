@@ -30,7 +30,7 @@ export const MobileReservationBar = () => {
   if (!isOpen || !reservationTimeLeft) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0">
+    <div className="fixed bottom-0 left-0 right-0 md:hidden">
       <CardNotRounded>
         <CardContent className="flex items-center justify-between">
           <div>
