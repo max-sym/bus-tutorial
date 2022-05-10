@@ -62,7 +62,7 @@ export const Modal = ({ modal }: { modal: ModalType }) => {
         aria-hidden="true"
       />
       {!!modal.customComponent ? (
-        modal.customComponent
+        React.cloneElement(modal.customComponent, { modal })
       ) : (
         <ModalContent onClose={onClose} modal={modal} />
       )}

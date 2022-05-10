@@ -110,7 +110,7 @@ const MenuLauncher = () => {
   )
 }
 
-const MobileBookingForm = () => <BookingForm />
+const MobileBookingForm = ({ modal }) => <BookingForm modal={modal} />
 
 const MobileNavbarContent = () => {
   const modal = useModal({ customComponent: <MobileBookingForm /> })
