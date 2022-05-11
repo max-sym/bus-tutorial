@@ -12,6 +12,22 @@ const create = {
   }),
 }
 
+const updatePassengers = {
+  params: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    passengers: Joi.array().items(
+      Joi.object().keys({
+        id: Joi.number().required(),
+        name: Joi.string().required(),
+        email: Joi.string().required(),
+        citizenId: Joi.string().required(),
+      })
+    ),
+  }),
+}
+
 const addReservedTrip = {
   params: Joi.object().keys({
     token: Joi.string().required(),
@@ -46,4 +62,5 @@ export const reservationValidation = {
   deleteReservedTrip,
   deleteOne,
   getInSnipcartFormat,
+  updatePassengers,
 }

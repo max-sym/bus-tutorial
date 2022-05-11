@@ -86,6 +86,26 @@ const addReservedTrip = async (token: string, body) => {
   return await getOne(token)
 }
 
+const updatePassengers = async (token: string, passengers: any) => {
+  const reservation = await getOne(token)
+
+  const promises = reservation.passengers.map(async passenger => {
+    const passengerUpdate = passengers.find(p => p.id === passenger.id)
+    if (!passengerUpdate) return
+
+    return await prisma.passenger.update({
+      data: passengerUpdate,
+      where: {
+        id: passenger.id,
+      },
+    })
+  })
+
+  await Promise.all(promises)
+
+  return await getOne(token)
+}
+
 const deleteReservedTrip = async (token: string, reservedTripId: number) => {
   const result = await prisma.reservation.update({
     include,
@@ -149,4 +169,5 @@ export const reservationService = {
   getInSnipcartFormat,
   update,
   getOne,
+  updatePassengers,
 }

@@ -17,6 +17,16 @@ const addReservedTrip = catchAsync(async (req, res) => {
   res.send(result)
 })
 
+const updatePassengers = catchAsync(async (req: Request, res: Response) => {
+  const token = req.params.token
+  const result = await reservationService.updatePassengers(
+    token,
+    req.body.passengers
+  )
+
+  res.send(result)
+})
+
 const deleteReservedTrip = catchAsync(async (req: Request, res) => {
   const token = req.params.token
   const reservedTripId = +req.params.reservedTripId
@@ -88,5 +98,6 @@ export const reservationController = {
   deleteOne,
   getInSnipcartFormat,
   snipcartWebhooks,
+  updatePassengers,
   pdf,
 }
