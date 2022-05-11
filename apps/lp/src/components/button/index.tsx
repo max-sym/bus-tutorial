@@ -1,6 +1,6 @@
 import React from "react"
 import tw from "tailwind-styled-components"
-import { Text } from "components"
+import { Text, Loading } from "components"
 
 const variantClasses = {
   round: "p-2 rounded-full",
@@ -27,16 +27,22 @@ export const Button = ({
   children,
   variant = "base",
   color = "primary",
+  isLoading,
   ...props
 }: {
   children: any
   variant?: keyof typeof variantClasses
   color?: keyof typeof colorClasses
+  isLoading?: boolean
   [key: string]: any
 }) => (
   <ButtonCore $variant={variant} $color={color} {...props}>
-    <Text color="none" className="ease-out" variant="button">
-      {children}
-    </Text>
+    {isLoading ? (
+      <Loading />
+    ) : (
+      <Text color="none" className="ease-out" variant="button">
+        {children}
+      </Text>
+    )}
   </ButtonCore>
 )

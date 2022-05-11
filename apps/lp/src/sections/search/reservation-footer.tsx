@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, Text } from "components"
 import { ReservationType, useStore } from "store"
 import { getFormattedTimeLeft, getTotalPrice } from "utils"
@@ -47,7 +47,10 @@ export const CheckoutButton = ({
   reservation: ReservationType
   isButtonDisabled: boolean
 }) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const onClick = async () => {
+    setIsLoading(true)
     await clearCart()
     await window.Snipcart.api.cart.update({
       metadata: { reservationToken: reservation.token },
@@ -63,10 +66,12 @@ export const CheckoutButton = ({
     } catch (error) {
       console.log(error)
     }
+
+    setIsLoading(false)
   }
 
   return (
-    <Button onClick={onClick} disabled={isButtonDisabled}>
+    <Button isLoading={isLoading} onClick={onClick} disabled={isButtonDisabled}>
       {"Checkout"}
     </Button>
   )
