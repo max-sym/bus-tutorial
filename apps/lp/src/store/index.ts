@@ -31,28 +31,35 @@ export type ReservedTripType = {
   tripId: number
   reservationId: number
   reservation: ReservationType
-  tickets: TicketType[]
+  tickets: ReservedTicketType[]
 }
 
 export type TicketState = "CREATED" | "ONBOARDED"
-export type TicketPersonType = "ADULT" | "CHILD" | "INFANT"
 
-export type TicketType = {
+export type ReservedTicketType = {
   id: number
-  name: string
-  email: string
-  citizenId: string
-  personType: TicketPersonType
   state: TicketState
   reservedTrip: ReservedTripType
   reservedTripId: number
 }
 
-export type ReservationStateType = "CREATED" | "PAID" | "ONBOARDED"
+export type PassengerType = "ADULT" | "CHILD" | "INFANT"
+export type Passenger = {
+  id: number
+  name: string
+  email: string
+  citizenId: string
+  personType: PassengerType
+  reservedTicket: ReservedTicketType[]
+  reservation: ReservationType
+  reservationId: number
+}
 
+export type ReservationStateType = "CREATED" | "PAID" | "ONBOARDED"
 export type ReservationType = {
   id: number
   token: string
+  passengers: Passenger[]
   reservedTrips: ReservedTripType[]
   state: ReservationStateType
   expiresAt: string
