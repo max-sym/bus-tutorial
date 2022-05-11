@@ -15,16 +15,20 @@ const pageOptions = {
 const generate = async ({
   reservation,
   res,
+  reservedTicketId,
+  passengerId,
 }: {
   reservation: any
   res: Response
+  reservedTicketId: number
+  passengerId: number
 }) => {
   const doc = new PDFDocument(pageOptions)
   res.set("Content-Type", "application/pdf")
 
   doc.pipe(res)
 
-  const code = reservation.token
+  const code = reservation.token + ":" + reservedTicketId + ":" + passengerId
 
   const qr = await QRCode.toDataURL(code)
 

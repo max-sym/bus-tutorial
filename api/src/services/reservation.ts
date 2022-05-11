@@ -4,8 +4,11 @@ import { env, prisma } from "../config"
 import { ApiError, getPrice, uid } from "../utils"
 
 const include = {
-  // const include: Prisma.Prisma.ReservationInclude = {
-  passengers: true,
+  passengers: {
+    include: {
+      reservedTickets: true,
+    },
+  },
   reservedTrips: {
     include: {
       trip: {

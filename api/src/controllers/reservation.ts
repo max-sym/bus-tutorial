@@ -69,26 +69,23 @@ const snipcartWebhooks = catchAsync(async (req: Request, res) => {
     state: "PAID" as Prisma.ReservationState,
   }
 
-  await reservationService.update(reservationToken, data)
+  const reservation = await reservationService.update(reservationToken, data)
 
-  emailService.reservationPdf({
-    to: {
-      email: body.content.user.email,
-      name: body.content.user.billingAddressName,
-    },
-    reservationToken,
-  })
+  emailService.sendReservationPdfs(reservation)
 
   res.json("ok")
 })
 
 const pdf = catchAsync(async (req: Request, res: Response) => {
   const token = req.params.token
+  const reservedTicketId = req.params.reservedTicketId
+  const passengerId = req.params.passengerId
+
   const reservation = await reservationService.getOne(token)
 
   if (!reservation) throw new ApiError(404, "Reservation not found")
 
-  reservationPdf.generate({ reservation, res })
+  reservationPdf.generate({ reservation, res, reservedTicketId, passengerId })
 })
 
 export const reservationController = {

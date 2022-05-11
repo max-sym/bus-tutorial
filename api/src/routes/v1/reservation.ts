@@ -12,7 +12,7 @@ reservationRoute.post(
 )
 
 reservationRoute.get(
-  "/pdf/:token",
+  "/pdf/:token/:passengerId/:reservedTicketId",
   // validate(reservationValidation.addReservedTrip),
   reservationController.pdf
 )
