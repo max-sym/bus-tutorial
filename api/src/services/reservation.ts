@@ -4,9 +4,10 @@ import { env, prisma } from "../config"
 import { ApiError, getPrice, uid } from "../utils"
 
 const include = {
+  // const include: Prisma.Prisma.ReservationInclude = {
+  passengers: true,
   reservedTrips: {
     include: {
-      reservedTickets: true,
       trip: {
         include: {
           cityFrom: true,
@@ -18,11 +19,45 @@ const include = {
   },
 }
 
-const create = async () => {
+const getOne = async (token: string) => {
+  const reservation = await prisma.reservation.findFirst({
+    include,
+    where: { token },
+  })
+
+  return reservation
+}
+
+type GuestType = {
+  adults: number
+  children: number
+  infants: number
+}
+
+type TicketGuestType = keyof GuestType
+
+const create = async body => {
+  const bodyGuests = body.guests as GuestType
+
+  const ticketGuestTypes: TicketGuestType[] = Object.keys(bodyGuests)
+    .map(key => new Array(bodyGuests[key]).fill(key))
+    .flat()
+
+  const typesMap = {
+    adults: Prisma.PassengerType["ADULT"],
+    children: Prisma.PassengerType["CHILD"],
+    infants: Prisma.PassengerType["INFANT"],
+  }
+
+  const passengersData = ticketGuestTypes.map(ticketType => ({
+    personType: typesMap[ticketType],
+  }))
+
   const reservation = await prisma.reservation.create({
     include,
     data: {
       token: uid(),
+      passengers: { createMany: { data: passengersData } },
       expiresAt: moment().add(10, "minutes").toDate(),
     },
   })
@@ -30,38 +65,25 @@ const create = async () => {
 }
 
 const addReservedTrip = async (token: string, body) => {
-  const ticketGuestTypes = Object.keys(body.guests)
-    .map(key => new Array(body.guests[key]).fill(key))
-    .flat()
+  const reservation = await getOne(token)
 
-  const typesMap = {
-    adults: Prisma.TicketPersonType["ADULT"],
-    children: Prisma.TicketPersonType["CHILD"],
-    infants: Prisma.TicketPersonType["INFANT"],
-  }
-
-  const tickets = ticketGuestTypes.map(ticketType => ({
-    personType: typesMap[ticketType],
+  const reservedTicketData = reservation.passengers.map(passenger => ({
+    passengerId: passenger.id,
   }))
 
-  const reservation = await prisma.reservation.update({
-    include,
+  await prisma.reservedTrip.create({
     data: {
-      reservedTrips: {
-        create: {
-          tripId: body.tripId,
-          reservedTickets: {
-            createMany: {
-              data: tickets,
-            },
-          },
+      tripId: body.tripId,
+      reservationId: reservation.id,
+      reservedTickets: {
+        createMany: {
+          data: reservedTicketData,
         },
       },
     },
-    where: { token },
   })
 
-  return reservation
+  return await getOne(token)
 }
 
 const deleteReservedTrip = async (token: string, reservedTripId: number) => {
@@ -113,15 +135,6 @@ const update = async (
   const reservation = await prisma.reservation.update({
     include,
     data,
-    where: { token },
-  })
-
-  return reservation
-}
-
-const getOne = async (token: string) => {
-  const reservation = await prisma.reservation.findFirst({
-    include,
     where: { token },
   })
 

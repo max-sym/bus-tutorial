@@ -58,8 +58,8 @@ enum PassengerType {
 
 model ReservedTicket {
   id             Int          @id @default(autoincrement())
-  passenger      Passenger    @relation(fields: [passngerId], references: [id])
-  passngerId     Int
+  passenger      Passenger    @relation(fields: [passengerId], references: [id])
+  passengerId    Int
   state          TicketState  @default(CREATED)
   reservedTrip   ReservedTrip @relation(fields: [reservedTripId], references: [id])
   reservedTripId Int
@@ -100,7 +100,7 @@ enum ReservationState {
 model Reservation {
   id            Int              @id @default(autoincrement())
   token         String           @unique
-  passenger     Passenger[]
+  passengers    Passenger[]
   reservedTrips ReservedTrip[]
   state         ReservationState @default(CREATED)
   expiresAt     DateTime

@@ -3,24 +3,25 @@ import { request } from "./request"
 import { RequestedTripType } from "sections/search/use-get-requested-trip"
 
 export const reservation = {
-  create: async (): Promise<any> => {
+  create: async (requestedTrip: RequestedTripType): Promise<any> => {
     const result = await request({
       url: "/reservation",
       method: "POST",
+      body: {
+        guests: requestedTrip.guests,
+      },
     })
     return result
   },
   addReservedTrip: async (
     reservation: ReservationType,
-    trip: TripType,
-    requestedTrip: RequestedTripType
+    trip: TripType
   ): Promise<any> => {
     const result = await request({
       url: `/reservation/${reservation.token}`,
       method: "PATCH",
       body: {
         tripId: trip.id,
-        guests: requestedTrip.guests,
       },
     })
     return result

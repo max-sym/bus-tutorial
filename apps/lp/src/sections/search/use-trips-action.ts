@@ -19,20 +19,20 @@ export const useTripsAction = ({ trip }: { trip: TripType }) => {
     reservation: ReservationType,
     trip: TripType
   ) => {
-    if (!requestedTrip) return
-
     await data.reservation
-      .addReservedTrip(reservation, trip, requestedTrip)
+      .addReservedTrip(reservation, trip)
       .then(setReservation)
   }
 
   const onAddClick = async () => {
+    if (!requestedTrip) return
+
     if (reservation) {
       addReservedTrip(reservation, trip)
       return
     }
 
-    const newReservation = await data.reservation.create()
+    const newReservation = await data.reservation.create(requestedTrip)
 
     addReservedTrip(newReservation, trip)
   }

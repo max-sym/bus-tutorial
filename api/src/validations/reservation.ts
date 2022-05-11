@@ -1,11 +1,7 @@
 import Joi from "joi"
 
-const addReservedTrip = {
-  params: Joi.object().keys({
-    token: Joi.string().required(),
-  }),
+const create = {
   body: Joi.object().keys({
-    tripId: Joi.number().required(),
     guests: Joi.object()
       .keys({
         adults: Joi.number(),
@@ -13,6 +9,15 @@ const addReservedTrip = {
         infants: Joi.number(),
       })
       .required(),
+  }),
+}
+
+const addReservedTrip = {
+  params: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    tripId: Joi.number().required(),
   }),
 }
 
@@ -36,6 +41,7 @@ const getInSnipcartFormat = {
 }
 
 export const reservationValidation = {
+  create,
   addReservedTrip,
   deleteReservedTrip,
   deleteOne,

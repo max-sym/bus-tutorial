@@ -1,11 +1,11 @@
-import { ApiError, catchAsync, pick } from "../utils"
+import { ApiError, catchAsync } from "../utils"
 import { reservationPdf, reservationService } from "../services"
 import { Request, Response } from "express"
 import Prisma from "@prisma/client"
 import { emailService } from "../services/email"
 
-const create = catchAsync(async (req, res) => {
-  const result = await reservationService.create()
+const create = catchAsync(async (req: Request, res: Response) => {
+  const result = await reservationService.create(req.body)
 
   res.send(result)
 })

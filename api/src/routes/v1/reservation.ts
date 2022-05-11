@@ -5,7 +5,7 @@ import { reservationValidation } from "../../validations"
 
 export const reservationRoute = express.Router()
 
-reservationRoute.post("/", reservationController.create)
+reservationRoute.post("/", validate(reservationValidation.create), reservationController.create)
 
 reservationRoute.get(
   "/pdf/:token",
