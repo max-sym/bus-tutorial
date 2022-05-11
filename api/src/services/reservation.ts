@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client"
+import Prisma from "@prisma/client"
 import moment from "moment"
 import { env, prisma } from "../config"
 import { ApiError, getPrice, uid } from "../utils"
@@ -6,6 +6,7 @@ import { ApiError, getPrice, uid } from "../utils"
 const include = {
   reservedTrips: {
     include: {
+      reservedTickets: true,
       trip: {
         include: {
           cityFrom: true,
@@ -29,10 +30,33 @@ const create = async () => {
 }
 
 const addReservedTrip = async (token: string, body) => {
+  const ticketGuestTypes = Object.keys(body.guests)
+    .map(key => new Array(body.guests[key]).fill(key))
+    .flat()
+
+  const typesMap = {
+    adults: Prisma.TicketPersonType["ADULT"],
+    children: Prisma.TicketPersonType["CHILD"],
+    infants: Prisma.TicketPersonType["INFANT"],
+  }
+
+  const tickets = ticketGuestTypes.map(ticketType => ({
+    personType: typesMap[ticketType],
+  }))
+
   const reservation = await prisma.reservation.update({
     include,
     data: {
-      reservedTrips: { create: { tripId: body.tripId } },
+      reservedTrips: {
+        create: {
+          tripId: body.tripId,
+          reservedTickets: {
+            createMany: {
+              data: tickets,
+            },
+          },
+        },
+      },
     },
     where: { token },
   })
@@ -84,7 +108,7 @@ const getInSnipcartFormat = async (token: string) => {
 
 const update = async (
   token: string,
-  data: Partial<Prisma.ReservationUpdateInput>
+  data: Partial<Prisma.Prisma.ReservationUpdateInput>
 ) => {
   const reservation = await prisma.reservation.update({
     include,

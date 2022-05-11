@@ -1,5 +1,6 @@
-import { ReservationType, ReservedTripType, TripType } from "store"
+import { ReservationType, ReservedTripType, TripType, TicketType } from "store"
 import { request } from "./request"
+import { RequestedTripType } from "sections/search/use-get-requested-trip"
 
 export const reservation = {
   create: async (): Promise<any> => {
@@ -11,13 +12,15 @@ export const reservation = {
   },
   addReservedTrip: async (
     reservation: ReservationType,
-    trip: TripType
+    trip: TripType,
+    requestedTrip: RequestedTripType
   ): Promise<any> => {
     const result = await request({
       url: `/reservation/${reservation.token}`,
       method: "PATCH",
       body: {
         tripId: trip.id,
+        guests: requestedTrip.guests,
       },
     })
     return result

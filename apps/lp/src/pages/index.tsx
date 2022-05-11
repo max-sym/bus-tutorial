@@ -1,5 +1,5 @@
 import React from "react"
-import { Layout, Seo } from "components"
+import { Seo } from "components"
 import {
   BottomHeroSection,
   FaqSection,

@@ -50,14 +50,23 @@ enum TicketState {
   ONBOARDED
 }
 
+enum TicketPersonType {
+  ADULT
+  CHILD
+  INFANT
+}
+
 model ReservedTicket {
   id             Int              @id @default(autoincrement())
-  name           String
-  email          String
-  citizenId      String
-  state          ReservationState @default(CREATED)
+  name           String?
+  email          String?
+  citizenId      String?
+  personType     TicketPersonType @default(ADULT)
+  state          TicketState      @default(CREATED)
   reservedTrip   ReservedTrip     @relation(fields: [reservedTripId], references: [id])
   reservedTripId Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 }
 
 model ReservedTrip {
@@ -67,6 +76,8 @@ model ReservedTrip {
   reservation     Reservation      @relation(fields: [reservationId], references: [id])
   reservationId   Int
   reservedTickets ReservedTicket[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 enum ReservationState {

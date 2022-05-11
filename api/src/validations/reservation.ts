@@ -6,6 +6,13 @@ const addReservedTrip = {
   }),
   body: Joi.object().keys({
     tripId: Joi.number().required(),
+    guests: Joi.object()
+      .keys({
+        adults: Joi.number(),
+        children: Joi.number(),
+        infants: Joi.number(),
+      })
+      .required(),
   }),
 }
 

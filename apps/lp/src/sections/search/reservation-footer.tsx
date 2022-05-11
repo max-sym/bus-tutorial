@@ -3,6 +3,7 @@ import { Button, Text } from "components"
 import { ReservationType, useStore } from "store"
 import { getFormattedTimeLeft, getTotalPrice } from "utils"
 import { data } from "data"
+import { Link } from "gatsby"
 
 const TimeLeftText = () => {
   const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
@@ -38,25 +39,29 @@ export const ConfirmButton = ({
 }: {
   reservation: ReservationType
 }) => {
-  const onClick = async () => {
-    await clearCart()
-    await window.Snipcart.api.cart.update({
-      metadata: { reservationToken: reservation.token },
-    })
-    const items = await data.reservation.getInSnipcartFormat(reservation)
+  // const onClick = async () => {
+  //   await clearCart()
+  //   await window.Snipcart.api.cart.update({
+  //     metadata: { reservationToken: reservation.token },
+  //   })
+  //   const items = await data.reservation.getInSnipcartFormat(reservation)
 
-    if (!items.length) return
+  //   if (!items.length) return
 
-    try {
-      await window.Snipcart.api.cart.items.add(...items).then(() => {
-        window.Snipcart.api.theme.cart.open()
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //   try {
+  //     await window.Snipcart.api.cart.items.add(...items).then(() => {
+  //       window.Snipcart.api.theme.cart.open()
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  return <Button onClick={onClick}>{"Confirm"}</Button>
+  return (
+    <Link to="/confirmation">
+      <Button>{"Confirm"}</Button>
+    </Link>
+  )
 }
 
 export const ReservationFooter = ({
