@@ -30,7 +30,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^3.13.0",
+    "@prisma/client": "^3.14.0",
     "@types/node": "^17.0.29",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -50,7 +50,7 @@
     "passport-jwt": "^4.0.0",
     "pdfkit": "^0.13.0",
     "pm2": "^5.1.0",
-    "prisma": "^3.13.0",
+    "prisma": "^3.14.0",
     "qrcode": "^1.5.0",
     "short-unique-id": "^4.4.4",
     "ts-node": "^10.7.0",

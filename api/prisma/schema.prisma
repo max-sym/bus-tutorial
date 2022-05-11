@@ -45,12 +45,28 @@ model Bus {
   updatedAt DateTime @updatedAt
 }
 
+enum TicketState {
+  CREATED
+  ONBOARDED
+}
+
+model ReservedTicket {
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String
+  citizenId      String
+  state          ReservationState @default(CREATED)
+  reservedTrip   ReservedTrip     @relation(fields: [reservedTripId], references: [id])
+  reservedTripId Int
+}
+
 model ReservedTrip {
-  id            Int         @id @default(autoincrement())
-  trip          Trip        @relation(fields: [tripId], references: [id])
-  tripId        Int
-  reservation   Reservation @relation(fields: [reservationId], references: [id])
-  reservationId Int
+  id              Int              @id @default(autoincrement())
+  trip            Trip             @relation(fields: [tripId], references: [id])
+  tripId          Int
+  reservation     Reservation      @relation(fields: [reservationId], references: [id])
+  reservationId   Int
+  reservedTickets ReservedTicket[]
 }
 
 enum ReservationState {
