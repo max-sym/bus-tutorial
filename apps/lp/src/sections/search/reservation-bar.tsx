@@ -11,7 +11,13 @@ import { useStore } from "store"
 import { ReservationContent } from "./reservation-content"
 import { ReservationFooter } from "./reservation-footer"
 
-export const ReservationBar = () => {
+export const ReservationBar = ({
+  isCheckout,
+  isButtonDisabled,
+}: {
+  isCheckout?: boolean
+  isButtonDisabled?: boolean
+}) => {
   const reservation = useStore(store => store.reservation)
   const hasReservedTrips = !!reservation?.reservedTrips?.length
 
@@ -29,7 +35,11 @@ export const ReservationBar = () => {
       </CardContent>
       {hasReservedTrips && (
         <CardFooter>
-          <ReservationFooter reservation={reservation} />
+          <ReservationFooter
+            reservation={reservation}
+            isCheckout={isCheckout}
+            isButtonDisabled={isButtonDisabled}
+          />
         </CardFooter>
       )}
     </Card>

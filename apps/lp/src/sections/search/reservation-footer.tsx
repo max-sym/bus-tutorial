@@ -34,47 +34,66 @@ const clearCart = async () => {
   )
 }
 
-export const ConfirmButton = ({
+export const ConfirmButton = () => (
+  <Link to="/confirmation">
+    <Button>{"Confirm"}</Button>
+  </Link>
+)
+
+export const CheckoutButton = ({
   reservation,
+  isButtonDisabled,
 }: {
   reservation: ReservationType
+  isButtonDisabled: boolean
 }) => {
-  // const onClick = async () => {
-  //   await clearCart()
-  //   await window.Snipcart.api.cart.update({
-  //     metadata: { reservationToken: reservation.token },
-  //   })
-  //   const items = await data.reservation.getInSnipcartFormat(reservation)
+  const onClick = async () => {
+    await clearCart()
+    await window.Snipcart.api.cart.update({
+      metadata: { reservationToken: reservation.token },
+    })
+    const items = await data.reservation.getInSnipcartFormat(reservation)
 
-  //   if (!items.length) return
+    if (!items.length) return
 
-  //   try {
-  //     await window.Snipcart.api.cart.items.add(...items).then(() => {
-  //       window.Snipcart.api.theme.cart.open()
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+    try {
+      await window.Snipcart.api.cart.items.add(...items).then(() => {
+        window.Snipcart.api.theme.cart.open()
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <Link to="/confirmation">
-      <Button>{"Confirm"}</Button>
-    </Link>
+    <Button onClick={onClick} disabled={isButtonDisabled}>
+      {"Checkout"}
+    </Button>
   )
 }
 
 export const ReservationFooter = ({
   reservation,
+  isCheckout,
+  isButtonDisabled,
 }: {
   reservation: ReservationType
+  isCheckout: boolean
+  isButtonDisabled: boolean
 }) => {
   return (
     <div>
       <TotalPrice reservation={reservation} />
       <TimeLeftText />
       <div className="flex flex-col mt-4">
-        <ConfirmButton reservation={reservation} />
+        {isCheckout ? (
+          <CheckoutButton
+            isButtonDisabled={isButtonDisabled}
+            reservation={reservation}
+          />
+        ) : (
+          <ConfirmButton />
+        )}
       </div>
     </div>
   )

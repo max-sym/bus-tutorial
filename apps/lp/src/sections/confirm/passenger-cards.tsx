@@ -1,9 +1,7 @@
 import React from "react"
 import { Card, Button, CardContent, Label, Text, InputCore } from "components"
 import { PassengerType, ReservationType, useStore } from "store"
-import { useFormik } from "formik"
 import { data } from "data"
-import * as Yup from "yup"
 
 const PassengerCard = ({
   index,
@@ -81,35 +79,13 @@ const PassengerCard = ({
   )
 }
 
-const PassengersForm = ({ reservation }: { reservation: ReservationType }) => {
-  const validationSchema = Yup.object().shape({
-    passengers: Yup.array().of(
-      Yup.object().shape({
-        name: Yup.string().min(1, "Too Short!").required("Required"),
-        citizenId: Yup.string()
-          .min(2, "Too Short!")
-          .max(50, "Too Long!")
-          .required("Required"),
-        email: Yup.string().email("Invalid email").required("Required"),
-      })
-    ),
-  })
-
-  const formik = useFormik({
-    validationSchema,
-    initialValues: {
-      passengers: reservation.passengers.map(passenger => ({
-        id: passenger.id,
-        name: passenger.name || "",
-        email: passenger.email || "",
-        citizenId: passenger.citizenId || "",
-      })),
-    },
-    onSubmit: async values => {
-      await data.reservation.updatePassengers(reservation, values.passengers)
-    },
-  })
-
+export const PassengerCards = ({
+  reservation,
+  formik,
+}: {
+  reservation: ReservationType
+  formik: any
+}) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="mt-4 space-y-4">
@@ -130,12 +106,4 @@ const PassengersForm = ({ reservation }: { reservation: ReservationType }) => {
       </div>
     </form>
   )
-}
-
-export const PassengerCards = () => {
-  const reservation = useStore(store => store.reservation)
-
-  if (!reservation?.passengers) return null
-
-  return <PassengersForm reservation={reservation} />
 }
