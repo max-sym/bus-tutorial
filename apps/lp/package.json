@@ -29,6 +29,7 @@
     "react-helmet": "^6.1.0",
     "react-popper": "^2.3.0",
     "usehooks-ts": "^2.5.2",
+    "yup": "^0.32.11",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {

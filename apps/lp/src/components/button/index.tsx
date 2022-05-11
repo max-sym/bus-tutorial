@@ -10,7 +10,7 @@ const variantClasses = {
 
 const colorClasses = {
   primary:
-    "bg-green-500 text-white border-transparent hover:bg-green-400 dark:bg-transparent dark:text-green-500 dark:border-green-500 dark:hover:bg-green-500 dark:hover:text-white dark:hover:shadow-green-light",
+    "disabled:opacity-50 bg-green-500 text-white border-transparent hover:bg-green-400 dark:bg-transparent dark:text-green-500 dark:border-green-500 dark:hover:bg-green-500 dark:hover:text-white dark:hover:shadow-green-light",
   red: "bg-red-500 text-white border-transparent hover:bg-red-400 dark:bg-transparent dark:text-red-500 dark:border-red-500 dark:hover:bg-red-500 dark:hover:text-white dark:hover:shadow-red-light",
   gray: "bg-gray-500 text-white border-transparent hover:bg-gray-400 dark:bg-transparent dark:text-gray-500 dark:border-gray-500 dark:hover:bg-gray-500 dark:hover:text-white",
 }
