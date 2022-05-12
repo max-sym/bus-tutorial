@@ -33,6 +33,6 @@ export const useAuthStore = create<AuthStoreType>(set => ({
   userTokens: getLocalStorageItem("userTokens"),
   setUserTokens: value => {
     setLocalStorageItem("userTokens", value)
-    set(() => ({ user: value }))
+    set(() => ({ userTokens: value }))
   },
 }))

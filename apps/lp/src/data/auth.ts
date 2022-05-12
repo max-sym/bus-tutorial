@@ -1,5 +1,5 @@
 import { request } from "./request"
-import { registerInitialValues } from "sections"
+import { registerInitialValues, loginInitialValues } from "sections"
 import { useAuthStore } from "store"
 
 export const auth = {
@@ -18,6 +18,14 @@ export const auth = {
       url: "/auth/logout",
       method: "POST",
       body: { refreshToken: userTokens?.refresh.token },
+    })
+    return result
+  },
+  login: async (values: typeof loginInitialValues): Promise<any> => {
+    const result = await request({
+      url: "/auth/login",
+      method: "POST",
+      body: values,
     })
     return result
   },

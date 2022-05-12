@@ -9,17 +9,29 @@ import {
   Button,
 } from "components"
 import { useFormik } from "formik"
+import { data } from "data"
+import { useAuthStore } from "store"
+import { navigate } from "gatsby"
 
-const initialValues = {
+export const loginInitialValues = {
   email: "",
   password: "",
 }
 
 const Form = () => {
+  const setUser = useAuthStore(store => store.setUser)
+  const setUserTokens = useAuthStore(store => store.setUserTokens)
+
   const formik = useFormik({
-    initialValues,
-    onSubmit: values => {
-      //
+    initialValues: loginInitialValues,
+    onSubmit: async values => {
+      const result = await data.auth.login(values)
+
+      if (result.status !== 200) return
+
+      setUser(result.response.user)
+      setUserTokens(result.response.tokens)
+      navigate("/account")
     },
   })
 
