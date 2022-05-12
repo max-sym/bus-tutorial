@@ -37,6 +37,14 @@ const addReservedTrip = {
   }),
 }
 
+const pdf = {
+  params: Joi.object().keys({
+    token: Joi.string().required(),
+    passengerId: Joi.number().required(),
+    reservedTicketId: Joi.number().required(),
+  }),
+}
+
 const deleteReservedTrip = {
   params: Joi.object().keys({
     token: Joi.string().required(),
@@ -63,4 +71,5 @@ export const reservationValidation = {
   deleteOne,
   getInSnipcartFormat,
   updatePassengers,
+  pdf,
 }
