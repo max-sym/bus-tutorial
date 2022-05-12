@@ -48,7 +48,7 @@ const pdf = {
 const deleteReservedTrip = {
   params: Joi.object().keys({
     token: Joi.string().required(),
-    reservedTripId: Joi.string().required(),
+    reservedTripId: Joi.number().required(),
   }),
 }
 

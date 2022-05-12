@@ -61,7 +61,7 @@ model ReservedTicket {
   passenger      Passenger    @relation(fields: [passengerId], references: [id])
   passengerId    Int
   state          TicketState  @default(CREATED)
-  reservedTrip   ReservedTrip @relation(fields: [reservedTripId], references: [id])
+  reservedTrip   ReservedTrip @relation(fields: [reservedTripId], references: [id], onDelete: Cascade)
   reservedTripId Int
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
@@ -74,7 +74,7 @@ model Passenger {
   citizenId       String?
   personType      PassengerType    @default(ADULT)
   reservedTickets ReservedTicket[]
-  reservation     Reservation      @relation(fields: [reservationId], references: [id])
+  reservation     Reservation      @relation(fields: [reservationId], references: [id], onDelete: Cascade)
   reservationId   Int
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
@@ -84,7 +84,7 @@ model ReservedTrip {
   id              Int              @id @default(autoincrement())
   trip            Trip             @relation(fields: [tripId], references: [id])
   tripId          Int
-  reservation     Reservation      @relation(fields: [reservationId], references: [id])
+  reservation     Reservation      @relation(fields: [reservationId], references: [id], onDelete: Cascade)
   reservationId   Int
   reservedTickets ReservedTicket[]
   createdAt       DateTime         @default(now())
