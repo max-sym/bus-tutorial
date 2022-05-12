@@ -139,7 +139,7 @@ const MenuLauncher = () => {
 
   return (
     <NavItem onClick={onClick}>
-      <HiOutlineMenu className="w-8 h-8" />
+      <HiOutlineMenu className="w-8 h-8 text-white" />
     </NavItem>
   )
 }
@@ -149,23 +149,28 @@ const MobileBookingForm = ({ modal }: any) => <BookingForm modal={modal} />
 const MobileNavbarContent = () => {
   const modal = useModal({ customComponent: <MobileBookingForm /> })
   const location = useLocation()
+  const reservation = useStore(store => store.reservation)
 
   const launchMobileBookingForm = () => {
     modal.setIsOpen(true)
   }
 
-  const showActionButton = location.pathname !== "/search"
+  // SpecialAction meaning either shopcart icon or a CTA button.
+  const showSpecialAction = location.pathname !== "/search"
 
   return (
     <div className="md:hidden">
       <NavItemsContainer>
         <NavLogoSection />
 
-        {showActionButton && (
-          <Button variant="sm" onClick={launchMobileBookingForm}>
-            {"Where are you going?"}
-          </Button>
-        )}
+        {showSpecialAction &&
+          (!!reservation ? (
+            <ReservationItem />
+          ) : (
+            <Button variant="sm" onClick={launchMobileBookingForm}>
+              {"Where are you going?"}
+            </Button>
+          ))}
 
         <Modal modal={modal} />
         <MenuLauncher />
