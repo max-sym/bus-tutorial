@@ -7,7 +7,7 @@ import tw from "tailwind-styled-components"
 export const Container = tw(
   Card
 )`flex justify-between flex-col md:flex-row p-6 space-y-2 md:space-y-0 md:space-x-2`
-export const InputContainer = tw.div`relative w-full md:w-1/3 flex flex-col justify-center items-center`
+export const InputContainer = tw.div`relative w-full md:w-1/3 flex flex-col justify-center`
 
 export const GuestOkButton = tw(Button)`mx-auto w-5/6 mb-2`
 
