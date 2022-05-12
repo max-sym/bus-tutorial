@@ -1,10 +1,13 @@
 import React, { useMemo } from "react"
 import { ReservationType, TripType, useStore } from "store"
 import { data } from "data"
+import { useGetRequestedTrip } from "./use-get-requested-trip"
 
 export const useTripsAction = ({ trip }: { trip: TripType }) => {
   const reservation = useStore(store => store.reservation)
   const setReservation = useStore(store => store.setReservation)
+
+  const { requestedTrip } = useGetRequestedTrip()
 
   const isReserved =
     !!reservation?.reservedTrips.length &&
@@ -22,12 +25,14 @@ export const useTripsAction = ({ trip }: { trip: TripType }) => {
   }
 
   const onAddClick = async () => {
+    if (!requestedTrip) return
+
     if (reservation) {
       addReservedTrip(reservation, trip)
       return
     }
 
-    const newReservation = await data.reservation.create()
+    const newReservation = await data.reservation.create(requestedTrip)
 
     addReservedTrip(newReservation, trip)
   }

@@ -5,3 +5,4 @@
 export * from "./city"
 export * from "./trip"
 export * from "./reservation"
+export * from "./reservation-pdf"

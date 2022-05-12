@@ -1,10 +1,11 @@
-import { ApiError, catchAsync, pick } from "../utils"
-import { reservationService } from "../services"
-import { Request } from "express"
+import { ApiError, catchAsync } from "../utils"
+import { reservationPdf, reservationService } from "../services"
+import { Request, Response } from "express"
 import Prisma from "@prisma/client"
+import { emailService } from "../services/email"
 
-const create = catchAsync(async (req, res) => {
-  const result = await reservationService.create()
+const create = catchAsync(async (req: Request, res: Response) => {
+  const result = await reservationService.create(req.body)
 
   res.send(result)
 })
@@ -12,6 +13,16 @@ const create = catchAsync(async (req, res) => {
 const addReservedTrip = catchAsync(async (req, res) => {
   const token = req.params.token
   const result = await reservationService.addReservedTrip(token, req.body)
+
+  res.send(result)
+})
+
+const updatePassengers = catchAsync(async (req: Request, res: Response) => {
+  const token = req.params.token
+  const result = await reservationService.updatePassengers(
+    token,
+    req.body.passengers
+  )
 
   res.send(result)
 })
@@ -58,9 +69,45 @@ const snipcartWebhooks = catchAsync(async (req: Request, res) => {
     state: "PAID" as Prisma.ReservationState,
   }
 
-  await reservationService.update(reservationToken, data)
+  const reservation = await reservationService.update(reservationToken, data)
+
+  emailService.sendReservationPdfs(reservation)
 
   res.json("ok")
+})
+
+const pdf = catchAsync(async (req: Request, res: Response) => {
+  const token = req.params.token
+  const reservedTicketId = +req.params.reservedTicketId
+  const passengerId = +req.params.passengerId
+
+  const reservation = await reservationService.getOne(token)
+
+  if (!reservation) throw new ApiError(404, "Reservation not found")
+
+  const passenger = reservation.passengers.find(p => p.id === passengerId)
+
+  if (!passenger) throw new ApiError(404, "Passenger not found")
+
+  const reservedTicket = passenger.reservedTickets.find(
+    r => r.id === reservedTicketId
+  )
+
+  if (!reservedTicket) throw new ApiError(404, "Reserved Ticket not found")
+
+  const reservedTrip = reservation.reservedTrips.find(
+    p => p.id === reservedTicket.reservedTripId
+  )
+
+  if (!reservedTrip) throw new ApiError(404, "Reserved Trip not found")
+
+  reservationPdf.generate({
+    reservation,
+    res,
+    reservedTicket,
+    passenger,
+    reservedTrip,
+  })
 })
 
 export const reservationController = {
@@ -70,4 +117,6 @@ export const reservationController = {
   deleteOne,
   getInSnipcartFormat,
   snipcartWebhooks,
+  updatePassengers,
+  pdf,
 }

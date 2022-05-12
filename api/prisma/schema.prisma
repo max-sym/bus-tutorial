@@ -45,12 +45,50 @@ model Bus {
   updatedAt DateTime @updatedAt
 }
 
+enum TicketState {
+  CREATED
+  ONBOARDED
+}
+
+enum PassengerType {
+  ADULT
+  CHILD
+  INFANT
+}
+
+model ReservedTicket {
+  id             Int          @id @default(autoincrement())
+  passenger      Passenger    @relation(fields: [passengerId], references: [id])
+  passengerId    Int
+  state          TicketState  @default(CREATED)
+  reservedTrip   ReservedTrip @relation(fields: [reservedTripId], references: [id], onDelete: Cascade)
+  reservedTripId Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Passenger {
+  id              Int              @id @default(autoincrement())
+  name            String?
+  email           String?
+  citizenId       String?
+  personType      PassengerType    @default(ADULT)
+  reservedTickets ReservedTicket[]
+  reservation     Reservation      @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  reservationId   Int
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
 model ReservedTrip {
-  id            Int         @id @default(autoincrement())
-  trip          Trip        @relation(fields: [tripId], references: [id])
-  tripId        Int
-  reservation   Reservation @relation(fields: [reservationId], references: [id])
-  reservationId Int
+  id              Int              @id @default(autoincrement())
+  trip            Trip             @relation(fields: [tripId], references: [id])
+  tripId          Int
+  reservation     Reservation      @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  reservationId   Int
+  reservedTickets ReservedTicket[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
 enum ReservationState {
@@ -62,6 +100,7 @@ enum ReservationState {
 model Reservation {
   id            Int              @id @default(autoincrement())
   token         String           @unique
+  passengers    Passenger[]
   reservedTrips ReservedTrip[]
   state         ReservationState @default(CREATED)
   expiresAt     DateTime

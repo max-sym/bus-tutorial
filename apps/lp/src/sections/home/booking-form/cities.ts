@@ -1,5 +1,7 @@
 export const cities = [
-  { label: "New York", value: "new-york" },
-  { label: "Alabama", value: "alabama" },
-  { label: "Baltimore", value: "baltimore" },
+  { label: "Aberdeen", value: "aberdeen" },
+  { label: "Abilene", value: "abilene" },
+  { label: "Akron", value: "akron" },
+  { label: "Albany", value: "albany" },
+  { label: "Albuquerque", value: "albuquerque" },
 ]

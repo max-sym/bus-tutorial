@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Text, Select } from "components"
 import { options } from "./use-sort-trips"
 
@@ -10,7 +10,7 @@ export const TopBar = ({ trips, sortBy, setSortBy }) => {
   }
 
   return (
-    <div className="flex justify-between mt-8">
+    <div className="flex items-center justify-between mt-8">
       <Text>{`${count} results found`}</Text>
       <div>
         <div className="flex items-center gap-2">

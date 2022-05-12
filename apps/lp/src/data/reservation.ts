@@ -1,11 +1,20 @@
-import { ReservationType, ReservedTripType, TripType } from "store"
+import {
+  ReservationType,
+  ReservedTripType,
+  TripType,
+  PassengerType,
+} from "store"
 import { request } from "./request"
+import { RequestedTripType } from "sections/search/use-get-requested-trip"
 
 export const reservation = {
-  create: async (): Promise<any> => {
+  create: async (requestedTrip: RequestedTripType): Promise<any> => {
     const result = await request({
       url: "/reservation",
       method: "POST",
+      body: {
+        guests: requestedTrip.guests,
+      },
     })
     return result
   },
@@ -43,6 +52,17 @@ export const reservation = {
     const result = await request({
       url: `/reservation/${reservation.token}/snipcart-format`,
       method: "GET",
+    })
+    return result
+  },
+  updatePassengers: async (
+    reservation: ReservationType,
+    passengers: Partial<PassengerType>[]
+  ): Promise<any> => {
+    const result = await request({
+      url: `/reservation/${reservation.token}/passengers`,
+      method: "PATCH",
+      body: { passengers },
     })
     return result
   },

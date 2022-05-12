@@ -1,10 +1,13 @@
 import React from "react"
-import { Button, Card, Text } from "components"
+import { Button } from "../../../components/button"
+import { Text } from "../../../components/text"
+import { Card } from "../../../components/card"
 import tw from "tailwind-styled-components"
 
-export const Container = tw(Card)`flex justify-between p-6`
-export const InputContainer = tw.div`relative w-full md:w-1/3 flex flex-col justify-center items-center pl-2`
-export const Label = tw.div`text-sm w-full font-bold mb-1 text-gray-500`
+export const Container = tw(
+  Card
+)`flex justify-between flex-col md:flex-row p-6 space-y-2 md:space-y-0 md:space-x-2`
+export const InputContainer = tw.div`relative w-full md:w-1/3 flex flex-col justify-center`
 
 export const GuestOkButton = tw(Button)`mx-auto w-5/6 mb-2`
 

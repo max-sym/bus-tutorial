@@ -5,7 +5,7 @@ import { BsStarFill } from "@react-icons/all-files/bs/BsStarFill"
 import { IoMdQuote } from "@react-icons/all-files/io/IoMdQuote"
 import { InView } from "react-cool-inview"
 
-const CardsContainer = tw.div`flex justify-center gap-4 mt-14`
+const CardsContainer = tw.div`flex justify-center gap-4 mt-8 md:mt-14 md:flex-row flex-col`
 const ImageContainer = tw.div`rounded-full overflow-hidden w-14 h-14`
 const Star = tw(BsStarFill)`w-4 h-4 text-yellow-500`
 

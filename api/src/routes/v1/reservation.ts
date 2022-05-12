@@ -5,12 +5,28 @@ import { reservationValidation } from "../../validations"
 
 export const reservationRoute = express.Router()
 
-reservationRoute.post("/", reservationController.create)
+reservationRoute.post(
+  "/",
+  validate(reservationValidation.create),
+  reservationController.create
+)
+
+reservationRoute.get(
+  "/pdf/:token/:passengerId/:reservedTicketId",
+  validate(reservationValidation.pdf),
+  reservationController.pdf
+)
 
 reservationRoute.patch(
   "/:token",
   validate(reservationValidation.addReservedTrip),
   reservationController.addReservedTrip
+)
+
+reservationRoute.patch(
+  "/:token/passengers",
+  validate(reservationValidation.updatePassengers),
+  reservationController.updatePassengers
 )
 
 reservationRoute.delete(

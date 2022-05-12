@@ -1,8 +1,9 @@
-import React from "react"
-import { Button, Text } from "components"
+import React, { useState } from "react"
+import { Button, Text, ModalType } from "components"
 import { ReservationType, useStore } from "store"
 import { getFormattedTimeLeft, getTotalPrice } from "utils"
 import { data } from "data"
+import { navigate } from "gatsby"
 
 const TimeLeftText = () => {
   const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
@@ -23,8 +24,37 @@ const TotalPrice = ({ reservation }: { reservation: ReservationType }) => (
   </div>
 )
 
-const ConfirmButton = ({ reservation }: { reservation: ReservationType }) => {
+const clearCart = async () => {
+  await Promise.all(
+    window.Snipcart.store.getState().cart.items.items.map(async item => {
+      if (!item?.id) return true
+
+      return await window.Snipcart.api.cart.items.remove(item.uniqueId)
+    })
+  )
+}
+
+export const ConfirmButton = ({ modal }: { modal?: ModalType }) => {
+  const onClick = () => {
+    modal?.setIsOpen?.(false)
+    navigate("/confirmation")
+  }
+
+  return <Button onClick={onClick}>{"Confirm"}</Button>
+}
+
+export const CheckoutButton = ({
+  reservation,
+  isButtonDisabled,
+}: {
+  reservation: ReservationType
+  isButtonDisabled?: boolean
+}) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const onClick = async () => {
+    setIsLoading(true)
+    await clearCart()
     await window.Snipcart.api.cart.update({
       metadata: { reservationToken: reservation.token },
     })
@@ -39,22 +69,41 @@ const ConfirmButton = ({ reservation }: { reservation: ReservationType }) => {
     } catch (error) {
       console.log(error)
     }
+
+    setIsLoading(false)
   }
 
-  return <Button onClick={onClick}>{"Confirm"}</Button>
+  return (
+    <Button isLoading={isLoading} onClick={onClick} disabled={isButtonDisabled}>
+      {"Checkout"}
+    </Button>
+  )
 }
 
 export const ReservationFooter = ({
   reservation,
+  isCheckout,
+  isButtonDisabled,
+  modal,
 }: {
   reservation: ReservationType
+  isCheckout?: boolean
+  isButtonDisabled?: boolean
+  modal?: ModalType
 }) => {
   return (
     <div>
       <TotalPrice reservation={reservation} />
       <TimeLeftText />
       <div className="flex flex-col mt-4">
-        <ConfirmButton reservation={reservation} />
+        {isCheckout ? (
+          <CheckoutButton
+            isButtonDisabled={isButtonDisabled}
+            reservation={reservation}
+          />
+        ) : (
+          <ConfirmButton modal={modal} />
+        )}
       </div>
     </div>
   )
