@@ -1,5 +1,5 @@
 import React from "react"
-import { Label, InputCore } from "components"
+import { Label, InputCore, Check } from "components"
 
 export const FormField = ({
   name,
@@ -20,14 +20,26 @@ export const FormField = ({
 
   return (
     <div>
-      <Label color={error ? "red" : "gray-light"}>{label}</Label>
-      <InputCore
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        name={name}
-        onChange={formik.handleChange}
-      />
+      {type === "checkbox" ? (
+        <Check
+          id={name}
+          name={name}
+          value={value}
+          onChange={formik.handleChange}
+          label={label}
+        />
+      ) : (
+        <>
+          <Label color={error ? "red" : "gray-light"}>{label}</Label>
+          <InputCore
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            name={name}
+            onChange={formik.handleChange}
+          />
+        </>
+      )}
     </div>
   )
 }
