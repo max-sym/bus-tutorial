@@ -5,6 +5,7 @@ import {
   CardTitle,
   CardContent,
   CardFooter,
+  ModalType,
 } from "components"
 import React from "react"
 import { useStore } from "store"
@@ -14,9 +15,11 @@ import { ReservationFooter } from "./reservation-footer"
 export const ReservationBar = ({
   isCheckout,
   isButtonDisabled,
+  modal,
 }: {
   isCheckout?: boolean
   isButtonDisabled?: boolean
+  modal?: ModalType
 }) => {
   const reservation = useStore(store => store.reservation)
   const hasReservedTrips = !!reservation?.reservedTrips?.length
@@ -39,6 +42,7 @@ export const ReservationBar = ({
             reservation={reservation}
             isCheckout={isCheckout}
             isButtonDisabled={isButtonDisabled}
+            modal={modal}
           />
         </CardFooter>
       )}

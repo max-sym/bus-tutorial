@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { Button, Text } from "components"
+import { Button, Text, ModalType } from "components"
 import { ReservationType, useStore } from "store"
 import { getFormattedTimeLeft, getTotalPrice } from "utils"
 import { data } from "data"
-import { Link } from "gatsby"
+import { navigate } from "gatsby"
 
 const TimeLeftText = () => {
   const reservationTimeLeft = useStore(store => store.reservationTimeLeft)
@@ -34,18 +34,21 @@ const clearCart = async () => {
   )
 }
 
-export const ConfirmButton = () => (
-  <Link to="/confirmation">
-    <Button>{"Confirm"}</Button>
-  </Link>
-)
+export const ConfirmButton = ({ modal }: { modal?: ModalType }) => {
+  const onClick = () => {
+    modal?.setIsOpen?.(false)
+    navigate("/confirmation")
+  }
+
+  return <Button onClick={onClick}>{"Confirm"}</Button>
+}
 
 export const CheckoutButton = ({
   reservation,
   isButtonDisabled,
 }: {
   reservation: ReservationType
-  isButtonDisabled: boolean
+  isButtonDisabled?: boolean
 }) => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -81,10 +84,12 @@ export const ReservationFooter = ({
   reservation,
   isCheckout,
   isButtonDisabled,
+  modal,
 }: {
   reservation: ReservationType
-  isCheckout: boolean
-  isButtonDisabled: boolean
+  isCheckout?: boolean
+  isButtonDisabled?: boolean
+  modal?: ModalType
 }) => {
   return (
     <div>
@@ -97,7 +102,7 @@ export const ReservationFooter = ({
             reservation={reservation}
           />
         ) : (
-          <ConfirmButton />
+          <ConfirmButton modal={modal} />
         )}
       </div>
     </div>
