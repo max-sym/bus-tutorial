@@ -6,7 +6,7 @@ import { FaBus } from "@react-icons/all-files/fa/FaBus"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
 import { Text, Button, useModal, Modal } from "components"
 import { DarkModeSwitch } from "./dark-mode-switch"
-import { useStore, useUiStore } from "store"
+import { useStore, useUiStore, useAuthStore } from "store"
 import { BookingForm } from "sections/home/booking-form"
 import { useLocation } from "@reach/router"
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart"
@@ -44,6 +44,16 @@ const navItems: {
     },
   ],
   right: [
+    {
+      title: "Login",
+      link: "/login",
+    },
+    {
+      title: "Register",
+      link: "/register",
+    },
+  ],
+  rightLoggedIn: [
     {
       title: "Account",
       link: "/account",
@@ -110,6 +120,7 @@ const ReservationItem = () => {
 
 const DesktopNavbarContent = () => {
   const reservation = useStore(store => store.reservation)
+  const user = useAuthStore(store => store.user)
 
   const location = useLocation()
 
@@ -126,7 +137,7 @@ const DesktopNavbarContent = () => {
         <div className="flex items-center justify-center">
           <DarkModeSwitch />
         </div>
-        <NavItems items={navItems.right} />
+        <NavItems items={user ? navItems.rightLoggedIn : navItems.right} />
       </NavItemsContainer>
     </div>
   )

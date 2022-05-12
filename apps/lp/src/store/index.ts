@@ -1,6 +1,7 @@
 import { getLocalStorageItem, setLocalStorageItem } from "utils"
 import create from "zustand"
 export * from "./ui-store"
+export * from "./auth-store"
 
 export type City = {
   id: number

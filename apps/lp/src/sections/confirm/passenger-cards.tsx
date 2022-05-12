@@ -1,5 +1,13 @@
 import React from "react"
-import { Card, Button, CardContent, Label, Text, InputCore } from "components"
+import {
+  Card,
+  Button,
+  CardContent,
+  Label,
+  Text,
+  InputCore,
+  FormField,
+} from "components"
 import { PassengerType, ReservationType, useStore } from "store"
 import { data } from "data"
 
@@ -27,52 +35,28 @@ const PassengerCard = ({
         <Text>{passenger.id}</Text>
         <Text>{passenger.personType}</Text>
         <div className="flex justify-between gap-2">
-          <div>
-            <Label
-              color={errors.name ? "red" : "gray-light"}
-              as="label"
-              variant="subtitle"
-            >
-              {"Name"}
-            </Label>
-            <InputCore
-              placeholder="John Doe"
-              value={value.name}
-              name={`passengers.${index}.name`}
-              onChange={formik.handleChange}
-            />
-          </div>
-          <div>
-            <Label
-              color={errors.email ? "red" : "gray-light"}
-              as="label"
-              variant="subtitle"
-            >
-              {"Email"}
-            </Label>
-            <InputCore
-              placeholder="john@example.com"
-              value={value.email}
-              type="email"
-              name={`passengers.${index}.email`}
-              onChange={formik.handleChange}
-            />
-          </div>
-          <div>
-            <Label
-              color={errors.citizenId ? "red" : "gray-light"}
-              as="label"
-              variant="subtitle"
-            >
-              {"Citizen ID"}
-            </Label>
-            <InputCore
-              placeholder="XXXXXX"
-              name={`passengers.${index}.citizenId`}
-              value={value.citizenId}
-              onChange={formik.handleChange}
-            />
-          </div>
+          <FormField
+            formik={formik}
+            value={value.name}
+            placeholder="John Doe"
+            label="Name"
+            name={`passengers.${index}.name`}
+          />
+          <FormField
+            placeholder="john@example.com"
+            value={value.email}
+            type="email"
+            label="Email"
+            formik={formik}
+            name={`passengers.${index}.email`}
+          />
+          <FormField
+            placeholder="XXXXXX"
+            value={value.citizenId}
+            label="Citizen ID"
+            formik={formik}
+            name={`passengers.${index}.citizenId`}
+          />
         </div>
       </CardContent>
     </Card>
