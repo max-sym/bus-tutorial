@@ -1,5 +1,5 @@
 import httpStatus from "http-status"
-import { catchAsync } from "../utils"
+import { catchAsync, trimSensitiveData } from "../utils"
 import {
   authService,
   userService,
@@ -9,16 +9,19 @@ import {
 import { Request, Response } from "express"
 
 const register = catchAsync(async (req: Request, res: Response) => {
-  const user = await userService.create(req.body)
+  const { confirmPassword, ...userBody } = req.body
+  const user = await userService.create(userBody)
   const tokens = await tokenService.generateAuthTokens(user)
-  res.status(httpStatus.CREATED).send({ user, tokens })
+  res
+    .status(httpStatus.CREATED)
+    .send({ user: trimSensitiveData(user, "password"), tokens })
 })
 
 const login = catchAsync(async (req: Request, res: Response) => {
   const { email, password } = req.body
   const user = await authService.loginUserWithEmailAndPassword(email, password)
   const tokens = await tokenService.generateAuthTokens(user)
-  res.send({ user, tokens })
+  res.send({ user: trimSensitiveData(user, "password"), tokens })
 })
 
 const logout = catchAsync(async (req: Request, res: Response) => {

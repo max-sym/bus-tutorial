@@ -1,4 +1,4 @@
-import { bcrypt } from "bcryptjs"
+import bcrypt from "bcryptjs"
 import { prisma } from "../config"
 import httpStatus from "http-status"
 import { ApiError } from "../utils"

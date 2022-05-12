@@ -9,8 +9,11 @@ import {
   Button,
 } from "components"
 import { useFormik } from "formik"
+import { data } from "data"
+import { useAuthStore } from "store"
 
-const initialValues = {
+export const registerInitialValues = {
+  name: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -44,15 +47,30 @@ const LabelForTerms = () => (
 )
 
 const Form = () => {
+  const setUser = useAuthStore(store => store.setUser)
+  const setUserTokens = useAuthStore(store => store.setUserTokens)
+
   const formik = useFormik({
-    initialValues,
-    onSubmit: values => {
-      //
+    initialValues: registerInitialValues,
+    onSubmit: async values => {
+      const result = await data.auth.register(values)
+
+      if (result.status !== 201) return
+
+      setUser(result.response.user)
+      setUserTokens(result.response.tokens)
     },
   })
 
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <FormField
+        value={formik.values["name"]}
+        name="name"
+        formik={formik}
+        placeholder={"John Doe"}
+        label="Name"
+      />
       <FormField
         value={formik.values["email"]}
         name="email"

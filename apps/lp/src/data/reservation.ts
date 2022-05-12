@@ -16,7 +16,7 @@ export const reservation = {
         guests: requestedTrip.guests,
       },
     })
-    return result
+    return result.response
   },
   addReservedTrip: async (
     reservation: ReservationType,
@@ -29,7 +29,7 @@ export const reservation = {
         tripId: trip.id,
       },
     })
-    return result
+    return result.response
   },
   deleteReservedTrip: async (
     reservation: ReservationType,
@@ -39,21 +39,21 @@ export const reservation = {
       url: `/reservation/${reservation.token}/${reservedTrip.id}`,
       method: "DELETE",
     })
-    return result
+    return result.response
   },
   deleteOne: async (reservation: ReservationType): Promise<any> => {
     const result = await request({
       url: `/reservation/${reservation.token}`,
       method: "DELETE",
     })
-    return result
+    return result.response
   },
   getInSnipcartFormat: async (reservation: ReservationType): Promise<any> => {
     const result = await request({
       url: `/reservation/${reservation.token}/snipcart-format`,
       method: "GET",
     })
-    return result
+    return result.response
   },
   updatePassengers: async (
     reservation: ReservationType,
@@ -64,6 +64,6 @@ export const reservation = {
       method: "PATCH",
       body: { passengers },
     })
-    return result
+    return result.response
   },
 }

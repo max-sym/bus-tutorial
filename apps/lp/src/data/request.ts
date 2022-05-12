@@ -10,12 +10,17 @@ type RequestType = {
   }
 }
 
+type RequestResponseType = {
+  response: any
+  status: number
+}
+
 export const request = async ({
   url,
   method = "GET",
   params,
   body,
-}: RequestType) => {
+}: RequestType): Promise<RequestResponseType> => {
   return new Promise(async (resolve, reject) => {
     const route = params
       ? `${url}?${new URLSearchParams(params).toString()}`
@@ -31,7 +36,10 @@ export const request = async ({
       body: JSON.stringify(body),
     })
       .then(async response => {
-        const result = await response.json()
+        const result = {
+          response: await response.json(),
+          status: response.status,
+        }
         resolve(result)
       })
       .catch(error => {

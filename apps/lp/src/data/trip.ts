@@ -14,6 +14,6 @@ export const trip = {
       url: "/trip/search",
       params: { from, to, departureDate },
     })
-    return result
+    return result.response
   },
 }

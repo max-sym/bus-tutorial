@@ -6,13 +6,13 @@ export const city = {
       url: "/city/search",
       params: { query },
     })
-    return result
+    return result.response
   },
   getSome: async (cities: string[]): Promise<any> => {
     const result = await request({
       url: "/city/getSome",
       params: { cities: cities.join(",") },
     })
-    return result
+    return result.response
   },
 }

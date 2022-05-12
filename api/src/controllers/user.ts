@@ -1,10 +1,11 @@
 import httpStatus from "http-status"
-import { catchAsync, ApiError } from "../utils"
+import { catchAsync, ApiError, trimSensitiveData } from "../utils"
 import { userService } from "../services"
 import { Request, Response } from "express"
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
-  const user = await userService.create(req.body)
+  const { confirmPassword, ...userBody } = req.body
+  const user = await userService.create(userBody)
   res.status(httpStatus.CREATED).send(user)
 })
 
@@ -20,12 +21,12 @@ const getUser = catchAsync(async (req: Request, res: Response) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found")
   }
-  res.send(user)
+  res.send(trimSensitiveData(user, "password"))
 })
 
 const updateUser = catchAsync(async (req: Request, res: Response) => {
   const user = await userService.updateById(+req.params.userId, req.body)
-  res.send(user)
+  res.send(trimSensitiveData(user, "password"))
 })
 
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
