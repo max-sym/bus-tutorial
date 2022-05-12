@@ -37,13 +37,15 @@ export const request = async ({
     })
       .then(async response => {
         const result = {
-          response: await response.json(),
+          // 204 would not return any content so response.json gets stuck here if we don't perform this check.
+          // https://github.com/whatwg/fetch/issues/113
+          response: response.status === 204 ? null : await response.json(),
           status: response.status,
         }
         resolve(result)
       })
       .catch(error => {
-        // catch error
+        console.error(error)
       })
   })
 }

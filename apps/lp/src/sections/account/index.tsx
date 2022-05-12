@@ -17,6 +17,8 @@ import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle"
 const UserData = () => {
   const user = useAuthStore(store => store.user)
 
+  if (!user) return null
+
   return (
     <Card className="mx-auto max-w-[500px]">
       <CardHeading>
