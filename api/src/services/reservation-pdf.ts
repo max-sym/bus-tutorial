@@ -1,6 +1,9 @@
+import moment from "moment"
 import PDFDocument from "pdfkit"
 import QRCode from "qrcode"
 import { Response } from "express"
+import { reservationService } from "./reservation"
+import Prisma from "@prisma/client"
 
 const pageOptions = {
   size: "A7",
@@ -12,23 +15,29 @@ const pageOptions = {
   },
 }
 
+type AwaitedReservation = Awaited<
+  ReturnType<typeof reservationService["getOne"]>
+>
+
 const generate = async ({
   reservation,
   res,
-  reservedTicketId,
-  passengerId,
+  reservedTicket,
+  passenger,
+  reservedTrip,
 }: {
-  reservation: any
+  reservation: AwaitedReservation
   res: Response
-  reservedTicketId: number
-  passengerId: number
+  reservedTicket: AwaitedReservation["passengers"][number]["reservedTickets"][number]
+  passenger: AwaitedReservation["passengers"][number]
+  reservedTrip: AwaitedReservation["reservedTrips"][number]
 }) => {
   const doc = new PDFDocument(pageOptions)
   res.set("Content-Type", "application/pdf")
 
   doc.pipe(res)
 
-  const code = reservation.token + ":" + reservedTicketId + ":" + passengerId
+  const code = reservation.token + ":" + reservedTicket.id + ":" + passenger.id
 
   const qr = await QRCode.toDataURL(code)
 
@@ -36,7 +45,28 @@ const generate = async ({
 
   doc.image(qr, 0, 20, { width: 100, height: 100 })
 
-  doc.font("Helvetica-Bold", 12).text("RESERVATION", 12, 15)
+  doc.font("Helvetica-Bold", 12).text("Bus Ticket", 12, 15)
+
+  doc
+    .font("Times-Bold", 9)
+    .text("ID: " + code, 12, 120)
+    .text("Bus: " + reservedTrip.trip.bus.name)
+    .text("From: " + reservedTrip.trip.cityFrom.name)
+    .text("To: " + reservedTrip.trip.cityTo.name)
+    .text("Departure: " + moment(reservedTrip.trip.departure).format("LT L"))
+    .text("Arrival: " + moment(reservedTrip.trip.arrival).format("LT L"))
+
+  doc.moveTo(12, 210).lineTo(190, 210).stroke()
+
+  doc
+    .moveDown()
+    .moveDown()
+    .moveDown()
+    .moveDown()
+    .font("Helvetica-Bold", 12)
+    .text("The Private Bus Company")
+    .font("Helvetica", 8)
+    .text("www.bus-ticket-booking-website-example.com")
 
   doc.end()
 }

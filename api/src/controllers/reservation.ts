@@ -78,14 +78,36 @@ const snipcartWebhooks = catchAsync(async (req: Request, res) => {
 
 const pdf = catchAsync(async (req: Request, res: Response) => {
   const token = req.params.token
-  const reservedTicketId = req.params.reservedTicketId
-  const passengerId = req.params.passengerId
+  const reservedTicketId = +req.params.reservedTicketId
+  const passengerId = +req.params.passengerId
 
   const reservation = await reservationService.getOne(token)
 
   if (!reservation) throw new ApiError(404, "Reservation not found")
 
-  reservationPdf.generate({ reservation, res, reservedTicketId, passengerId })
+  const passenger = reservation.passengers.find(p => p.id === passengerId)
+
+  if (!passenger) throw new ApiError(404, "Passenger not found")
+
+  const reservedTicket = passenger.reservedTickets.find(
+    r => r.id === reservedTicketId
+  )
+
+  if (!reservedTicket) throw new ApiError(404, "Reserved Ticket not found")
+
+  const reservedTrip = reservation.reservedTrips.find(
+    p => p.id === reservedTicket.reservedTripId
+  )
+
+  if (!reservedTrip) throw new ApiError(404, "Reserved Trip not found")
+
+  reservationPdf.generate({
+    reservation,
+    res,
+    reservedTicket,
+    passenger,
+    reservedTrip,
+  })
 })
 
 export const reservationController = {
