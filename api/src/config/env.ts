@@ -12,6 +12,7 @@ const envVarsSchema = Joi.object()
     PORT: Joi.number().default(3000),
     CORS: Joi.string(),
     SNIPCART_API_URL: Joi.string(),
+    CURRENT_URL: Joi.string(),
     JWT_SECRET: Joi.string().required().description("JWT secret key"),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number()
       .default(30)
@@ -32,6 +33,9 @@ const envVarsSchema = Joi.object()
     EMAIL_FROM: Joi.string().description(
       "the from field in the emails sent by the app"
     ),
+    EMAIL_FROM_NAME: Joi.string().description(
+      "the from field in the emails sent by the app"
+    ),
   })
   .unknown()
 
@@ -48,6 +52,7 @@ export const env = {
   cors: envVars.CORS,
   port: envVars.PORT,
   snipcartApiUrl: envVars.SNIPCART_API_URL,
+  currentUrl: envVars.CURRENT_URL,
   jwt: {
     secret: envVars.JWT_SECRET,
     accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
@@ -66,5 +71,6 @@ export const env = {
       },
     },
     from: envVars.EMAIL_FROM,
+    fromName: envVars.EMAIL_FROM_NAME,
   },
 }

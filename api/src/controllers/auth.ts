@@ -4,7 +4,7 @@ import {
   authService,
   userService,
   tokenService,
-  // emailService,
+  emailService,
 } from "../services"
 import { Request, Response } from "express"
 
@@ -12,6 +12,14 @@ const register = catchAsync(async (req: Request, res: Response) => {
   const { confirmPassword, ...userBody } = req.body
   const user = await userService.create(userBody)
   const tokens = await tokenService.generateAuthTokens(user)
+
+  const verifyEmailToken = await tokenService.generateVerifyEmailToken(user)
+
+  emailService.sendVerificationEmail({
+    to: { email: user.email, name: user.name },
+    token: verifyEmailToken,
+  })
+
   res
     .status(httpStatus.CREATED)
     .send({ user: trimSensitiveData(user, "password"), tokens })
