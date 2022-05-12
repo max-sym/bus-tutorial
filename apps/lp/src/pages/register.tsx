@@ -2,11 +2,11 @@ import React from "react"
 import { Seo } from "components"
 import { RegisterSection } from "sections"
 
-const SearchPage = () => (
+const RegisterPage = () => (
   <>
-    <Seo title="Search" />
+    <Seo title="Register" />
     <RegisterSection />
   </>
 )
 
-export default SearchPage
+export default RegisterPage

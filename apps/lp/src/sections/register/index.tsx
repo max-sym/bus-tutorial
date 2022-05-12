@@ -11,6 +11,7 @@ import {
 import { useFormik } from "formik"
 import { data } from "data"
 import { useAuthStore } from "store"
+import { navigate } from "gatsby"
 
 export const registerInitialValues = {
   name: "",
@@ -59,6 +60,7 @@ const Form = () => {
 
       setUser(result.response.user)
       setUserTokens(result.response.tokens)
+      navigate("/account")
     },
   })
 
