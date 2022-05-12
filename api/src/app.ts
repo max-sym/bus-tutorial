@@ -3,13 +3,9 @@ import helmet from "helmet"
 import xss from "xss-clean"
 import compression from "compression"
 import cors from "cors"
-// import passport from "passport"
+import passport from "passport"
 import httpStatus from "http-status"
-import {
-  env,
-  morganConfig,
-  //  passportConfig
-} from "./config"
+import { env, morganConfig, passportConfig } from "./config"
 import { authLimiter } from "./middlewares/rate-limiter"
 import { router } from "./routes/v1"
 import { errorConverter, errorHandler } from "./middlewares"
@@ -41,8 +37,8 @@ app.use(compression())
 app.use(cors({ origin: env.cors }))
 
 // jwt authentication
-// app.use(passport.initialize())
-// passport.use("jwt", passportConfig.jwtStrategy)
+app.use(passport.initialize())
+passport.use("jwt", passportConfig.jwtStrategy)
 
 // limit repeated failed requests to auth endpoints
 if (env.env === "production") {

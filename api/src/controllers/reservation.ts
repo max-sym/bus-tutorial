@@ -2,7 +2,7 @@ import { ApiError, catchAsync } from "../utils"
 import { reservationPdf, reservationService } from "../services"
 import { Request, Response } from "express"
 import Prisma from "@prisma/client"
-import { emailService } from "../services/email"
+import { emailService } from "../services"
 
 const create = catchAsync(async (req: Request, res: Response) => {
   const result = await reservationService.create(req.body)

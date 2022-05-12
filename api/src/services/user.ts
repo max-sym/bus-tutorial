@@ -1,54 +1,65 @@
+import { bcrypt } from "bcryptjs"
+import { prisma } from "../config"
 import httpStatus from "http-status"
 import { ApiError } from "../utils"
+import { Prisma } from "@prisma/client"
 
-const create = async (userBody: object): Promise<User> => {
-  if (await User.isEmailTaken(userBody.email)) {
+const create = async (userBody: Prisma.UserCreateInput) => {
+  const isEmailTaken = await prisma.user.findUnique({
+    where: { email: userBody.email },
+  })
+  if (isEmailTaken)
     throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken")
-  }
-  return User.create(userBody)
+
+  const password = bcrypt.hashSync(userBody.password)
+
+  return await prisma.user.create({ data: { ...userBody, password } })
 }
 
-const query = async (filter: object, options: any) => {
-  const users = await User.paginate(filter, options)
-  return users
+// const query = async (filter: object, options: any) => {
+//   const users = await User.paginate(filter, options)
+//   return users
+// }
+
+const getById = async (id: number) => {
+  return await prisma.user.findUnique({ where: { id } })
 }
 
-const getById = async (id: number): Promise<User> => {
-  return User.findById(id)
-}
-
-const getByEmail = async (email: string): Promise<User> => {
-  return User.findOne({ email })
+const getByEmail = async (email: string) => {
+  return await prisma.user.findUnique({ where: { email } })
 }
 
 const updateById = async (
   userId: number,
-  updateBody: object
-): Promise<User> => {
+  updateBody: Prisma.UserUpdateInput
+) => {
   const user = await getById(userId)
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, "User not found")
-  }
-  if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
+  if (!user) throw new ApiError(httpStatus.NOT_FOUND, "User not found")
+
+  if (
+    updateBody.email &&
+    (await prisma.user.findFirst({
+      // @ts-ignore
+      where: { email: updateBody.email, NOT: { id: userId } },
+    }))
+  )
     throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken")
-  }
-  Object.assign(user, updateBody)
-  await user.save()
-  return user
+
+  return await prisma.user.update({
+    where: { id: userId },
+    data: updateBody,
+  })
 }
 
-const deleteById = async (userId: number): Promise<User> => {
-  const user = await getById(userId)
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, "User not found")
-  }
-  await user.remove()
-  return user
+const deleteById = async (userId: number) => {
+  return await prisma.user.delete({
+    where: { id: userId },
+  })
 }
 
 export const userService = {
   create,
-  query,
+  // query,
   getById,
   getByEmail,
   updateById,

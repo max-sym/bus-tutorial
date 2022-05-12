@@ -3,9 +3,11 @@ import { customValidation } from "./custom"
 
 const register = {
   body: Joi.object().keys({
+    name: Joi.string().required(),
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(customValidation.password),
-    name: Joi.string().required(),
+    confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
+    acceptedPrivacy: Joi.boolean().required(),
   }),
 }
 

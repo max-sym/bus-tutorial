@@ -1,25 +1,25 @@
-const express = require("express")
+import express from "express"
 import { auth } from "../../middlewares"
 import { validate } from "../../middlewares"
 import { userValidation } from "../../validations/user"
 import { userController } from "../../controllers/user"
 
-const router = express.Router()
+export const userRoute = express.Router()
 
-router
+userRoute
   .route("/")
   .post(
     auth("manageUsers"),
     validate(userValidation.createUser),
     userController.createUser
   )
-  .get(
-    auth("getUsers"),
-    validate(userValidation.getUsers),
-    userController.getUsers
-  )
+// .get(
+//   auth("getUsers"),
+//   validate(userValidation.getUsers),
+//   userController.getUsers
+// )
 
-router
+userRoute
   .route("/:userId")
   .get(
     auth("getUsers"),
@@ -36,8 +36,6 @@ router
     validate(userValidation.deleteUser),
     userController.deleteUser
   )
-
-module.exports = router
 
 /**
  * @swagger
