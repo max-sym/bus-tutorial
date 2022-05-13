@@ -8,7 +8,7 @@ import { env } from "./env"
 
 const jwtOptions = {
   secretOrKey: env.jwt.secret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("JWT"),
 }
 
 const jwtVerify: VerifyCallback = async (payload, done) => {

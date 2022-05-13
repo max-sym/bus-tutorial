@@ -45,6 +45,14 @@ export const request = async ({
   return new Promise(async (resolve, reject) => {
     const userTokens = authenticated ? await getUpToDateUserTokens() : null
 
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+    }
+
+    if (authenticated && userTokens) {
+      headers.Authorization = `JWT ${userTokens.access.token}`
+    }
+
     const route = params
       ? `${url}?${new URLSearchParams(params).toString()}`
       : url
@@ -53,9 +61,7 @@ export const request = async ({
 
     await fetch(endpoint, {
       method,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(body),
     })
       .then(async response => {

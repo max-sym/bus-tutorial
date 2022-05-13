@@ -4,19 +4,26 @@ import {
   Text,
   CardHeading,
   CardContent,
-  FormField,
   SectionAndOffset,
   Button,
   Separator,
+  Modal,
+  useModal,
 } from "components"
-import { useFormik } from "formik"
 import { data } from "data"
 import { useAuthStore } from "store"
 import { navigate } from "gatsby"
 import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle"
+import { EditDataModal } from "./edit-data-modal"
 
 const UserData = () => {
   const user = useAuthStore(store => store.user)
+
+  const editDataModal = useModal({ customComponent: <EditDataModal /> })
+
+  const onEditDataClick = () => {
+    editDataModal.setIsOpen(true)
+  }
 
   if (!user) return null
 
@@ -37,11 +44,12 @@ const UserData = () => {
         </div>
         <Separator className="w-full mt-4" />
         <div className="mt-4 space-y-4">
-          <Button>{"Edit Data"}</Button>
+          <Button onClick={onEditDataClick}>{"Edit Data"}</Button>
           <Button>{"Reset Password"}</Button>
           <Text variant="button">{"Danger Zone"}</Text>
           <Button color="red">{"Delete Account"}</Button>
         </div>
+        <Modal modal={editDataModal} />
       </CardContent>
     </Card>
   )
