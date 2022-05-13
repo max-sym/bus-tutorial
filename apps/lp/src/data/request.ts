@@ -1,3 +1,6 @@
+import { data } from "data"
+import { useAuthStore } from "store"
+
 const apiUrl = process.env.GATSBY_API_URL
 
 type MethodType = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
@@ -5,9 +8,26 @@ type RequestType = {
   url: string
   method?: MethodType
   params?: any
+  authenticated?: boolean
   body?: {
     [key: string]: any
   }
+}
+
+const getUpToDateUserTokens = async () => {
+  const state = useAuthStore.getState()
+  const userTokens = state.userTokens
+  if (!userTokens) return null
+
+  const accessTokenExpiration = new Date(userTokens.access.expires).getTime()
+  const now = new Date().getTime()
+
+  if (accessTokenExpiration - now > 0) return userTokens
+
+  const result = await data.auth.refreshTokens()
+
+  state.setUserTokens(result.response)
+  return result.response
 }
 
 type RequestResponseType = {
@@ -19,9 +39,12 @@ export const request = async ({
   url,
   method = "GET",
   params,
+  authenticated = false,
   body,
 }: RequestType): Promise<RequestResponseType> => {
   return new Promise(async (resolve, reject) => {
+    const userTokens = authenticated ? await getUpToDateUserTokens() : null
+
     const route = params
       ? `${url}?${new URLSearchParams(params).toString()}`
       : url

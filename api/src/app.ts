@@ -40,6 +40,10 @@ app.use(cors({ origin: env.cors }))
 app.use(passport.initialize())
 passport.use("jwt", passportConfig.jwtStrategy)
 
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
+
 // limit repeated failed requests to auth endpoints
 if (env.env === "production") {
   app.use("/v1/auth", authLimiter)

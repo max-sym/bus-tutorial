@@ -2,7 +2,7 @@ import httpStatus from "http-status"
 import { tokenService } from "./token"
 import { userService } from "./user"
 import { ApiError, isPasswordMatch } from "../utils"
-import { prisma } from "../config"
+import { prisma, logger } from "../config"
 
 const loginUserWithEmailAndPassword = async (
   email: string,
@@ -37,6 +37,7 @@ const refreshAuth = async (refreshToken: string) => {
     await prisma.token.delete({ where: { id: refreshTokenDoc.id } })
     return tokenService.generateAuthTokens(user)
   } catch (error) {
+    logger.info(error)
     throw new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
   }
 }

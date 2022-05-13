@@ -44,7 +44,7 @@ const verifyToken = async (token: string, type: Prisma.TokenType) => {
   const payload = jwt.verify(token, env.jwt.secret)
   const tokenDoc = await prisma.token.findFirst({
     // @ts-ignore
-    where: { token, type, user: payload.sub, blacklisted: false },
+    where: { token, type, userId: payload.sub, blacklisted: false },
   })
   if (!tokenDoc) throw new Error("Token not found")
 

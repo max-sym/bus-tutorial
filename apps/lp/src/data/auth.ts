@@ -29,4 +29,14 @@ export const auth = {
     })
     return result
   },
+  refreshTokens: async (): Promise<any> => {
+    const userTokens = useAuthStore.getState().userTokens
+
+    const result = await request({
+      url: "/auth/refresh-tokens",
+      method: "POST",
+      body: { refreshToken: userTokens?.refresh.token },
+    })
+    return result
+  },
 }
