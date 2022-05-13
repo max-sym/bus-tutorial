@@ -48,7 +48,7 @@ export const ChangePasswordModal = ({ modal }: { modal?: ModalType }) => {
   return (
     <Card>
       <CardHeading>
-        <Text>{"Change Password"}</Text>
+        <Text variant="h5">{"Change Password"}</Text>
       </CardHeading>
       <CardContent>
         <form onSubmit={formik.handleSubmit}>

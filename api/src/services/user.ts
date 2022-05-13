@@ -64,9 +64,7 @@ const changePassword = async (
 }
 
 const deleteById = async (userId: number) => {
-  return await prisma.user.delete({
-    where: { id: userId },
-  })
+  return await prisma.user.delete({ where: { id: userId } })
 }
 
 export const userService = {

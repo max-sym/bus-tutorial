@@ -18,6 +18,8 @@ userRoute
     userController.changePassword
   )
 
+userRoute.route("/delete-account").post(auth(), userController.deleteAccount)
+
 /**
  * @swagger
  * tags:

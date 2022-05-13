@@ -49,7 +49,7 @@ export const EditDataModal = ({ modal }: { modal?: ModalType }) => {
   return (
     <Card>
       <CardHeading>
-        <Text>{"Edit Data"}</Text>
+        <Text variant="h5">{"Edit Data"}</Text>
       </CardHeading>
       <CardContent>
         <form onSubmit={formik.handleSubmit}>

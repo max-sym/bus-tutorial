@@ -16,11 +16,15 @@ import { navigate } from "gatsby"
 import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle"
 import { EditDataModal } from "./edit-data-modal"
 import { ChangePasswordModal } from "./change-password-modal"
+import { DeleteAccountModal } from "./delete-account-modal"
 
 const UserData = () => {
   const user = useAuthStore(store => store.user)
 
   const editDataModal = useModal({ customComponent: <EditDataModal /> })
+  const deleteAccountModal = useModal({
+    customComponent: <DeleteAccountModal />,
+  })
   const changePasswordModal = useModal({
     customComponent: <ChangePasswordModal />,
   })
@@ -31,6 +35,10 @@ const UserData = () => {
 
   const onChangePasswordClick = () => {
     changePasswordModal.setIsOpen(true)
+  }
+
+  const onDeleteAccountClick = () => {
+    deleteAccountModal.setIsOpen(true)
   }
 
   if (!user) return null
@@ -55,10 +63,13 @@ const UserData = () => {
           <Button onClick={onEditDataClick}>{"Edit Data"}</Button>
           <Button onClick={onChangePasswordClick}>{"Change Password"}</Button>
           <Text variant="button">{"Danger Zone"}</Text>
-          <Button color="red">{"Delete Account"}</Button>
+          <Button onClick={onDeleteAccountClick} color="red">
+            {"Delete Account"}
+          </Button>
         </div>
         <Modal modal={editDataModal} />
         <Modal modal={changePasswordModal} />
+        <Modal modal={deleteAccountModal} />
       </CardContent>
     </Card>
   )

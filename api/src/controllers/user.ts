@@ -14,8 +14,8 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
   res.status(httpStatus.NO_CONTENT).send()
 })
 
-const deleteOne = catchAsync(async (req: Request, res: Response) => {
-  await userService.deleteById(+req.params.userId)
+const deleteAccount = catchAsync(async (req: Request, res: Response) => {
+  await userService.deleteById(req.user.id)
   res.status(httpStatus.NO_CONTENT).send()
 })
 
@@ -24,6 +24,6 @@ export const userController = {
   // getUsers,
   // getUser,
   update,
-  deleteOne,
+  deleteAccount,
   changePassword,
 }
