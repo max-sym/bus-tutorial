@@ -64,6 +64,24 @@ const sendVerificationEmail = async ({
   return await sendEmail(message)
 }
 
+const sendResetPasswordEmail = async (to: Prisma.User, token: string) => {
+  const message = {
+    Messages: [
+      {
+        From: { Email: env.email.from, Name: env.email.fromName },
+        To: [{ Email: to.email, Name: to.name }],
+        TemplateID: mailjetTemplates.resetPassword,
+        TemplateLanguage: true,
+        Variables: {
+          name: to.name,
+          link: env.frontendUrl + "/reset-password?token=" + token,
+        },
+      },
+    ],
+  }
+  return await sendEmail(message)
+}
+
 const sendReservationPdfs = async (
   reservation: Awaited<ReturnType<typeof reservationService["update"]>>
 ) => {
@@ -85,4 +103,5 @@ export const emailService = {
   sendEmail,
   sendReservationPdfs,
   sendVerificationEmail,
+  sendResetPasswordEmail,
 }

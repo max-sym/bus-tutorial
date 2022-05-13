@@ -22,9 +22,9 @@ authRoute.post(
   authController.refreshTokens
 )
 authRoute.post(
-  "/forgot-password",
-  validate(authValidation.forgotPassword),
-  authController.forgotPassword
+  "/request-password-reset",
+  validate(authValidation.requestPasswordReset),
+  authController.requestPasswordReset
 )
 authRoute.post(
   "/reset-password",

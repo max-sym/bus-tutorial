@@ -88,7 +88,7 @@ const generateResetPasswordToken = async (email: string) => {
   )
   const resetPasswordToken = generateToken(user.id, expires, "RESET_PASSWORD")
   await saveToken(resetPasswordToken, user.id, expires, "RESET_PASSWORD")
-  return resetPasswordToken
+  return { resetPasswordToken, user }
 }
 
 const generateVerifyEmailToken = async (user: Prisma.User) => {

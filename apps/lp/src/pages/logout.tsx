@@ -5,7 +5,7 @@ import { useAuthStore } from "store"
 import { data } from "data"
 import { navigate } from "gatsby"
 
-const SearchPage = () => {
+const LogoutPage = () => {
   const setUser = useAuthStore(store => store.setUser)
   const setUserTokens = useAuthStore(store => store.setUserTokens)
 
@@ -31,4 +31,4 @@ const SearchPage = () => {
   )
 }
 
-export default SearchPage
+export default LogoutPage

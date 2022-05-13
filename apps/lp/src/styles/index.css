@@ -6,4 +6,7 @@
 	.text b {
 		@apply text-gray-900 dark:text-white;
 	}
+	.text a {
+		@apply underline;
+	}
 }

@@ -11,7 +11,7 @@ import {
 import { useFormik } from "formik"
 import { data } from "data"
 import { useAuthStore } from "store"
-import { navigate } from "gatsby"
+import { navigate, Link } from "gatsby"
 import { toast } from "react-toastify"
 
 export const loginInitialValues = {
@@ -58,6 +58,11 @@ const Form = () => {
         placeholder={"xxxxxx"}
         label="Password"
       />
+      <div className="text-right">
+        <Text color="green">
+          <Link to="/request-password-reset">{"Forgot password?"}</Link>
+        </Text>
+      </div>
       <div className="flex justify-center">
         <Button type="submit">{"Login"}</Button>
       </div>

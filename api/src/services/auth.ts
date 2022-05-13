@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs"
 import httpStatus from "http-status"
 import { tokenService } from "./token"
 import { userService } from "./user"
@@ -63,7 +64,9 @@ const resetPassword = async (
     const user = await userService.getById(resetPasswordTokenDoc.userId)
     if (!user) throw new ApiError(404, "User not found")
 
-    await userService.updateById(user.id, { password: newPassword })
+    await userService.updateById(user.id, {
+      password: bcrypt.hashSync(newPassword),
+    })
     await prisma.token.deleteMany({
       where: { userId: user.id, type: "RESET_PASSWORD" },
     })

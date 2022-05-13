@@ -39,16 +39,15 @@ const refreshTokens = catchAsync(async (req: Request, res: Response) => {
   res.send({ ...tokens })
 })
 
-const forgotPassword = catchAsync(async (req: Request, res: Response) => {
-  // const resetPasswordToken = await tokenService.generateResetPasswordToken(
-  //   req.body.email
-  // )
-  // await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken)
+const requestPasswordReset = catchAsync(async (req: Request, res: Response) => {
+  const { resetPasswordToken, user } =
+    await tokenService.generateResetPasswordToken(req.body.email)
+  await emailService.sendResetPasswordEmail(user, resetPasswordToken)
   res.status(httpStatus.NO_CONTENT).send()
 })
 
 const resetPassword = catchAsync(async (req: Request, res: Response) => {
-  await authService.resetPassword(req.query.token as string, req.body.password)
+  await authService.resetPassword(req.body.token, req.body.password)
   res.status(httpStatus.NO_CONTENT).send()
 })
 
@@ -70,7 +69,7 @@ export const authController = {
   login,
   logout,
   refreshTokens,
-  forgotPassword,
+  requestPasswordReset,
   resetPassword,
   sendVerificationEmail,
   verifyEmail,
