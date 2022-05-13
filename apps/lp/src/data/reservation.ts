@@ -8,7 +8,7 @@ import { request } from "./request"
 import { RequestedTripType } from "sections/search/use-get-requested-trip"
 
 export const reservation = {
-  create: async (requestedTrip: RequestedTripType): Promise<any> => {
+  create: async (requestedTrip: RequestedTripType) => {
     const result = await request({
       url: "/reservation",
       method: "POST",
@@ -18,10 +18,7 @@ export const reservation = {
     })
     return result.response
   },
-  addReservedTrip: async (
-    reservation: ReservationType,
-    trip: TripType
-  ): Promise<any> => {
+  addReservedTrip: async (reservation: ReservationType, trip: TripType) => {
     const result = await request({
       url: `/reservation/${reservation.token}`,
       method: "PATCH",
@@ -34,21 +31,21 @@ export const reservation = {
   deleteReservedTrip: async (
     reservation: ReservationType,
     reservedTrip: ReservedTripType
-  ): Promise<any> => {
+  ) => {
     const result = await request({
       url: `/reservation/${reservation.token}/${reservedTrip.id}`,
       method: "DELETE",
     })
     return result.response
   },
-  deleteOne: async (reservation: ReservationType): Promise<any> => {
+  deleteOne: async (reservation: ReservationType) => {
     const result = await request({
       url: `/reservation/${reservation.token}`,
       method: "DELETE",
     })
     return result.response
   },
-  getInSnipcartFormat: async (reservation: ReservationType): Promise<any> => {
+  getInSnipcartFormat: async (reservation: ReservationType) => {
     const result = await request({
       url: `/reservation/${reservation.token}/snipcart-format`,
       method: "GET",
@@ -58,7 +55,7 @@ export const reservation = {
   updatePassengers: async (
     reservation: ReservationType,
     passengers: Partial<PassengerType>[]
-  ): Promise<any> => {
+  ) => {
     const result = await request({
       url: `/reservation/${reservation.token}/passengers`,
       method: "PATCH",

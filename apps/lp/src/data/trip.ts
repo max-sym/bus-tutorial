@@ -9,7 +9,7 @@ export const trip = {
     from: string
     to: string
     departureDate: string
-  }): Promise<any> => {
+  }) => {
     const result = await request({
       url: "/trip/search",
       params: { from, to, departureDate },

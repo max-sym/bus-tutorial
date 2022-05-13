@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   Card,
   Text,
@@ -12,6 +12,8 @@ import { useFormik } from "formik"
 import { data } from "data"
 import { useAuthStore } from "store"
 import { navigate } from "gatsby"
+import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle"
+import { toast } from "react-toastify"
 
 export const registerInitialValues = {
   name: "",
@@ -47,20 +49,26 @@ const LabelForTerms = () => (
   </span>
 )
 
-const Form = () => {
+const Form = ({ setSuccess }) => {
   const setUser = useAuthStore(store => store.setUser)
   const setUserTokens = useAuthStore(store => store.setUserTokens)
+  const [isLoading, setIsLoading] = useState(false)
 
   const formik = useFormik({
     initialValues: registerInitialValues,
     onSubmit: async values => {
+      setIsLoading(true)
       const result = await data.auth.register(values)
+      setIsLoading(false)
 
-      if (result.status !== 201) return
+      const success = result.status === 204
 
-      setUser(result.response.user)
-      setUserTokens(result.response.tokens)
-      navigate("/account")
+      if (!success) {
+        toast.error("Something went wrong. Try again.")
+        return
+      }
+
+      setSuccess(true)
     },
   })
 
@@ -104,25 +112,41 @@ const Form = () => {
         label={<LabelForTerms />}
       />
       <div className="flex justify-center">
-        <Button type="submit">{"Register"}</Button>
+        <Button isLoading={isLoading} type="submit">
+          {"Register"}
+        </Button>
       </div>
     </form>
   )
 }
 
 export const RegisterSection = () => {
+  const [success, setSuccess] = useState(true)
   return (
     <SectionAndOffset>
-      <Card className="mx-auto max-w-[500px]">
-        <CardHeading>
-          <Text variant="h5" className="text-center">
-            {"Register"}
-          </Text>
-        </CardHeading>
-        <CardContent>
-          <Form />
-        </CardContent>
-      </Card>
+      {success ? (
+        <div className="flex flex-col items-center justify-center w-full h-full mt-24 space-y-4">
+          <FaCheckCircle className="w-14 h-14 fill-green-500" />
+          <Text variant="button">{"Register successful!"}</Text>
+          <Text
+            color="gray-light"
+            dangerouslySetInnerHTML={{
+              __html: "Go to your <b>email inbox</b> to verify your account!",
+            }}
+          ></Text>
+        </div>
+      ) : (
+        <Card className="mx-auto max-w-[500px]">
+          <CardHeading>
+            <Text variant="h5" className="text-center">
+              {"Register"}
+            </Text>
+          </CardHeading>
+          <CardContent>
+            <Form setSuccess={setSuccess} />
+          </CardContent>
+        </Card>
+      )}
     </SectionAndOffset>
   )
 }

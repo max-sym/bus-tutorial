@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	.text b {
+		@apply text-gray-900 dark:text-white;
+	}
+}

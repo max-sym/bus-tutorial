@@ -4,6 +4,8 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 }
 
+/* SNIPCART */
+
 button.snipcart-button-primary {
 	background-color: var(--bgColor-buttonPrimary);
 }

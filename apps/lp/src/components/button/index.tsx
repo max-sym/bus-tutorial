@@ -28,15 +28,22 @@ export const Button = ({
   variant = "base",
   color = "primary",
   isLoading,
+  disabled,
   ...props
 }: {
   children: any
   variant?: keyof typeof variantClasses
   color?: keyof typeof colorClasses
   isLoading?: boolean
+  disabled?: boolean
   [key: string]: any
 }) => (
-  <ButtonCore $variant={variant} $color={color} {...props}>
+  <ButtonCore
+    $variant={variant}
+    $color={color}
+    disabled={disabled || isLoading}
+    {...props}
+  >
     {isLoading ? (
       <Loading />
     ) : (

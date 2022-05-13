@@ -52,11 +52,11 @@ const sendVerificationEmail = async ({
       {
         From: { Email: env.email.from, Name: env.email.fromName },
         To: [{ Email: to.email, Name: to.name }],
-        TemplateID: mailjetTemplates.reservationComplete,
+        TemplateID: mailjetTemplates.userVerification,
         TemplateLanguage: true,
         Variables: {
           name: to.name,
-          link: env.currentUrl + "/auth/verify-email?token" + token,
+          link: env.frontendUrl + "/verify-email?token=" + token,
         },
       },
     ],

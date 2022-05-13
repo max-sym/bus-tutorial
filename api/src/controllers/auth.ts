@@ -11,7 +11,6 @@ import { Request, Response } from "express"
 const register = catchAsync(async (req: Request, res: Response) => {
   const { confirmPassword, ...userBody } = req.body
   const user = await userService.create(userBody)
-  const tokens = await tokenService.generateAuthTokens(user)
 
   const verifyEmailToken = await tokenService.generateVerifyEmailToken(user)
 
@@ -20,9 +19,7 @@ const register = catchAsync(async (req: Request, res: Response) => {
     token: verifyEmailToken,
   })
 
-  res
-    .status(httpStatus.CREATED)
-    .send({ user: trimSensitiveData(user, "password"), tokens })
+  res.status(httpStatus.NO_CONTENT).send()
 })
 
 const login = catchAsync(async (req: Request, res: Response) => {

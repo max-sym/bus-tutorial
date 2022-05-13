@@ -133,7 +133,7 @@ model Token {
   id          Int        @id @default(autoincrement())
   token       String     @unique
   userId      Int
-  user        User       @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   type        TokenType?
   expires     DateTime   @db.Timestamp()
   blacklisted Boolean

@@ -9,9 +9,18 @@ const loginUserWithEmailAndPassword = async (
   password: string
 ) => {
   const user = await userService.getByEmail(email)
-  if (!user || !(await isPasswordMatch(password, user.password))) {
+  if (!user)
     throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect email or password")
-  }
+
+  if (!user.isEmailVerified)
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Please verify your email first"
+    )
+
+  if (!(await isPasswordMatch(password, user.password)))
+    throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect email or password")
+
   return user
 }
 
@@ -75,7 +84,7 @@ const verifyEmail = async (verifyEmailToken: string) => {
     await prisma.token.deleteMany({
       where: { userId: user.id, type: "VERIFY_EMAIL" },
     })
-    await userService.updateById(user.id, { isEmailVerified: true })
+    return await userService.updateById(user.id, { isEmailVerified: true })
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Email verification failed")
   }

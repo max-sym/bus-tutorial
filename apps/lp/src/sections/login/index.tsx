@@ -12,6 +12,7 @@ import { useFormik } from "formik"
 import { data } from "data"
 import { useAuthStore } from "store"
 import { navigate } from "gatsby"
+import { toast } from "react-toastify"
 
 export const loginInitialValues = {
   email: "",
@@ -27,7 +28,12 @@ const Form = () => {
     onSubmit: async values => {
       const result = await data.auth.login(values)
 
-      if (result.status !== 200) return
+      if (result.status !== 200) {
+        toast.error(
+          result?.response?.message || "Something went wrong. Try again."
+        )
+        return
+      }
 
       setUser(result.response.user)
       setUserTokens(result.response.tokens)

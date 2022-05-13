@@ -27,7 +27,7 @@ export type TextProps = {
   color?: keyof typeof colorClasses
 }
 
-export const Text = tw.p<TextProps>`transition 
+export const Text = tw.p<TextProps>`transition text
 ${({ variant = "body" }) => variantClasses[variant]}
 ${({ color = "base" }) => colorClasses[color]}
 `

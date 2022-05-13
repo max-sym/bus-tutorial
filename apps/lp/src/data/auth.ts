@@ -3,7 +3,7 @@ import { registerInitialValues, loginInitialValues } from "sections"
 import { useAuthStore } from "store"
 
 export const auth = {
-  register: async (values: typeof registerInitialValues): Promise<any> => {
+  register: async (values: typeof registerInitialValues) => {
     const result = await request({
       url: "/auth/register",
       method: "POST",
@@ -11,7 +11,7 @@ export const auth = {
     })
     return result
   },
-  logout: async (): Promise<any> => {
+  logout: async () => {
     const userTokens = useAuthStore.getState().userTokens
 
     const result = await request({
@@ -21,7 +21,7 @@ export const auth = {
     })
     return result
   },
-  login: async (values: typeof loginInitialValues): Promise<any> => {
+  login: async (values: typeof loginInitialValues) => {
     const result = await request({
       url: "/auth/login",
       method: "POST",
@@ -29,13 +29,21 @@ export const auth = {
     })
     return result
   },
-  refreshTokens: async (): Promise<any> => {
+  refreshTokens: async () => {
     const userTokens = useAuthStore.getState().userTokens
 
     const result = await request({
       url: "/auth/refresh-tokens",
       method: "POST",
       body: { refreshToken: userTokens?.refresh.token },
+    })
+    return result
+  },
+  verifyEmail: async (token: string) => {
+    const result = await request({
+      url: "/auth/verify-email",
+      method: "POST",
+      params: { token },
     })
     return result
   },
