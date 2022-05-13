@@ -7,7 +7,6 @@ import { logger } from "../config"
 const verifyCallback =
   (req, resolve, reject, requiredRights) => async (err, user, info) => {
     if (err || info || !user) {
-      console.log({ info, user })
       return reject(
         new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
       )
