@@ -10,4 +10,16 @@ export const user = {
     })
     return result
   },
+  changePassword: async (body: {
+    password: string
+    confirmPassword: string
+  }) => {
+    const result = await request({
+      url: "/user/change-password",
+      method: "PATCH",
+      authenticated: true,
+      body,
+    })
+    return result
+  },
 }

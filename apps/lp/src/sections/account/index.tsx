@@ -15,14 +15,22 @@ import { useAuthStore } from "store"
 import { navigate } from "gatsby"
 import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle"
 import { EditDataModal } from "./edit-data-modal"
+import { ChangePasswordModal } from "./change-password-modal"
 
 const UserData = () => {
   const user = useAuthStore(store => store.user)
 
   const editDataModal = useModal({ customComponent: <EditDataModal /> })
+  const changePasswordModal = useModal({
+    customComponent: <ChangePasswordModal />,
+  })
 
   const onEditDataClick = () => {
     editDataModal.setIsOpen(true)
+  }
+
+  const onChangePasswordClick = () => {
+    changePasswordModal.setIsOpen(true)
   }
 
   if (!user) return null
@@ -45,11 +53,12 @@ const UserData = () => {
         <Separator className="w-full mt-4" />
         <div className="mt-4 space-y-4">
           <Button onClick={onEditDataClick}>{"Edit Data"}</Button>
-          <Button>{"Reset Password"}</Button>
+          <Button onClick={onChangePasswordClick}>{"Change Password"}</Button>
           <Text variant="button">{"Danger Zone"}</Text>
           <Button color="red">{"Delete Account"}</Button>
         </div>
         <Modal modal={editDataModal} />
+        <Modal modal={changePasswordModal} />
       </CardContent>
     </Card>
   )

@@ -15,16 +15,16 @@ import { data } from "data"
 import { toast } from "react-toastify"
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Required"),
+  password: Yup.string().required("Required"),
+  confirmPassword: Yup.string().required("Required"),
 })
 
-export const EditDataModal = ({ modal }: { modal?: ModalType }) => {
-  const user = useAuthStore(store => store.user)
-  const setUser = useAuthStore(store => store.setUser)
+export const ChangePasswordModal = ({ modal }: { modal?: ModalType }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const initialValues = {
-    name: user?.name || "",
+    password: "",
+    confirmPassword: "",
   }
 
   const formik = useFormik({
@@ -32,16 +32,15 @@ export const EditDataModal = ({ modal }: { modal?: ModalType }) => {
     initialValues,
     onSubmit: async values => {
       setIsLoading(true)
-      const result = await data.user.updateData(values)
+      const result = await data.user.changePassword(values)
       setIsLoading(false)
 
-      if (result.status !== 200) {
+      if (result.status !== 204) {
         toast.error("Something went wrong!")
         return
       }
 
       toast.success("Update successful!")
-      setUser(result.response)
       modal.setIsOpen(false)
     },
   })
@@ -49,16 +48,25 @@ export const EditDataModal = ({ modal }: { modal?: ModalType }) => {
   return (
     <Card>
       <CardHeading>
-        <Text>{"Edit Data"}</Text>
+        <Text>{"Change Password"}</Text>
       </CardHeading>
       <CardContent>
         <form onSubmit={formik.handleSubmit}>
           <FormField
-            value={formik.values["name"]}
-            name="name"
+            value={formik.values["password"]}
+            name="password"
             formik={formik}
-            placeholder={"John Doe"}
-            label="Name"
+            type="password"
+            placeholder={"xxxxxx"}
+            label="Password"
+          />
+          <FormField
+            value={formik.values["confirmPassword"]}
+            name="confirmPassword"
+            formik={formik}
+            type="password"
+            placeholder={"xxxxxx"}
+            label="Confirm Password"
           />
           <div className="flex justify-center mt-4">
             <Button
@@ -66,7 +74,7 @@ export const EditDataModal = ({ modal }: { modal?: ModalType }) => {
               isLoading={isLoading}
               type="submit"
             >
-              {"Update"}
+              {"Change"}
             </Button>
           </div>
         </form>

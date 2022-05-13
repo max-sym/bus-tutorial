@@ -9,6 +9,11 @@ const update = catchAsync(async (req: Request, res: Response) => {
   res.send(trimSensitiveData(user, "password"))
 })
 
+const changePassword = catchAsync(async (req: Request, res: Response) => {
+  await userService.changePassword(req.user.id, req.body)
+  res.status(httpStatus.NO_CONTENT).send()
+})
+
 const deleteOne = catchAsync(async (req: Request, res: Response) => {
   await userService.deleteById(+req.params.userId)
   res.status(httpStatus.NO_CONTENT).send()
@@ -20,4 +25,5 @@ export const userController = {
   // getUser,
   update,
   deleteOne,
+  changePassword,
 }

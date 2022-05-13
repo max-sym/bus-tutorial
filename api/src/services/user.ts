@@ -51,6 +51,18 @@ const updateById = async (
   })
 }
 
+const changePassword = async (
+  userId: number,
+  updateBody: Prisma.UserUpdateInput
+) => {
+  return await prisma.user.update({
+    where: { id: userId },
+    data: {
+      password: bcrypt.hashSync(updateBody.password),
+    },
+  })
+}
+
 const deleteById = async (userId: number) => {
   return await prisma.user.delete({
     where: { id: userId },
@@ -64,4 +76,5 @@ export const userService = {
   getByEmail,
   updateById,
   deleteById,
+  changePassword,
 }

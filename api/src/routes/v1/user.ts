@@ -10,6 +10,14 @@ userRoute
   .route("/")
   .patch(auth(), validate(userValidation.update), userController.update)
 
+userRoute
+  .route("/change-password")
+  .patch(
+    auth(),
+    validate(userValidation.changePassword),
+    userController.changePassword
+  )
+
 /**
  * @swagger
  * tags:
