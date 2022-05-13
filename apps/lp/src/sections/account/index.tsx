@@ -7,6 +7,7 @@ import {
   FormField,
   SectionAndOffset,
   Button,
+  Separator,
 } from "components"
 import { useFormik } from "formik"
 import { data } from "data"
@@ -33,6 +34,13 @@ const UserData = () => {
             <Text>{"Name: " + user.name}</Text>
             <Text>{"Email: " + user.email}</Text>
           </div>
+        </div>
+        <Separator className="w-full mt-4" />
+        <div className="mt-4 space-y-4">
+          <Button>{"Edit Data"}</Button>
+          <Button>{"Reset Password"}</Button>
+          <Text variant="button">{"Danger Zone"}</Text>
+          <Button color="red">{"Delete Account"}</Button>
         </div>
       </CardContent>
     </Card>
