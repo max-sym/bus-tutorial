@@ -121,7 +121,7 @@ const Form = ({ setSuccess }) => {
 }
 
 export const RegisterSection = () => {
-  const [success, setSuccess] = useState(true)
+  const [success, setSuccess] = useState(false)
   return (
     <SectionAndOffset>
       {success ? (
