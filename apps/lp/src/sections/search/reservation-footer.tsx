@@ -1,7 +1,11 @@
 import React, { useState } from "react"
 import { Button, Text, ModalType } from "components"
 import { ReservationType, useStore } from "store"
-import { getFormattedTimeLeft, getTotalPrice } from "utils"
+import {
+  getFormattedTimeLeft,
+  getTotalPrice,
+  getTotalPriceWithDiscount,
+} from "utils"
 import { data } from "data"
 import { navigate } from "gatsby"
 
@@ -20,7 +24,12 @@ const TimeLeftText = () => {
 
 const TotalPrice = ({ reservation }: { reservation: ReservationType }) => (
   <div className="text-right">
-    <Text>{`Total: $${getTotalPrice(reservation)}`}</Text>
+    {!!reservation.discount && (
+      <Text>
+        <s>{`€${getTotalPrice(reservation)}`}</s>
+      </Text>
+    )}
+    <Text>{`Total: €${getTotalPriceWithDiscount(reservation)}`}</Text>
   </div>
 )
 

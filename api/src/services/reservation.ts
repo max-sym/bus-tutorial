@@ -22,13 +22,13 @@ const include = {
   },
 }
 
-const getOne = async (token: string) => {
+const getOne = async (token: string, shouldAttachDiscount: boolean = true) => {
   const reservation = await prisma.reservation.findFirst({
     include,
     where: { token },
   })
 
-  return reservation
+  return shouldAttachDiscount ? attachDiscount(reservation) : reservation
 }
 
 type GuestType = {
@@ -39,7 +39,16 @@ type GuestType = {
 
 type TicketGuestType = keyof GuestType
 
-const create = async body => {
+const attachDiscount = <T>(
+  reservation: T & { userId: number }
+): T & { discount?: number } => {
+  return {
+    ...reservation,
+    discount: reservation.userId ? env.snipcartDiscountForUsers : undefined,
+  }
+}
+
+const create = async (user: Prisma.User | undefined, body: any) => {
   const bodyGuests = body.guests as GuestType
 
   const ticketGuestTypes: TicketGuestType[] = Object.keys(bodyGuests)
@@ -59,12 +68,13 @@ const create = async body => {
   const reservation = await prisma.reservation.create({
     include,
     data: {
+      userId: user?.id,
       token: uid(),
       passengers: { createMany: { data: passengersData } },
       expiresAt: moment().add(10, "minutes").toDate(),
     },
   })
-  return reservation
+  return attachDiscount(reservation)
 }
 
 const addReservedTrip = async (token: string, body) => {
@@ -118,7 +128,7 @@ const deleteReservedTrip = async (token: string, reservedTripId: number) => {
     where: { token },
   })
 
-  return result
+  return attachDiscount(result)
 }
 
 const deleteOne = async (token: string) => {
@@ -131,7 +141,7 @@ const deleteOne = async (token: string) => {
 }
 
 const getInSnipcartFormat = async (token: string) => {
-  const reservation = await getOne(token)
+  const reservation = await getOne(token, false)
 
   if (!reservation) throw new ApiError(404, "Reservation not found.")
 
@@ -148,6 +158,19 @@ const getInSnipcartFormat = async (token: string) => {
     minQuantity: 1,
   }))
 
+  if (reservation.userId) {
+    items.push({
+      id: "logged-in-discount-item",
+      name: "Logged in user Discount " + env.snipcartDiscountForUsers + "%",
+      description: "",
+      url: `${env.snipcartApiUrl}/reservation/${token}/snipcart-format`,
+      price: "0.00",
+      quantity: 1,
+      maxQuantity: 1,
+      minQuantity: 1,
+    })
+  }
+
   return items
 }
 
@@ -161,7 +184,7 @@ const update = async (
     where: { token },
   })
 
-  return reservation
+  return attachDiscount(reservation)
 }
 
 export const reservationService = {

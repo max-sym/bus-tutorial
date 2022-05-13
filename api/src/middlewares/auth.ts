@@ -1,11 +1,14 @@
 import passport from "passport"
 import httpStatus from "http-status"
+import Prisma from "prisma"
 import { ApiError } from "../utils"
-import { roleRights } from "../config/roles"
-import { logger } from "../config"
+// import { roleRights } from "../config/roles"
+// import { logger } from "../config"
+import { Request, Response } from "express"
 
 const verifyCallback =
-  (req, resolve, reject, requiredRights) => async (err, user, info) => {
+  (req: Request, resolve, reject, _requiredRights) =>
+  async (err, user: Prisma.User | false, info) => {
     if (err || info || !user) {
       return reject(
         new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
@@ -26,15 +29,19 @@ const verifyCallback =
     resolve()
   }
 
+type AuthType = { isOptional?: boolean; requiredRights?: string[] }
+
 export const auth =
-  (...requiredRights) =>
-  async (req, res, next) => {
+  ({ isOptional, requiredRights }: AuthType = {}) =>
+  async (req: Request, res: Response, next) => {
     return new Promise((resolve, reject) => {
-      passport.authenticate(
-        "jwt",
-        { session: false },
-        verifyCallback(req, resolve, reject, requiredRights)
-      )(req, res, next)
+      const authHeader = req.header("Authorization")
+      if (isOptional && !authHeader) {
+        next()
+      }
+
+      const callback = verifyCallback(req, resolve, reject, requiredRights)
+      passport.authenticate("jwt", { session: false }, callback)(req, res, next)
     })
       .then(() => next())
       .catch(err => next(err))

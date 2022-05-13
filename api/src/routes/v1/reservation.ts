@@ -1,5 +1,5 @@
 const express = require("express")
-import { validate } from "../../middlewares"
+import { auth, validate } from "../../middlewares"
 import { reservationController } from "../../controllers"
 import { reservationValidation } from "../../validations"
 
@@ -7,6 +7,7 @@ export const reservationRoute = express.Router()
 
 reservationRoute.post(
   "/",
+  auth({ isOptional: true }),
   validate(reservationValidation.create),
   reservationController.create
 )

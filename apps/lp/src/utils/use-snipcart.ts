@@ -28,6 +28,7 @@ export const useSnipcart = () => {
     window.Snipcart.events.on("snipcart.initialized", () => {
       customizePaymentFormTheme()
       window.Snipcart.events.on("cart.confirmed", () => {
+        console.log("first")
         setReservation(null)
       })
     })

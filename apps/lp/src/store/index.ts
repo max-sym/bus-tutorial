@@ -66,6 +66,9 @@ export type ReservationType = {
   expiresAt: string
   createdAt: string
   updatedAt: string
+  // A (separate from the reservation API model) value returned from API indicating a discount percentage.
+  // Helpful to calculate and show price to user. Usually is returned as number if reservation has a user attached to it.
+  discount?: number
 }
 
 export type StoreType = {

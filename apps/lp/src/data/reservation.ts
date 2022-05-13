@@ -3,15 +3,19 @@ import {
   ReservedTripType,
   TripType,
   PassengerType,
+  useAuthStore,
 } from "store"
 import { request } from "./request"
 import { RequestedTripType } from "sections/search/use-get-requested-trip"
 
 export const reservation = {
   create: async (requestedTrip: RequestedTripType) => {
+    const user = useAuthStore.getState().user
+
     const result = await request({
       url: "/reservation",
       method: "POST",
+      authenticated: !!user,
       body: {
         guests: requestedTrip.guests,
       },
