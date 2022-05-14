@@ -13,7 +13,7 @@ export const getTotalPrice = (reservation: ReservationType) => {
 }
 
 export const getTotalPriceWithDiscount = (reservation: ReservationType) => {
-  const discountMultiplier = 1 - (reservation.discount || 100) / 100
+  const discountMultiplier = 1 - (reservation.discount || 0) / 100
   const total =
     reservation.reservedTrips.reduce(
       (acc, trip) => acc + +getPrice(trip.trip.price),

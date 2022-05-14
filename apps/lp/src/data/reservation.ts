@@ -20,7 +20,7 @@ export const reservation = {
         guests: requestedTrip.guests,
       },
     })
-    return result.response
+    return result
   },
   addReservedTrip: async (reservation: ReservationType, trip: TripType) => {
     const result = await request({

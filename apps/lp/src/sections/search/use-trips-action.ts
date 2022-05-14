@@ -2,6 +2,7 @@ import React, { useMemo } from "react"
 import { ReservationType, TripType, useStore } from "store"
 import { data } from "data"
 import { useGetRequestedTrip } from "./use-get-requested-trip"
+import { toast } from "react-toastify"
 
 export const useTripsAction = ({ trip }: { trip: TripType }) => {
   const reservation = useStore(store => store.reservation)
@@ -34,7 +35,12 @@ export const useTripsAction = ({ trip }: { trip: TripType }) => {
 
     const newReservation = await data.reservation.create(requestedTrip)
 
-    addReservedTrip(newReservation, trip)
+    if (newReservation.status !== 200) {
+      toast.error("Something went wrong! Try again.")
+      return
+    }
+
+    addReservedTrip(newReservation.response, trip)
   }
 
   const onRemoveClick = async () => {
