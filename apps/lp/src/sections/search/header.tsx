@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Text } from "components"
 import moment from "moment"
-import { RequestedTripType } from "."
+import { RequestedTripType } from "./use-get-requested-trip"
 import { data, useLoadResource } from "data"
 
 const GuestsIndicator = ({

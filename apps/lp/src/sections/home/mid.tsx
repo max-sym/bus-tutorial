@@ -3,13 +3,16 @@ import React from "react"
 import { InView } from "react-cool-inview"
 import tw from "tailwind-styled-components"
 
-const Column = tw.div`w-1/2`
-const ImageContainer = tw.div`rounded-3xl overflow-hidden h-[600px] shadow-xl transition ease-in-out duration-[2000ms] delay-1000`
+type DirectionTw = { $direction: "left" | "right" }
+
+const Column = tw.div`md:w-1/2`
+const ImageContainer = tw.div`rounded-3xl overflow-hidden md:h-[600px] shadow-xl transition ease-in-out duration-[2000ms] delay-1000`
 const Image = tw.img`w-full h-full object-cover transition transform duration-[12000ms] ease-out`
 const TopPartContainer = tw.div`transition duration-1000 delay-150`
 
-const Container = tw.div`flex justify-between mt-20 gap-12
-${({ $direction }) => ($direction === "left" ? "flex-row" : "flex-row-reverse")}
+const Container = tw.div<DirectionTw>`flex justify-between mt-8 md:mt-20 gap-12 flex-col
+${({ $direction }) =>
+  $direction === "left" ? "md:flex-row" : "md:flex-row-reverse"}
 `
 
 const TopPart = ({ section, observe, inView }: any) => (
@@ -20,7 +23,7 @@ const TopPart = ({ section, observe, inView }: any) => (
     <Text
       variant="bodyBig"
       color="gray-light"
-      className="w-1/2 mx-auto mt-8 text-center"
+      className="mx-auto mt-8 text-center md:w-1/2"
     >
       {section.description}
     </Text>

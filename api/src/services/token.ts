@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken"
-import moment from "moment"
+import moment, { Moment } from "moment"
 import httpStatus from "http-status"
-import { env, tokenTypes } from "../config"
+import { env, prisma } from "../config"
 import { userService } from "./user"
 import { ApiError } from "../utils"
+import Prisma from "@prisma/client"
 
 const generateToken = (
-  userId: ObjectId,
+  userId: number,
   expires: Moment,
   type: string,
   secret: string = env.jwt.secret
@@ -22,61 +23,47 @@ const generateToken = (
 
 const saveToken = async (
   token: string,
-  userId: ObjectId,
+  userId: number,
   expires: Moment,
-  type: string,
+  type: Prisma.TokenType,
   blacklisted: boolean = false
-): Promise<Token> => {
-  const tokenDoc = await Token.create({
-    token,
-    user: userId,
-    expires: expires.toDate(),
-    type,
-    blacklisted,
+) => {
+  const tokenDoc = await prisma.token.create({
+    data: {
+      token,
+      user: { connect: { id: userId } },
+      expires: expires.toDate(),
+      type,
+      blacklisted,
+    },
   })
   return tokenDoc
 }
 
-const verifyToken = async (token: string, type: string): Promise<Token> => {
+const verifyToken = async (token: string, type: Prisma.TokenType) => {
   const payload = jwt.verify(token, env.jwt.secret)
-  const tokenDoc = await Token.findOne({
-    token,
-    type,
-    user: payload.sub,
-    blacklisted: false,
+  const tokenDoc = await prisma.token.findFirst({
+    // @ts-ignore
+    where: { token, type, userId: payload.sub, blacklisted: false },
   })
-  if (!tokenDoc) {
-    throw new Error("Token not found")
-  }
+  if (!tokenDoc) throw new Error("Token not found")
+
   return tokenDoc
 }
 
-const generateAuthTokens = async (user: User): Promise<object> => {
+const generateAuthTokens = async (user: Prisma.User) => {
   const accessTokenExpires = moment().add(
     env.jwt.accessExpirationMinutes,
     "minutes"
   )
-  const accessToken = generateToken(
-    user.id,
-    accessTokenExpires,
-    tokenTypes.ACCESS
-  )
+  const accessToken = generateToken(user.id, accessTokenExpires, "ACCESS")
 
   const refreshTokenExpires = moment().add(
     env.jwt.refreshExpirationDays,
     "days"
   )
-  const refreshToken = generateToken(
-    user.id,
-    refreshTokenExpires,
-    tokenTypes.REFRESH
-  )
-  await saveToken(
-    refreshToken,
-    user.id,
-    refreshTokenExpires,
-    tokenTypes.REFRESH
-  )
+  const refreshToken = generateToken(user.id, refreshTokenExpires, "REFRESH")
+  await saveToken(refreshToken, user.id, refreshTokenExpires, "REFRESH")
 
   return {
     access: {
@@ -90,37 +77,24 @@ const generateAuthTokens = async (user: User): Promise<object> => {
   }
 }
 
-const generateResetPasswordToken = async (email: string): Promise<string> => {
-  const user = await userService.getUserByEmail(email)
-  if (!user) {
+const generateResetPasswordToken = async (email: string) => {
+  const user = await userService.getByEmail(email)
+  if (!user)
     throw new ApiError(httpStatus.NOT_FOUND, "No users found with this email")
-  }
+
   const expires = moment().add(
     env.jwt.resetPasswordExpirationMinutes,
     "minutes"
   )
-  const resetPasswordToken = generateToken(
-    user.id,
-    expires,
-    tokenTypes.RESET_PASSWORD
-  )
-  await saveToken(
-    resetPasswordToken,
-    user.id,
-    expires,
-    tokenTypes.RESET_PASSWORD
-  )
-  return resetPasswordToken
+  const resetPasswordToken = generateToken(user.id, expires, "RESET_PASSWORD")
+  await saveToken(resetPasswordToken, user.id, expires, "RESET_PASSWORD")
+  return { resetPasswordToken, user }
 }
 
-const generateVerifyEmailToken = async (user: User): Promise<string> => {
+const generateVerifyEmailToken = async (user: Prisma.User) => {
   const expires = moment().add(env.jwt.verifyEmailExpirationMinutes, "minutes")
-  const verifyEmailToken = generateToken(
-    user.id,
-    expires,
-    tokenTypes.VERIFY_EMAIL
-  )
-  await saveToken(verifyEmailToken, user.id, expires, tokenTypes.VERIFY_EMAIL)
+  const verifyEmailToken = generateToken(user.id, expires, "VERIFY_EMAIL")
+  await saveToken(verifyEmailToken, user.id, expires, "VERIFY_EMAIL")
   return verifyEmailToken
 }
 

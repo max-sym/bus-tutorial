@@ -6,23 +6,25 @@ import {
   useReactBookingForm,
 } from "react-booking-form"
 import moment from "moment"
-import "flatpickr/dist/themes/dark.css"
 import { IoMdSwap } from "@react-icons/all-files/io/IoMdSwap"
 import {
   Container,
   GuestOkButton,
   InputContainer,
-  Label,
   Menu,
   MenuContainer,
   OptionContainer,
+  ModalType,
 } from "./components"
-import { Button } from "components"
+// Temporary fix is to use a relative import here for webpack alias import issue:
+// https://stackoverflow.com/questions/70015963/runtime-error-appeared-after-updating-to-webpack-5-typeerror-cannot-read-prope
+import { Button, Label } from "../../../components"
 import { GuestOptionComponent, InputComponent } from "./complex-components"
 import { formSchema } from "./form-schema"
 import { navigate } from "gatsby"
+import { Portal } from "@headlessui/react"
 
-export const BookingForm = () => {
+export const BookingForm = ({ modal }: { modal?: ModalType }) => {
   const form = useReactBookingForm({ formSchema })
 
   const onBookButtonClick = () => {
@@ -30,6 +32,7 @@ export const BookingForm = () => {
       convertDate: (dateValue: Date) => moment(dateValue).format("DD-MM-YYYY"),
     }
     navigate("/search?" + form.serializeToURLParams(config))
+    modal?.setIsOpen?.(false)
   }
 
   return (
@@ -45,6 +48,7 @@ export const BookingForm = () => {
           name="from"
           emptyOption="Nothing was found :("
           placeholder="Where from?"
+          portal={Portal}
         />
       </InputContainer>
       <InputContainer style={{ width: "auto" }}>
@@ -69,6 +73,7 @@ export const BookingForm = () => {
           name="to"
           emptyOption="Nothing was found :("
           placeholder="Where to?"
+          portal={Portal}
         />
       </InputContainer>
       <InputContainer>
@@ -93,6 +98,7 @@ export const BookingForm = () => {
           okText="Ok!"
           placeholder="Add guests"
           name={"guests"}
+          portal={Portal}
         />
       </InputContainer>
       <InputContainer>

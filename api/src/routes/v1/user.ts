@@ -1,43 +1,24 @@
-const express = require("express")
+import express from "express"
 import { auth } from "../../middlewares"
 import { validate } from "../../middlewares"
 import { userValidation } from "../../validations/user"
 import { userController } from "../../controllers/user"
 
-const router = express.Router()
+export const userRoute = express.Router()
 
-router
+userRoute
   .route("/")
-  .post(
-    auth("manageUsers"),
-    validate(userValidation.createUser),
-    userController.createUser
-  )
-  .get(
-    auth("getUsers"),
-    validate(userValidation.getUsers),
-    userController.getUsers
-  )
+  .patch(auth(), validate(userValidation.update), userController.update)
 
-router
-  .route("/:userId")
-  .get(
-    auth("getUsers"),
-    validate(userValidation.getUser),
-    userController.getUser
-  )
+userRoute
+  .route("/change-password")
   .patch(
-    auth("manageUsers"),
-    validate(userValidation.updateUser),
-    userController.updateUser
-  )
-  .delete(
-    auth("manageUsers"),
-    validate(userValidation.deleteUser),
-    userController.deleteUser
+    auth(),
+    validate(userValidation.changePassword),
+    userController.changePassword
   )
 
-module.exports = router
+userRoute.route("/delete-account").post(auth(), userController.deleteAccount)
 
 /**
  * @swagger

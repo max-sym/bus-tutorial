@@ -8,8 +8,10 @@ import {
   Text,
 } from "components"
 
-const FilterItem = ({ item, sectionKey }) => {
-  const onChange = () => {}
+const FilterItem = ({ item, sectionKey, toggleFilterItem }) => {
+  const onChange = () => {
+    toggleFilterItem(sectionKey, item)
+  }
 
   return (
     <Check
@@ -21,39 +23,41 @@ const FilterItem = ({ item, sectionKey }) => {
   )
 }
 
-export const FilterSection = ({ section, sectionKey }) => (
-  <div>
-    <Text variant="body">{section.name}</Text>
-    <div className="mt-2 space-y-1">
-      {section.items.map(item => (
-        <FilterItem key={item.name} item={item} sectionKey={sectionKey} />
-      ))}
-    </div>
-  </div>
-)
+export const FilterSection = ({ toggleFilterItem, section, sectionKey }) => {
+  if (!section) return null
 
-export const section = {
-  name: "Bus",
-  items: [
-    {
-      name: "Standard Bus",
-      value: false,
-    },
-    {
-      name: "VIP Bus",
-      value: true,
-    },
-  ],
+  return (
+    <div>
+      <Text variant="body">{section.name}</Text>
+      <div className="mt-2 space-y-1">
+        {section.items.map(item => (
+          <FilterItem
+            key={item.name}
+            item={item}
+            toggleFilterItem={toggleFilterItem}
+            sectionKey={sectionKey}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
-export const Sidebar = () => (
+export const Sidebar = ({ filterBy, toggleFilterItem }) => (
   <Card className="sticky top-32">
     <CardHeading>
       <CardTitle>{"Filter by"}</CardTitle>
     </CardHeading>
     <CardContent>
       <div className="space-y-2">
-        <FilterSection sectionKey="bus" section={section} />
+        {Object.keys(filterBy).map(sectionKey => (
+          <FilterSection
+            key={sectionKey}
+            sectionKey={sectionKey}
+            toggleFilterItem={toggleFilterItem}
+            section={filterBy[sectionKey]}
+          />
+        ))}
       </div>
     </CardContent>
   </Card>

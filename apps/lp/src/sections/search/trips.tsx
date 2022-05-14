@@ -1,12 +1,31 @@
 import { Text, Card, CardContent, Button } from "components"
 import React from "react"
 import moment from "moment"
-import { TripType } from "./data"
 import { getPrice } from "utils"
+import { TripType } from "store"
+import { useTripsAction } from "./use-trips-action"
 
-const ActionButton = () => <Button>{"Add"}</Button>
+const ActionButton = ({ trip }: { trip: TripType }) => {
+  const { isReserved, onAddClick, onRemoveClick } = useTripsAction({ trip })
 
-const Actions = ({ priceText }: { priceText: string }) => {
+  return isReserved ? (
+    <Button color={"red"} onClick={onRemoveClick}>
+      {"Remove"}
+    </Button>
+  ) : (
+    <Button color={"primary"} onClick={onAddClick}>
+      {"Add"}
+    </Button>
+  )
+}
+
+const Actions = ({
+  trip,
+  priceText,
+}: {
+  trip: TripType
+  priceText: string
+}) => {
   return (
     <div className="flex flex-col items-end justify-end gap-2">
       <div className="flex flex-col items-stretch justify-between flex-1">
@@ -18,7 +37,7 @@ const Actions = ({ priceText }: { priceText: string }) => {
             {priceText}
           </Text>
         </div>
-        <ActionButton />
+        <ActionButton trip={trip} />
       </div>
     </div>
   )
@@ -48,13 +67,14 @@ const TripItem = ({ trip }: { trip: TripType }) => {
             <div>{!!trip.distance && <Text>{`${trip.distance}km`}</Text>}</div>
           </div>
         </div>
-        <Actions priceText={priceText} />
+        <Actions trip={trip} priceText={priceText} />
       </CardContent>
     </Card>
   )
 }
+
 export const Trips = ({ trips }: { trips: TripType[] }) => (
-  <div className="space-y-4 mt-14">
+  <div className="mt-4 space-y-4">
     {trips.map(trip => (
       <TripItem key={trip.id} trip={trip} />
     ))}

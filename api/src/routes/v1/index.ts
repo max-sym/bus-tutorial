@@ -1,22 +1,23 @@
 import express from "express"
-// import authRoute from "./auth.route"
-// import userRoute from "./user.route"
+import { authRoute } from "./auth"
+import { userRoute } from "./user"
 import { cityRoute } from "./city"
 import { tripRoute } from "./trip"
+import { reservationRoute } from "./reservation"
 // import { docsRouter } from "./docs"
 import { env } from "../../config"
 
 const router = express.Router()
 
 const defaultRoutes = [
-  // {
-  //   path: "/auth",
-  //   route: authRoute,
-  // },
-  // {
-  //   path: "/users",
-  //   route: userRoute,
-  // },
+  {
+    path: "/auth",
+    route: authRoute,
+  },
+  {
+    path: "/user",
+    route: userRoute,
+  },
   {
     path: "/city",
     route: cityRoute,
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: "/trip",
     route: tripRoute,
+  },
+  {
+    path: "/reservation",
+    route: reservationRoute,
   },
 ]
 

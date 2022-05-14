@@ -1,49 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Section } from "components"
 import { Header } from "./header"
 import { Sidebar } from "./sidebar"
 import { ReservationBar } from "./reservation-bar"
 import { Trips } from "./trips"
 import { data, useLoadResource } from "data"
-
-export type RequestedTripType = {
-  cityFromSlug?: string
-  cityToSlug?: string
-  departureDate?: string
-  guests: {
-    adults: number
-    children: number
-    infants: number
-  }
-}
-
-const getUrlParams = () => {
-  if (typeof window === "undefined") return null
-
-  return new URLSearchParams(window.location.search)
-}
+import { useGetRequestedTrip } from "./use-get-requested-trip"
+import { useSortTrips } from "./use-sort-trips"
+import { TopBar } from "./top-bar"
+import { MobileReservationBar } from "./mobile-reservation-bar"
+import { useFilterTrips } from "./use-filter-trips"
 
 export const SearchSection = () => {
-  const [requestedTrip, setRequestedTrip] = useState<RequestedTripType | null>(
-    null
-  )
-
-  const params = getUrlParams()
-
-  useEffect(() => {
-    if (!params) return
-
-    setRequestedTrip({
-      cityFromSlug: params.get("from") || undefined,
-      cityToSlug: params.get("to") || undefined,
-      departureDate: params.get("departureDate") || undefined,
-      guests: {
-        adults: +(params.get("guests-adults") || 0),
-        children: +(params.get("guests-children") || 0),
-        infants: +(params.get("guests-infants") || 0),
-      },
-    })
-  }, [])
+  const { requestedTrip } = useGetRequestedTrip()
 
   const loadTrips = async () => {
     if (
@@ -65,21 +34,31 @@ export const SearchSection = () => {
 
   const { resource, isLoading } = useLoadResource(loadTrips, [requestedTrip])
 
+  const { filteredTrips, filterBy, toggleFilterItem } = useFilterTrips({
+    trips: resource,
+  })
+
+  const { sortedTrips, sortBy, setSortBy } = useSortTrips({
+    trips: filteredTrips,
+  })
+
   if (!requestedTrip || !resource || isLoading) return null
 
   return (
     <Section className="mt-20">
       <div className="flex justify-between gap-x-4">
-        <div className="w-1/4">
-          <Sidebar />
+        <div className="hidden w-1/4 md:block">
+          <Sidebar filterBy={filterBy} toggleFilterItem={toggleFilterItem} />
         </div>
         <div className="flex flex-col flex-1">
           <Header requestedTrip={requestedTrip} />
-          <Trips trips={resource} />
+          <TopBar trips={sortedTrips} sortBy={sortBy} setSortBy={setSortBy} />
+          <Trips trips={sortedTrips} />
         </div>
-        <div className="w-1/4">
+        <div className="hidden w-1/4 md:block">
           <ReservationBar />
         </div>
+        <MobileReservationBar />
       </div>
     </Section>
   )

@@ -1,5 +1,5 @@
 import React from "react"
-import { Layout, Seo } from "components"
+import { Seo } from "components"
 import {
   BottomHeroSection,
   FaqSection,
@@ -61,7 +61,7 @@ const sections = {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
     featuresTitle: "Features",
-    imageUrl: "https://source.unsplash.com/eGA5dZG4sCw",
+    imageUrl: "https://source.unsplash.com/eiJfBem7cPw",
     imageAlt: "Bus",
     features: [
       {
@@ -99,7 +99,7 @@ const sections = {
 }
 
 const IndexPage = () => (
-  <Layout>
+  <>
     <Seo title="Home" />
     <HeroSection />
     <MidSection section={sections.features} />
@@ -108,7 +108,7 @@ const IndexPage = () => (
     <ReviewsSection />
     <FaqSection />
     <BottomHeroSection />
-  </Layout>
+  </>
 )
 
 export default IndexPage

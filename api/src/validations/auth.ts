@@ -3,9 +3,11 @@ import { customValidation } from "./custom"
 
 const register = {
   body: Joi.object().keys({
+    name: Joi.string().required(),
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(customValidation.password),
-    name: Joi.string().required(),
+    confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
+    acceptedPrivacy: Joi.boolean().required(),
   }),
 }
 
@@ -28,17 +30,15 @@ const refreshTokens = {
   }),
 }
 
-const forgotPassword = {
+const requestPasswordReset = {
   body: Joi.object().keys({
     email: Joi.string().email().required(),
   }),
 }
 
 const resetPassword = {
-  query: Joi.object().keys({
-    token: Joi.string().required(),
-  }),
   body: Joi.object().keys({
+    token: Joi.string().required(),
     password: Joi.string().required().custom(customValidation.password),
   }),
 }
@@ -54,7 +54,7 @@ export const authValidation = {
   login,
   logout,
   refreshTokens,
-  forgotPassword,
+  requestPasswordReset,
   resetPassword,
   verifyEmail,
 }

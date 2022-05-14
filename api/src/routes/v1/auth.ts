@@ -1,45 +1,46 @@
-const express = require("express")
-import validate from "../../middlewares/validate"
-import authValidation from "../../validations/auth"
-import authController from "../../controllers/auth"
-import auth from "../../middlewares/auth"
+import express from "express"
+import { authValidation } from "../../validations"
+import { authController } from "../../controllers"
+import { auth, validate } from "../../middlewares"
 
-const router = express.Router()
+export const authRoute = express.Router()
 
-router.post(
+authRoute.post(
   "/register",
   validate(authValidation.register),
   authController.register
 )
-router.post("/login", validate(authValidation.login), authController.login)
-router.post("/logout", validate(authValidation.logout), authController.logout)
-router.post(
+authRoute.post("/login", validate(authValidation.login), authController.login)
+authRoute.post(
+  "/logout",
+  validate(authValidation.logout),
+  authController.logout
+)
+authRoute.post(
   "/refresh-tokens",
   validate(authValidation.refreshTokens),
   authController.refreshTokens
 )
-router.post(
-  "/forgot-password",
-  validate(authValidation.forgotPassword),
-  authController.forgotPassword
+authRoute.post(
+  "/request-password-reset",
+  validate(authValidation.requestPasswordReset),
+  authController.requestPasswordReset
 )
-router.post(
+authRoute.post(
   "/reset-password",
   validate(authValidation.resetPassword),
   authController.resetPassword
 )
-router.post(
+authRoute.post(
   "/send-verification-email",
   auth(),
   authController.sendVerificationEmail
 )
-router.post(
+authRoute.post(
   "/verify-email",
   validate(authValidation.verifyEmail),
   authController.verifyEmail
 )
-
-module.exports = router
 
 /**
  * @swagger
