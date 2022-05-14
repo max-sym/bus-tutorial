@@ -13,32 +13,65 @@ import { ReservationType } from "store"
 import { getTotalPriceWithDiscount } from "utils"
 import { Link } from "gatsby"
 import moment from "moment"
+import tw from "tailwind-styled-components"
 
 export * from "./reservation"
 
-const ReservationItem = ({ reservation }: { reservation: ReservationType }) => {
-  return (
-    <tr>
-      <td>
+const ReservationItem = ({ reservation }: { reservation: ReservationType }) => (
+  <tr>
+    <td>
+      <Text>{reservation.token}</Text>
+    </td>
+    <td>
+      <Text>{reservation.state}</Text>
+    </td>
+    <td>
+      <Text>€{getTotalPriceWithDiscount(reservation)}</Text>
+    </td>
+    <td>
+      <Text>{moment(reservation.createdAt).format("LL")}</Text>
+    </td>
+    <td>
+      <Link to={`/account/reservations/${reservation.token}`}>
+        <Button>{"Show"}</Button>
+      </Link>
+    </td>
+  </tr>
+)
+
+const MobileRow = tw.div`flex justify-between gap-2`
+
+const ReservationItemMobile = ({
+  reservation,
+}: {
+  reservation: ReservationType
+}) => (
+  <Card>
+    <CardContent>
+      <MobileRow>
+        <Text>{"ID: "}</Text>
         <Text>{reservation.token}</Text>
-      </td>
-      <td>
+      </MobileRow>
+      <MobileRow>
+        <Text>{"State: "}</Text>
         <Text>{reservation.state}</Text>
-      </td>
-      <td>
+      </MobileRow>
+      <MobileRow>
+        <Text>{"Price: "}</Text>
         <Text>€{getTotalPriceWithDiscount(reservation)}</Text>
-      </td>
-      <td>
+      </MobileRow>
+      <MobileRow>
+        <Text>{"Date: "}</Text>
         <Text>{moment(reservation.createdAt).format("LL")}</Text>
-      </td>
-      <td>
+      </MobileRow>
+      <div className="flex justify-end mt-4">
         <Link to={`/account/reservations/${reservation.token}`}>
           <Button>{"Show"}</Button>
         </Link>
-      </td>
-    </tr>
-  )
-}
+      </div>
+    </CardContent>
+  </Card>
+)
 
 const TableHeader = () => (
   <thead className="text-left">
@@ -64,14 +97,36 @@ const Reservations = ({
   reservations: ReservationType[]
 }) => {
   return (
-    <table className="w-full">
-      <TableHeader />
-      <tbody>
+    <>
+      <div className="space-y-4 md:hidden">
         {reservations.map(reservation => (
-          <ReservationItem key={reservation.id} reservation={reservation} />
+          <ReservationItemMobile
+            key={reservation.id}
+            reservation={reservation}
+          />
         ))}
-      </tbody>
-    </table>
+      </div>
+      <div className="hidden md:block">
+        <Card>
+          <CardHeading>
+            <Text variant="h5">{"My Reservations"}</Text>
+          </CardHeading>
+          <CardContent>
+            <table className="w-full">
+              <TableHeader />
+              <tbody>
+                {reservations.map(reservation => (
+                  <ReservationItem
+                    key={reservation.id}
+                    reservation={reservation}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   )
 }
 
@@ -85,14 +140,10 @@ export const ReservationsSection = () => {
 
   return (
     <SectionAndOffset>
-      <Card>
-        <CardHeading>
-          <Text variant="h5">{"My Reservations"}</Text>
-        </CardHeading>
-        <CardContent>
-          {isLoading ? <Loading /> : <Reservations reservations={resource} />}
-        </CardContent>
-      </Card>
+      <Text className="mb-4 md:hidden" variant="h5">
+        {"My Reservations"}
+      </Text>
+      {isLoading ? <Loading /> : <Reservations reservations={resource} />}
     </SectionAndOffset>
   )
 }
