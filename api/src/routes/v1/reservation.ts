@@ -5,12 +5,14 @@ import { reservationValidation } from "../../validations"
 
 export const reservationRoute = express.Router()
 
-reservationRoute.post(
-  "/",
-  auth({ isOptional: true }),
-  validate(reservationValidation.create),
-  reservationController.create
-)
+reservationRoute
+  .route("/")
+  .get(auth(), reservationController.getMany)
+  .post(
+    auth({ isOptional: true }),
+    validate(reservationValidation.create),
+    reservationController.create
+  )
 
 reservationRoute.get(
   "/pdf/:token/:passengerId/:reservedTicketId",
@@ -18,11 +20,13 @@ reservationRoute.get(
   reservationController.pdf
 )
 
-reservationRoute.patch(
-  "/:token",
-  validate(reservationValidation.addReservedTrip),
-  reservationController.addReservedTrip
-)
+reservationRoute
+  .route("/:token")
+  .get(validate(reservationValidation.getOne), reservationController.getOne)
+  .patch(
+    validate(reservationValidation.addReservedTrip),
+    reservationController.addReservedTrip
+  )
 
 reservationRoute.patch(
   "/:token/passengers",

@@ -67,4 +67,20 @@ export const reservation = {
     })
     return result.response
   },
+  getMany: async () => {
+    const result = await request({
+      url: `/reservation`,
+      method: "GET",
+      authenticated: true,
+    })
+    return result.response
+  },
+  getOne: async (token: string) => {
+    const result = await request({
+      url: `/reservation/${token}`,
+      method: "GET",
+      authenticated: true,
+    })
+    return result.response
+  },
 }

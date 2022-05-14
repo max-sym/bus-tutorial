@@ -11,7 +11,7 @@ const ReservedTrip = ({ reservedTrip }: { reservedTrip: ReservedTripType }) => {
 
   const departure = moment(trip.departure)
 
-  const priceText = "$" + getPrice(trip.price)
+  const priceText = "€" + getPrice(trip.price)
 
   const departureDayText = departure.format("LL")
   const departureTimeText = departure.format("hh:mm")

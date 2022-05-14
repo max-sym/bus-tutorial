@@ -31,6 +31,15 @@ const getOne = async (token: string, shouldAttachDiscount: boolean = true) => {
   return shouldAttachDiscount ? attachDiscount(reservation) : reservation
 }
 
+const getMany = async (user: Prisma.User) => {
+  const reservations = await prisma.reservation.findMany({
+    include,
+    where: { userId: user.id },
+  })
+
+  return reservations.map(reservation => attachDiscount(reservation))
+}
+
 type GuestType = {
   adults: number
   children: number
@@ -196,4 +205,5 @@ export const reservationService = {
   update,
   getOne,
   updatePassengers,
+  getMany,
 }

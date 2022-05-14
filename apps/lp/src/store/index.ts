@@ -32,7 +32,7 @@ export type ReservedTripType = {
   tripId: number
   reservationId: number
   reservation: ReservationType
-  tickets: ReservedTicketType[]
+  reservedTickets: ReservedTicketType[]
 }
 
 export type TicketState = "CREATED" | "ONBOARDED"

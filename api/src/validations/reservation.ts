@@ -64,6 +64,12 @@ const getInSnipcartFormat = {
   }),
 }
 
+const getOne = {
+  params: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
+}
+
 export const reservationValidation = {
   create,
   addReservedTrip,
@@ -72,4 +78,5 @@ export const reservationValidation = {
   getInSnipcartFormat,
   updatePassengers,
   pdf,
+  getOne,
 }

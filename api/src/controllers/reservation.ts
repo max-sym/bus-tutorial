@@ -18,6 +18,18 @@ const addReservedTrip = catchAsync(async (req, res) => {
   res.send(result)
 })
 
+const getMany = catchAsync(async (req: Request, res: Response) => {
+  const result = await reservationService.getMany(req.user)
+
+  res.send(result)
+})
+
+const getOne = catchAsync(async (req: Request, res: Response) => {
+  const result = await reservationService.getOne(req.params.token)
+
+  res.send(result)
+})
+
 const updatePassengers = catchAsync(async (req: Request, res: Response) => {
   const token = req.params.token
   const result = await reservationService.updatePassengers(
@@ -120,4 +132,6 @@ export const reservationController = {
   snipcartWebhooks,
   updatePassengers,
   pdf,
+  getMany,
+  getOne,
 }

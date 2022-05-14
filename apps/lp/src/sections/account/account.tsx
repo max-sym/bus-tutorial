@@ -12,7 +12,7 @@ import {
 } from "components"
 import { data } from "data"
 import { useAuthStore } from "store"
-import { navigate } from "gatsby"
+import { navigate, Link } from "gatsby"
 import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle"
 import { EditDataModal } from "./edit-data-modal"
 import { ChangePasswordModal } from "./change-password-modal"
@@ -62,6 +62,10 @@ const UserData = () => {
         <div className="mt-4 space-y-4">
           <Button onClick={onEditDataClick}>{"Edit Data"}</Button>
           <Button onClick={onChangePasswordClick}>{"Change Password"}</Button>
+          <Separator className="w-full mt-4" />
+          <Link to="/account/reservations" className="block">
+            <Button>{"My Reservations"}</Button>
+          </Link>
           <Text variant="button">{"Danger Zone"}</Text>
           <Button onClick={onDeleteAccountClick} color="red">
             {"Delete Account"}
