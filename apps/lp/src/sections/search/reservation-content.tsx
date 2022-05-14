@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, Button } from "components"
+import { Text, Button } from "@bus/ui"
 import { ReservationType, ReservedTripType } from "store"
 import moment from "moment"
 import { getPrice } from "utils"

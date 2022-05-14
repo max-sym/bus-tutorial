@@ -1,6 +1,6 @@
 import React from "react"
 import tw from "tailwind-styled-components"
-import { Section, Text, Button } from "components"
+import { Section, Text, Button } from "@bus/ui"
 import { HeroFeatures } from "./hero-features"
 import { BookingForm } from "./booking-form"
 import { InView } from "react-cool-inview"

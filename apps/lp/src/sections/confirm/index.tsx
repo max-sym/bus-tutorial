@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Section } from "components"
+import { Section } from "@bus/ui"
 import { PassengerCards } from "./passenger-cards"
 import { data } from "data"
 import { ReservationBar } from "sections/search/reservation-bar"

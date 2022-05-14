@@ -1,7 +1,5 @@
 import React from "react"
-import { Button } from "../../../components/button"
-import { Text } from "../../../components/text"
-import { Card } from "../../../components/card"
+import { Button, Text, Card } from "@bus/ui"
 import tw from "tailwind-styled-components"
 
 export const Container = tw(

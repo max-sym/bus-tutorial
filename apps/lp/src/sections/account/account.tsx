@@ -9,7 +9,7 @@ import {
   Separator,
   Modal,
   useModal,
-} from "components"
+} from "@bus/ui"
 import { data } from "data"
 import { useAuthStore } from "store"
 import { navigate, Link } from "gatsby"

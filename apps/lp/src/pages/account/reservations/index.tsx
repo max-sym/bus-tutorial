@@ -1,5 +1,5 @@
 import React from "react"
-import { Seo } from "components"
+import { Seo } from "layout"
 import { ReservationsSection } from "sections"
 
 const ReservationsPage = () => (

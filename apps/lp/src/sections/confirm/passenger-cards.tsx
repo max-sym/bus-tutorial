@@ -7,7 +7,7 @@ import {
   Text,
   InputCore,
   FormField,
-} from "components"
+} from "@bus/ui"
 import { PassengerType, ReservationType, useStore } from "store"
 import { data } from "data"
 

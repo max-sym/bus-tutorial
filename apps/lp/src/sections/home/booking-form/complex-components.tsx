@@ -7,7 +7,7 @@ import { FaSpinner } from "@react-icons/all-files/fa/FaSpinner"
 import { FaPlus } from "@react-icons/all-files/fa/FaPlus"
 import { FaMinus } from "@react-icons/all-files/fa/FaMinus"
 import { FaUser } from "@react-icons/all-files/fa/FaUser"
-import { InputCore, Text } from "components"
+import { InputCore, Text } from "@bus/ui"
 
 type InputProps = {
   form?: BookingFormType

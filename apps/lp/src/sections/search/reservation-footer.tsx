@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Text, ModalType } from "components"
+import { Button, Text, ModalType } from "@bus/ui"
 import { ReservationType, useStore } from "store"
 import {
   getFormattedTimeLeft,

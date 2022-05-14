@@ -1,4 +1,4 @@
-import { Card, CardContent, SectionAndOffset, Text } from "components"
+import { Card, CardContent, SectionAndOffset, Text } from "@bus/ui"
 import React from "react"
 import tw from "tailwind-styled-components"
 import { BsStarFill } from "@react-icons/all-files/bs/BsStarFill"

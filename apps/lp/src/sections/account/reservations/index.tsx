@@ -7,7 +7,7 @@ import {
   SectionAndOffset,
   Button,
   Loading,
-} from "components"
+} from "@bus/ui"
 import { data, useLoadResource } from "data"
 import { ReservationType } from "store"
 import { getTotalPriceWithDiscount } from "utils"

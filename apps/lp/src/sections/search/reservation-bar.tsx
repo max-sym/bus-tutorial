@@ -6,7 +6,7 @@ import {
   CardContent,
   CardFooter,
   ModalType,
-} from "components"
+} from "@bus/ui"
 import React from "react"
 import { useStore } from "store"
 import { ReservationContent } from "./reservation-content"

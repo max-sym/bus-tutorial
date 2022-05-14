@@ -1,4 +1,4 @@
-import { Card, CardContent, SectionAndOffset, Text } from "components"
+import { Card, CardContent, SectionAndOffset, Text } from "@bus/ui"
 import React, { useState, useRef } from "react"
 import tw from "tailwind-styled-components"
 import { FaChevronDown } from "@react-icons/all-files/fa/FaChevronDown"

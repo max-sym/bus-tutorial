@@ -7,7 +7,7 @@ import {
   FormField,
   SectionAndOffset,
   Button,
-} from "components"
+} from "@bus/ui"
 import { useFormik } from "formik"
 import { data } from "data"
 import { navigate } from "gatsby"

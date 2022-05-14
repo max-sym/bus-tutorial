@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Loading, Text } from "components"
+import { Loading, Text } from "@bus/ui"
 import { LoginSection } from "sections"
 import { useAuthStore } from "store"
 import { data } from "data"
