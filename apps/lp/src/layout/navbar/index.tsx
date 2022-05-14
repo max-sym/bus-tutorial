@@ -9,9 +9,9 @@ import {
   useModal,
   Modal,
   useUiStore,
+  DarkModeSwitch,
 } from "@bus/ui"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
-import { DarkModeSwitch } from "./dark-mode-switch"
 import { useStore, useAuthStore } from "store"
 import { BookingForm } from "sections/home/booking-form"
 import { useLocation } from "@reach/router"
