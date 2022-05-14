@@ -1,4 +1,5 @@
-import "./src/styles/index.css"
+import "@bus/ui/src/index.css"
+import "@bus/ui/src/custom.css"
 import "./src/styles/custom.css"
 import "flatpickr/dist/themes/dark.css"
 import "react-toastify/dist/ReactToastify.min.css"
