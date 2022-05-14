@@ -24,7 +24,7 @@ const sendReservationPdf = async ({
 }) => {
   const links = reservedTicketIds.map(
     reservedTicketId =>
-      `http://localhost:3000/v1/reservation/pdf/${reservationToken}/${passengerId}/${reservedTicketId}`
+      `${env.currentUrl}/reservation/pdf/${reservationToken}/${passengerId}/${reservedTicketId}`
   )
   const message = {
     Messages: [
