@@ -37,7 +37,7 @@ export const auth =
     return new Promise((resolve, reject) => {
       const authHeader = req.header("Authorization")
       if (isOptional && !authHeader) {
-        next()
+        return next()
       }
 
       const callback = verifyCallback(req, resolve, reject, requiredRights)
