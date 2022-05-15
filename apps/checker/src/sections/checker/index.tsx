@@ -14,7 +14,7 @@ import {
   ModalType,
 } from "@bus/ui"
 import { Portal } from "@headlessui/react"
-import * as moment from "moment"
+import moment from "moment"
 import { useEffect, useState } from "react"
 import { useRef } from "react"
 import tw from "tailwind-styled-components"
