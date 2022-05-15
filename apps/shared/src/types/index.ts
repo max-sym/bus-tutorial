@@ -46,7 +46,7 @@ export type PassengerType = {
   email: string
   citizenId: string
   personType: PassengerTypeType
-  reservedTicket: ReservedTicketType[]
+  reservedTickets: ReservedTicketType[]
   reservation: ReservationType
   reservationId: number
 }

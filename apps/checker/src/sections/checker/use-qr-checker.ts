@@ -1,9 +1,10 @@
 import { data } from "@/data"
 import { useStore } from "@/store"
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useQrCodeReader } from "./use-qr-code-reader"
 
 export const useQrChecker = ({ videoRef }) => {
+  const [reservation, setReservation] = useState(null)
   const qrCode = useStore(store => store.qrCode)
 
   const qrCodeReader = useQrCodeReader({
@@ -18,11 +19,19 @@ export const useQrChecker = ({ videoRef }) => {
   }, [qrCodeReader])
 
   const getReservation = async () => {
-    const reservation = await data.reservation.getOne(qrCode)
-    console.log("reservation", reservation)
+    if (!qrCode || !qrCodeReader.qrScanner) return
+
+    await qrCodeReader.qrScanner.pause()
+    const reservation = await data.reservation.getOne(qrCode.split(":")[0])
+    setReservation(reservation)
   }
 
   useEffect(() => {
     getReservation()
   }, [qrCode])
+
+  return useMemo(
+    () => ({ reservation, setReservation }),
+    [reservation, setReservation]
+  )
 }

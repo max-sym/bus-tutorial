@@ -1,7 +1,7 @@
 import Prisma from "@prisma/client"
 import moment from "moment"
 import { env, prisma } from "../../config"
-import { ApiError, getPrice, uid } from "../../utils"
+import { ApiError, attachDiscount, getPrice, uid } from "../../utils"
 
 const include = {
   passengers: {
@@ -47,15 +47,6 @@ type GuestType = {
 }
 
 type TicketGuestType = keyof GuestType
-
-const attachDiscount = <T>(
-  reservation: T & { userId: number }
-): T & { discount?: number } => {
-  return {
-    ...reservation,
-    discount: reservation.userId ? env.snipcartDiscountForUsers : undefined,
-  }
-}
 
 const create = async (user: Prisma.User | undefined, body: any) => {
   const bodyGuests = body.guests as GuestType

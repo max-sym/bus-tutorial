@@ -1,20 +1,143 @@
+import { ReservationType } from "@/../../shared/src"
 import { useStore } from "@/store"
-import { Text, Button } from "@bus/ui"
+import {
+  Text,
+  Button,
+  Modal,
+  useModal,
+  Card,
+  CardContent,
+  CardHeading,
+  CardFooter,
+  ModalType,
+} from "@bus/ui"
 import { Portal } from "@headlessui/react"
+import * as moment from "moment"
+import { useEffect } from "react"
 import { useRef } from "react"
+import tw from "tailwind-styled-components"
 import { Actions } from "./actions"
 import { useQrChecker } from "./use-qr-checker"
+
+const Row = tw.div`flex gap-4 justify-between items-start`
+
+const ReservationCheckerModal = ({
+  reservation,
+  modal,
+}: {
+  reservation: ReservationType
+  modal?: ModalType
+}) => {
+  const qrCode = useStore(store => store.qrCode)
+
+  if (!qrCode) return null
+
+  const passengerId = +qrCode.split(":")[2]
+  const reservedTicketId = +qrCode.split(":")[1]
+
+  const passenger = reservation.passengers.find(
+    passenger => passenger.id === passengerId
+  )
+
+  const reservedTicket = passenger.reservedTickets.find(
+    reservedTicket => reservedTicket.id === reservedTicketId
+  )
+
+  const reservedTrip = reservation.reservedTrips.find(
+    reservedTrip => reservedTrip.id === reservedTicket.reservedTripId
+  )
+
+  const onCancelClick = () => {
+    modal.setIsOpen(false)
+  }
+
+  const onConfirmClick = () => {
+    // confirm data
+  }
+
+  return (
+    <Card>
+      <CardHeading>
+        <Text variant="h5">{"Confirm ticket?"}</Text>
+      </CardHeading>
+      <CardContent>
+        <Text variant="button">{"Passenger:"}</Text>
+        <Row>
+          <Text>{"Name:"}</Text>
+          <Text>{passenger.name}</Text>
+        </Row>
+        <Row>
+          <Text>{"Email:"}</Text>
+          <Text>{passenger.email}</Text>
+        </Row>
+        <Row>
+          <Text>{"Type:"}</Text>
+          <Text>{passenger.personType}</Text>
+        </Row>
+        <Row>
+          <Text>{"Citizen ID:"}</Text>
+          <Text>{passenger.citizenId}</Text>
+        </Row>
+        <Text variant="button">{"Trip:"}</Text>
+        <Row>
+          <Text>{"From"}</Text>
+          <Text>{reservedTrip.trip.cityFrom.name}</Text>
+        </Row>
+        <Row>
+          <Text>{"To"}</Text>
+          <Text>{reservedTrip.trip.cityTo.name}</Text>
+        </Row>
+        <Row>
+          <Text>{"Departure"}</Text>
+          <Text>{moment(reservedTrip.trip.departure).format("LT L")}</Text>
+        </Row>
+        <Row>
+          <Text>{"Arrival"}</Text>
+          <Text>{moment(reservedTrip.trip.arrival).format("LT L")}</Text>
+        </Row>
+        <Row>
+          <Text>{"Bus"}</Text>
+          <Text>{reservedTrip.trip.bus.name}</Text>
+        </Row>
+        <Text variant="button">{"Ticket"}</Text>
+        <Row>
+          <Text>{"State"}</Text>
+          <Text>{reservedTicket.state}</Text>
+        </Row>
+      </CardContent>
+      <CardFooter>
+        <Row>
+          <Button color="red" onClick={onCancelClick}>
+            {"Cancel"}
+          </Button>
+          <Button onClick={onConfirmClick}>{"Confirm"}</Button>
+        </Row>
+      </CardFooter>
+    </Card>
+  )
+}
 
 const QRScannerContainer = () => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  useQrChecker({ videoRef })
+  const { reservation, setReservation } = useQrChecker({ videoRef })
+
+  const modal = useModal({
+    customComponent: <ReservationCheckerModal reservation={reservation} />,
+  })
+
+  useEffect(() => {
+    if (!reservation) return
+
+    modal.setIsOpen(true)
+  }, [reservation])
 
   return (
     <div className="fixed inset-0 z-50">
       <div className="w-full h-full bg-black">
         <video className="w-full h-full border-0" ref={videoRef} />
         <Actions />
+        <Modal modal={modal} />
       </div>
     </div>
   )

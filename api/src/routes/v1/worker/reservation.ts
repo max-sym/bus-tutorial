@@ -6,9 +6,9 @@ import { validations } from "../../../validations"
 export const reservationRoute = express.Router()
 
 reservationRoute.get(
-  "/:token/:passengerId/:reservedTicketId",
-  validate(validations.worker.reservation.getForChecker),
-  controllers.worker.reservation.pdf
+  "/:token",
+  validate(validations.worker.reservation.getOne),
+  controllers.worker.reservation.getOne
 )
 
 /**
