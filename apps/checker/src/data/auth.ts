@@ -1,6 +1,6 @@
 import { request } from "./request"
-import { registerInitialValues, loginInitialValues } from "sections"
-import { useAuthStore } from "store"
+import { registerInitialValues, loginInitialValues } from "@/sections"
+import { useAuthStore } from "@/store"
 
 export const auth = {
   register: async (values: typeof registerInitialValues) => {
@@ -12,12 +12,12 @@ export const auth = {
     return result
   },
   logout: async () => {
-    const userTokens = useAuthStore.getState().userTokens
+    const workerTokens = useAuthStore.getState().workerTokens
 
     const result = await request({
       url: "/auth/logout",
       method: "POST",
-      body: { refreshToken: userTokens?.refresh.token },
+      body: { refreshToken: workerTokens?.refresh.token },
     })
     return result
   },
@@ -30,12 +30,12 @@ export const auth = {
     return result
   },
   refreshTokens: async () => {
-    const userTokens = useAuthStore.getState().userTokens
+    const workerTokens = useAuthStore.getState().workerTokens
 
     const result = await request({
       url: "/auth/refresh-tokens",
       method: "POST",
-      body: { refreshToken: userTokens?.refresh.token },
+      body: { refreshToken: workerTokens?.refresh.token },
     })
     return result
   },

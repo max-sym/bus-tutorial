@@ -1,26 +1,20 @@
-import React from "react"
 import {
   Navbar as NavbarBase,
   NavItemsContainer,
   NavLogoSection,
   NavItems,
   NavItem,
-  Button,
-  useModal,
-  Modal,
   useUiStore,
   DarkModeSwitch,
 } from "@bus/ui"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
-// import { useStore, useAuthStore } from "store"
 import { navItemsList } from "./nav-items-list"
 import { ReservationItem } from "./reservation-item"
 import { Link, useLocation } from "react-router-dom"
+import { useAuthStore } from "@/store"
 
 const DesktopNavbarContent = () => {
-  // const user = useAuthStore(store => store.user)
-  const user = null
-  const location = useLocation()
+  const worker = useAuthStore(store => store.worker)
 
   return (
     <div className="items-center justify-between flex-1 hidden md:flex">
@@ -34,7 +28,7 @@ const DesktopNavbarContent = () => {
         </div>
         <NavItems
           Link={Link}
-          items={user ? navItemsList.rightLoggedIn : navItemsList.right}
+          items={worker ? navItemsList.rightLoggedIn : navItemsList.right}
         />
       </NavItemsContainer>
     </div>

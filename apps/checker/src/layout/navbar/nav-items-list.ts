@@ -3,24 +3,7 @@ import { NavItemType } from "@bus-ui"
 export const navItemsList: {
   [key: string]: NavItemType[]
 } = {
-  left: [
-    {
-      title: "About",
-      link: "/#about",
-    },
-    {
-      title: "VIP",
-      link: "/#vip",
-    },
-    {
-      title: "Reviews",
-      link: "/#reviews",
-    },
-    {
-      title: "FAQ",
-      link: "/#faq",
-    },
-  ],
+  left: [],
   right: [
     {
       title: "Login",
@@ -33,8 +16,8 @@ export const navItemsList: {
   ],
   rightLoggedIn: [
     {
-      title: "Account",
-      link: "/account",
+      title: "Checker",
+      link: "/checker",
     },
     {
       title: "Log Out",

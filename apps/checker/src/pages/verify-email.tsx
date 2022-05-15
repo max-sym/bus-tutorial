@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Loading, Text } from "@bus/ui"
-import { LoginSection } from "sections"
-import { useAuthStore } from "store"
-import { data } from "data"
-import { navigate } from "gatsby"
+import { data } from "@/data"
+import { useNavigate } from "react-router-dom"
 import { getUrlParams } from "@bus/shared"
 import { toast } from "react-toastify"
 import { IoMdWarning } from "@react-icons/all-files/io/IoMdWarning"
 
-const VerifyEmailPage = () => {
-  const setUser = useAuthStore(store => store.setUser)
-  const setUserTokens = useAuthStore(store => store.setUserTokens)
+export const VerifyEmail = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorOccurred, setErrorOccurred] = useState(false)
 
   const params = getUrlParams()
+  const navigate = useNavigate()
 
   const verifyEmail = async (params: URLSearchParams) => {
     setIsLoading(true)
@@ -26,7 +23,7 @@ const VerifyEmailPage = () => {
     if (!success) return setErrorOccurred(true)
 
     toast.success("You email was verified! You can login now!")
-    navigate("/login")
+    navigate("/")
   }
 
   useEffect(() => {
@@ -55,5 +52,3 @@ const VerifyEmailPage = () => {
     </div>
   )
 }
-
-export default VerifyEmailPage

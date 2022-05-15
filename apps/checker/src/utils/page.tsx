@@ -1,15 +1,15 @@
 import { Navigate } from "react-router-dom"
 import { pages, PageType } from "@/pages"
-
-// Temporary user authentication indicator.
-const user = true
+import { useAuthStore } from "@/store"
 
 export const Page = ({ page }: { page: PageType }) => {
-  const userBoolean = page.isPrivate ? !!user : !user
+  const worker = useAuthStore(store => store.worker)
+
+  const workerBoolean = page.isPrivate ? !!worker : !worker
 
   const redirect: keyof typeof pages = page.isPrivate ? "login" : "checker"
 
-  return userBoolean ? (
+  return workerBoolean ? (
     <page.component />
   ) : (
     <Navigate to={pages[redirect].path} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import {
   Card,
   Text,
@@ -9,8 +9,8 @@ import {
   Button,
 } from "@bus/ui"
 import { useFormik } from "formik"
-import { data } from "data"
-import { navigate } from "gatsby"
+import { data } from "@/data"
+import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import * as Yup from "yup"
 import { getUrlParams } from "@bus/shared"
@@ -27,6 +27,7 @@ const validationSchema = Yup.object().shape({
 
 const Form = () => {
   const params = getUrlParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!params?.get("token")) {
@@ -54,7 +55,7 @@ const Form = () => {
       }
 
       toast.success("Password was successfully reset!")
-      navigate("/login")
+      navigate("/")
     },
   })
 

@@ -1,5 +1,5 @@
 import { ReservationType } from "@bus/shared"
-import { getLocalStorageItem, setLocalStorageItem } from "utils"
+import { getLocalStorageItem, setLocalStorageItem } from "@bus/shared"
 import create from "zustand"
 export * from "./ui-store"
 export * from "./auth-store"

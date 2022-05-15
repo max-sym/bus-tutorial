@@ -1,5 +1,5 @@
-import { data } from "data"
-// import { useAuthStore } from "store"
+import { data } from "@/data"
+import { useAuthStore } from "@/store"
 
 const apiUrl = import.meta.env.VITE_API_URL + "/worker"
 
@@ -14,21 +14,21 @@ type RequestType = {
   }
 }
 
-// const getUpToDateUserTokens = async () => {
-//   const state = useAuthStore.getState()
-//   const userTokens = state.userTokens
-//   if (!userTokens) return null
+const getUpToDateWorkerTokens = async () => {
+  const state = useAuthStore.getState()
+  const workerTokens = state.workerTokens
+  if (!workerTokens) return null
 
-//   const accessTokenExpiration = new Date(userTokens.access.expires).getTime()
-//   const now = new Date().getTime()
+  const accessTokenExpiration = new Date(workerTokens.access.expires).getTime()
+  const now = new Date().getTime()
 
-//   if (accessTokenExpiration - now > 0) return userTokens
+  if (accessTokenExpiration - now > 0) return workerTokens
 
-//   const result = await data.auth.refreshTokens()
+  const result = await data.auth.refreshTokens()
 
-//   state.setUserTokens(result.response)
-//   return result.response
-// }
+  state.setWorkerTokens(result.response)
+  return result.response
+}
 
 type RequestResponseType = {
   response: any
@@ -43,15 +43,14 @@ export const request = async ({
   body,
 }: RequestType): Promise<RequestResponseType> => {
   return new Promise(async (resolve, reject) => {
-    // const userTokens = authenticated ? await getUpToDateUserTokens() : null
-    const userTokens = null
+    const workerTokens = authenticated ? await getUpToDateWorkerTokens() : null
 
     const headers: HeadersInit = {
       "Content-Type": "application/json",
     }
 
-    if (authenticated && userTokens) {
-      headers.Authorization = `JWT ${userTokens.access.token}`
+    if (authenticated && workerTokens) {
+      headers.Authorization = `JWT ${workerTokens.access.token}`
     }
 
     const route = params

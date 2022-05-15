@@ -1,6 +1,8 @@
 import { useQrCodeReader } from "@/sections/checker/use-qr-code-reader"
 import create from "zustand"
 
+export * from "./auth-store"
+
 export type StoreType = {
   isScannerOpen: boolean
   qrCode: string | null

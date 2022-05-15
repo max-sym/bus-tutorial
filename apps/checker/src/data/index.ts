@@ -1,4 +1,4 @@
-// import { auth } from "./auth"
+import { auth } from "./auth"
 // import { city } from "./city"
 // import { trip } from "./trip"
 import { reservation } from "./reservation"
@@ -6,7 +6,7 @@ import { reservedTicket } from "./reserved-ticket"
 // import { user } from "./user"
 
 export const data = {
-  // auth,
+  auth,
   // city,
   // trip,
   reservation,

@@ -1,5 +1,5 @@
-import { Text } from "@bus/ui"
+import { LoginSection } from "@/sections"
 
 export const Login = () => {
-  return <Text>Login</Text>
+  return <LoginSection />
 }
