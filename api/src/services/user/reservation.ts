@@ -152,7 +152,7 @@ const getInSnipcartFormat = async (token: string) => {
       reservedTrip.trip.cityTo.name
     } at ${moment(reservedTrip.trip.departure).format("llll")}`,
     price: getPrice(reservedTrip.trip.price),
-    url: `${env.snipcartApiUrl}/reservation/${token}/snipcart-format`,
+    url: `${env.snipcartApiUrl}/user/reservation/${token}/snipcart-format`,
     quantity: 1,
     maxQuantity: 1,
     minQuantity: 1,
@@ -163,7 +163,7 @@ const getInSnipcartFormat = async (token: string) => {
       id: "logged-in-discount-item",
       name: "Logged in user Discount " + env.snipcartDiscountForUsers + "%",
       description: "",
-      url: `${env.snipcartApiUrl}/reservation/${token}/snipcart-format`,
+      url: `${env.snipcartApiUrl}/user/reservation/${token}/snipcart-format`,
       price: "0.00",
       quantity: 1,
       maxQuantity: 1,
