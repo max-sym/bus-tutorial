@@ -1,7 +1,7 @@
 import { data } from "data"
 // import { useAuthStore } from "store"
 
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL + "/worker"
 
 type MethodType = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
 type RequestType = {

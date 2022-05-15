@@ -1,8 +1,7 @@
-export * from "./auth"
-export * from "./email"
-export * from "./token"
-export * from "./user"
-export * from "./city"
-export * from "./trip"
-export * from "./reservation"
-export * from "./reservation-pdf"
+import * as user from "./user"
+import * as worker from "./worker"
+
+export const services = {
+  user,
+  worker,
+}

@@ -1,7 +1,7 @@
 import { data } from "data"
 import { useAuthStore } from "store"
 
-const apiUrl = process.env.GATSBY_API_URL
+const apiUrl = process.env.GATSBY_API_URL + "/user"
 
 type MethodType = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
 type RequestType = {
