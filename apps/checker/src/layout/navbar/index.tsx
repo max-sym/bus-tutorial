@@ -13,10 +13,9 @@ import {
 } from "@bus/ui"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
 // import { useStore, useAuthStore } from "store"
-import { useLocation } from "@reach/router"
 import { navItemsList } from "./nav-items-list"
 import { ReservationItem } from "./reservation-item"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 const DesktopNavbarContent = () => {
   // const user = useAuthStore(store => store.user)

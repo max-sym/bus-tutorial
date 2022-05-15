@@ -1,7 +1,7 @@
 import React from "react"
 import tw from "tailwind-styled-components"
 import { Text } from "@bus/ui"
-import { Link } from "gatsby"
+import { Link } from "react-router-dom"
 import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"

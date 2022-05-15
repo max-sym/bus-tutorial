@@ -1,8 +1,23 @@
-function App() {
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { Layout } from "./layout"
+import { pages } from "./pages"
+import { Page } from "./utils"
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="w-16 h-16 bg-red-500"></header>
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          {Object.keys(pages).map(key => (
+            <Route
+              path={pages[key].path}
+              key={key}
+              element={<Page page={pages[key]} />}
+            />
+          ))}
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   )
 }
 

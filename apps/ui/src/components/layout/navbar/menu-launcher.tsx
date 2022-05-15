@@ -1,6 +1,6 @@
 import React from "react"
 import { HiOutlineMenu } from "@react-icons/all-files/hi/HiOutlineMenu"
-import { useUiStore } from "store"
+import { useUiStore } from "@bus/ui"
 import { NavItem } from "./navbar"
 
 export const MenuLauncher = () => {

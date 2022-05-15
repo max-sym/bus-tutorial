@@ -1,4 +1,3 @@
-import React from "react"
 import { Footer } from "./footer"
 import { Navbar } from "./navbar"
 import { LayoutContainer, Sidebar, LayoutContentContainer } from "@bus/ui"

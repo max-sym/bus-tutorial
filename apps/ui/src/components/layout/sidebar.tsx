@@ -1,7 +1,6 @@
 import React from "react"
 import tw from "tailwind-styled-components"
-import { useUiStore } from "store"
-import { Text } from "@bus/ui"
+import { Text, useUiStore } from "@bus/ui"
 import { RiCloseFill } from "@react-icons/all-files/ri/RiCloseFill"
 
 type SidebarTW = { $isSidebarOpen: boolean }
