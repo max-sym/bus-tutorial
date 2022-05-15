@@ -7,7 +7,7 @@ import {
   Button,
   useModal,
   Modal,
-} from "components"
+} from "@bus/ui"
 import { getFormattedTimeLeft } from "utils"
 import { ReservationBar } from "./reservation-bar"
 

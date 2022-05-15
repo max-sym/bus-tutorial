@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, SectionAndOffset, Text } from "components"
+import { Button, SectionAndOffset, Text } from "@bus/ui"
 import { LogoTitle } from "./hero"
 import { InView } from "react-cool-inview"
 

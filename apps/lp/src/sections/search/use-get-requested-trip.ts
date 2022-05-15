@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react"
-import { getUrlParams } from "utils"
+import { getUrlParams } from "@bus/shared"
 
 export type RequestedTripType = {
   cityFromSlug?: string

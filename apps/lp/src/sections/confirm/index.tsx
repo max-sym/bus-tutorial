@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { Section } from "components"
+import { Section } from "@bus/ui"
 import { PassengerCards } from "./passenger-cards"
 import { data } from "data"
 import { ReservationBar } from "sections/search/reservation-bar"
 import { MobileReservationBar } from "sections/search/mobile-reservation-bar"
 import { useFormik } from "formik"
-import { PassengerType, ReservationType, useStore } from "store"
+import { PassengerType, ReservationType } from "@bus/shared"
+import { useStore } from "store"
 import * as Yup from "yup"
 
 export const ConfirmSectionCore = ({

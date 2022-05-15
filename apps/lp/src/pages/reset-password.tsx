@@ -1,5 +1,5 @@
 import React from "react"
-import { Seo } from "components"
+import { Seo } from "layout"
 import { ResetPasswordSection } from "sections"
 
 const ResetPasswordPage = () => (

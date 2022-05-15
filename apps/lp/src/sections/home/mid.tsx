@@ -1,4 +1,4 @@
-import { SectionAndOffset, Text } from "components"
+import { SectionAndOffset, Text } from "@bus/ui"
 import React from "react"
 import { InView } from "react-cool-inview"
 import tw from "tailwind-styled-components"

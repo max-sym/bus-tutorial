@@ -7,13 +7,13 @@ import {
   FormField,
   SectionAndOffset,
   Button,
-} from "components"
+} from "@bus/ui"
 import { useFormik } from "formik"
 import { data } from "data"
 import { navigate } from "gatsby"
 import { toast } from "react-toastify"
 import * as Yup from "yup"
-import { getUrlParams } from "utils"
+import { getUrlParams } from "@bus/shared"
 
 const initialValues = {
   password: "",

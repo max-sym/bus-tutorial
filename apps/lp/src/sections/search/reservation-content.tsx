@@ -1,6 +1,6 @@
 import React from "react"
-import { Text, Button } from "components"
-import { ReservationType, ReservedTripType } from "store"
+import { Text, Button } from "@bus/ui"
+import { ReservationType, ReservedTripType } from "@bus/shared"
 import moment from "moment"
 import { getPrice } from "utils"
 import { RiCloseFill } from "@react-icons/all-files/ri/RiCloseFill"

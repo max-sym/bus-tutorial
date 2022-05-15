@@ -1,12 +1,5 @@
 import React from "react"
-import {
-  Card,
-  CardHeading,
-  CardTitle,
-  CardContent,
-  Check,
-  Text,
-} from "components"
+import { Card, CardHeading, CardTitle, CardContent, Check, Text } from "@bus/ui"
 
 const FilterItem = ({ item, sectionKey, toggleFilterItem }) => {
   const onChange = () => {

@@ -123,6 +123,18 @@ model User {
   reservations    Reservation[]
 }
 
+model Worker {
+  id              Int      @id @default(autoincrement())
+  name            String   @db.VarChar(100)
+  email           String   @unique @db.VarChar(100)
+  password        String
+  isEmailVerified Boolean  @default(false)
+  acceptedPrivacy Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  tokens          Token[]
+}
+
 enum TokenType {
   REFRESH
   RESET_PASSWORD
@@ -132,8 +144,10 @@ enum TokenType {
 model Token {
   id          Int        @id @default(autoincrement())
   token       String     @unique
-  userId      Int
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int?
+  workerId    Int?
+  user        User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  worker      Worker?    @relation(fields: [workerId], references: [id], onDelete: SetNull)
   type        TokenType?
   expires     DateTime   @db.Timestamp()
   blacklisted Boolean

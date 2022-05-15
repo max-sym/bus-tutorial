@@ -7,9 +7,9 @@ import {
   SectionAndOffset,
   Button,
   Loading,
-} from "components"
+} from "@bus/ui"
 import { data, useLoadResource } from "data"
-import { ReservationType } from "store"
+import { ReservationType } from "@bus/shared"
 import { getTotalPriceWithDiscount } from "utils"
 import { Link } from "gatsby"
 import moment from "moment"

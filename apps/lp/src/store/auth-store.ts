@@ -1,4 +1,4 @@
-import { getLocalStorageItem, setLocalStorageItem } from "utils"
+import { getLocalStorageItem, setLocalStorageItem } from "@bus/shared"
 import create from "zustand"
 
 export type UserType = {

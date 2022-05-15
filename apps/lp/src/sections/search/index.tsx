@@ -1,5 +1,5 @@
 import React from "react"
-import { Section } from "components"
+import { Section } from "@bus/ui"
 import { Header } from "./header"
 import { Sidebar } from "./sidebar"
 import { ReservationBar } from "./reservation-bar"

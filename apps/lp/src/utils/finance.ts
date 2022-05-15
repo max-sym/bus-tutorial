@@ -1,4 +1,4 @@
-import { ReservationType } from "store"
+import { ReservationType } from "@bus/shared"
 
 export const getPrice = (priceInCents: number) =>
   (priceInCents / 100).toFixed(2)

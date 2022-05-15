@@ -7,8 +7,9 @@ import {
   Text,
   InputCore,
   FormField,
-} from "components"
-import { PassengerType, ReservationType, useStore } from "store"
+} from "@bus/ui"
+import { useStore } from "store"
+import { PassengerType, ReservationType } from "@bus/shared"
 import { data } from "data"
 
 const PassengerCard = ({

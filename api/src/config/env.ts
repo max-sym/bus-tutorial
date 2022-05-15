@@ -15,6 +15,7 @@ const envVarsSchema = Joi.object()
     SNIPCART_DISCOUNT_FOR_USERS: Joi.number(),
     CURRENT_URL: Joi.string(),
     FRONTEND_URL: Joi.string(),
+    CHECKER_FRONTEND_URL: Joi.string(),
     JWT_SECRET: Joi.string().required().description("JWT secret key"),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number()
       .default(30)
@@ -57,6 +58,7 @@ export const env = {
   snipcartDiscountForUsers: envVars.SNIPCART_DISCOUNT_FOR_USERS,
   currentUrl: envVars.CURRENT_URL,
   frontendUrl: envVars.FRONTEND_URL,
+  checkerFrontendUrl: envVars.CHECKER_FRONTEND_URL,
   jwt: {
     secret: envVars.JWT_SECRET,
     accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,

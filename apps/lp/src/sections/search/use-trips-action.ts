@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
-import { ReservationType, TripType, useStore } from "store"
+import { useStore } from "store"
+import { ReservationType, TripType } from "@bus/shared"
 import { data } from "data"
 import { useGetRequestedTrip } from "./use-get-requested-trip"
 import { toast } from "react-toastify"

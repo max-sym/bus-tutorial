@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Loading, Text } from "components"
+import { Loading, Text } from "@bus/ui"
 import { LoginSection } from "sections"
 import { useAuthStore } from "store"
 import { data } from "data"
 import { navigate } from "gatsby"
-import { getUrlParams } from "utils"
+import { getUrlParams } from "@bus/shared"
 import { toast } from "react-toastify"
 import { IoMdWarning } from "@react-icons/all-files/io/IoMdWarning"
 

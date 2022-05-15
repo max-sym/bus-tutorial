@@ -1,5 +1,5 @@
 import React from "react"
-import { Seo } from "components"
+import { Seo } from "layout"
 import { AccountSection } from "sections"
 
 const AccountPage = () => (

@@ -14,11 +14,10 @@ import {
   Menu,
   MenuContainer,
   OptionContainer,
-  ModalType,
 } from "./components"
 // Temporary fix is to use a relative import here for webpack alias import issue:
 // https://stackoverflow.com/questions/70015963/runtime-error-appeared-after-updating-to-webpack-5-typeerror-cannot-read-prope
-import { Button, Label } from "../../../components"
+import { Button, Label, ModalType } from "@bus/ui"
 import { GuestOptionComponent, InputComponent } from "./complex-components"
 import { formSchema } from "./form-schema"
 import { navigate } from "gatsby"

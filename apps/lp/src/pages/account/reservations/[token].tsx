@@ -1,5 +1,5 @@
 import React from "react"
-import { Seo } from "components"
+import { Seo } from "layout"
 import { ReservationSection } from "sections"
 
 const ReservationsPage = ({ token }: { token: string }) => (

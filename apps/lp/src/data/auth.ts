@@ -47,10 +47,7 @@ export const auth = {
     })
     return result
   },
-  requestPasswordReset: async (body: {
-    password: string
-    confirmPassword: string
-  }) => {
+  requestPasswordReset: async (body: { email: string }) => {
     const result = await request({
       url: "/auth/request-password-reset",
       method: "POST",

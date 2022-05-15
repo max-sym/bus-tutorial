@@ -7,7 +7,7 @@ import {
   FormField,
   Button,
   ModalType,
-} from "components"
+} from "@bus/ui"
 import { useFormik } from "formik"
 import { useAuthStore } from "store"
 import * as Yup from "yup"

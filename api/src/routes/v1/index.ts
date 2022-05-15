@@ -1,36 +1,10 @@
 import express from "express"
-import { authRoute } from "./auth"
-import { userRoute } from "./user"
-import { cityRoute } from "./city"
-import { tripRoute } from "./trip"
-import { reservationRoute } from "./reservation"
-// import { docsRouter } from "./docs"
 import { env } from "../../config"
+// import { docsRouter } from "./docs"
+import { userRoutes } from "./user"
+import { workerRoutes } from "./worker"
 
 const router = express.Router()
-
-const defaultRoutes = [
-  {
-    path: "/auth",
-    route: authRoute,
-  },
-  {
-    path: "/user",
-    route: userRoute,
-  },
-  {
-    path: "/city",
-    route: cityRoute,
-  },
-  {
-    path: "/trip",
-    route: tripRoute,
-  },
-  {
-    path: "/reservation",
-    route: reservationRoute,
-  },
-]
 
 const devRoutes = [
   // routes available only in development mode
@@ -40,8 +14,12 @@ const devRoutes = [
   // },
 ]
 
-defaultRoutes.forEach(route => {
-  router.use(route.path, route.route)
+userRoutes.forEach(route => {
+  router.use("/user" + route.path, route.route)
+})
+
+workerRoutes.forEach(route => {
+  router.use("/worker" + route.path, route.route)
 })
 
 /* istanbul ignore next */

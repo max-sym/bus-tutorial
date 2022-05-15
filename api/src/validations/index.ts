@@ -1,6 +1,7 @@
-export * from "./auth"
-export * from "./custom"
-export * from "./user"
-export * from "./city"
-export * from "./trip"
-export * from "./reservation"
+import * as user from "./user"
+import * as worker from "./worker"
+
+export const validations = {
+  user,
+  worker,
+}

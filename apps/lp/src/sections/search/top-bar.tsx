@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, Select } from "components"
+import { Text, Select } from "@bus/ui"
 import { options } from "./use-sort-trips"
 
 export const TopBar = ({ trips, sortBy, setSortBy }) => {

@@ -1,4 +1,4 @@
-import { Text, Card, CardContent, Button } from "components"
+import { Text, Card, CardContent, Button } from "@bus/ui"
 import React from "react"
 import moment from "moment"
 import { getPrice } from "utils"
