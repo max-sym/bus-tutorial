@@ -31,6 +31,6 @@ const getOne = async (token: string, shouldAttachDiscount: boolean = true) => {
   return shouldAttachDiscount ? attachDiscount(reservation) : reservation
 }
 
-export const reservationService = {
+export const reservation = {
   getOne,
 }

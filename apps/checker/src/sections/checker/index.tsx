@@ -1,5 +1,7 @@
 import { ReservationType } from "@/../../shared/src"
+import { data } from "@/data"
 import { useStore } from "@/store"
+import { toast } from "react-toastify"
 import {
   Text,
   Button,
@@ -13,7 +15,7 @@ import {
 } from "@bus/ui"
 import { Portal } from "@headlessui/react"
 import * as moment from "moment"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRef } from "react"
 import tw from "tailwind-styled-components"
 import { Actions } from "./actions"
@@ -28,7 +30,9 @@ const ReservationCheckerModal = ({
   reservation: ReservationType
   modal?: ModalType
 }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const qrCode = useStore(store => store.qrCode)
+  const qrCodeReader = useStore(store => store.qrCodeReader)
 
   if (!qrCode) return null
 
@@ -51,8 +55,19 @@ const ReservationCheckerModal = ({
     modal.setIsOpen(false)
   }
 
-  const onConfirmClick = () => {
-    // confirm data
+  const onConfirmClick = async () => {
+    setIsLoading(true)
+    const result = await data.reservedTicket.confirm(reservedTicket.id)
+    setIsLoading(false)
+    if (result.status !== 200) {
+      toast.error("Something went wrong. Please try again!")
+      return
+    }
+
+    toast.success("Confirmed!")
+    modal.setIsOpen(false)
+    qrCodeReader.qrScanner.start()
+    useStore.setState({ qrCode: null })
   }
 
   return (
@@ -110,7 +125,9 @@ const ReservationCheckerModal = ({
           <Button color="red" onClick={onCancelClick}>
             {"Cancel"}
           </Button>
-          <Button onClick={onConfirmClick}>{"Confirm"}</Button>
+          <Button isLoading={isLoading} onClick={onConfirmClick}>
+            {"Confirm"}
+          </Button>
         </Row>
       </CardFooter>
     </Card>

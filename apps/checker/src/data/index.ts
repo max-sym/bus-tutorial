@@ -2,6 +2,7 @@
 // import { city } from "./city"
 // import { trip } from "./trip"
 import { reservation } from "./reservation"
+import { reservedTicket } from "./reserved-ticket"
 // import { user } from "./user"
 
 export const data = {
@@ -9,6 +10,7 @@ export const data = {
   // city,
   // trip,
   reservation,
+  reservedTicket,
   // user,
 }
 
