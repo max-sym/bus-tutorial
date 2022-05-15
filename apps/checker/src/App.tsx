@@ -5,7 +5,7 @@ import { Page } from "./utils"
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Layout>
         <Routes>
           {Object.keys(pages).map(key => (
