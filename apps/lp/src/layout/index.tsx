@@ -5,8 +5,9 @@ import { Footer } from "./footer"
 import { Navbar } from "./navbar"
 import { Sidebar } from "@bus/ui"
 import { ToastContainer } from "react-toastify"
-import { sidebarItemsList } from "./sidebar-items-list"
+import { getSidebarItemsList } from "./get-sidebar-items-list"
 import { Link } from "gatsby"
+import { useAuthStore } from "store"
 
 const Container = tw.div`bg-white dark:bg-gray-900 transition`
 const ContentContainer = tw.div`pt-14`
@@ -17,10 +18,12 @@ export const Layout = ({ children }) => {
   useReservationCountdown()
   useSnipcart()
 
+  const user = useAuthStore(store => store.user)
+
   return (
     <Container>
       <Navbar />
-      <Sidebar Link={Link} sidebarItemsList={sidebarItemsList} />
+      <Sidebar Link={Link} sidebarItemsList={getSidebarItemsList(user)} />
       <ContentContainer>{children}</ContentContainer>
       <Footer />
       <Helpers />
