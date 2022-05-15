@@ -1,0 +1,7 @@
+{
+  "name": "@bus/shared",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "UNLICENCED",
+  "private": true
+}

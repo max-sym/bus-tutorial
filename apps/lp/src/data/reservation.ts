@@ -1,10 +1,10 @@
+import { useAuthStore } from "store"
 import {
   ReservationType,
   ReservedTripType,
   TripType,
   PassengerType,
-  useAuthStore,
-} from "store"
+} from "@bus/shared"
 import { request } from "./request"
 import { RequestedTripType } from "sections/search/use-get-requested-trip"
 

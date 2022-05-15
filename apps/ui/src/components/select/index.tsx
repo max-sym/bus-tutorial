@@ -7,19 +7,25 @@ import { GoChevronDown } from "@react-icons/all-files/go/GoChevronDown"
 
 export const OptionBase = tw.div`transition ease-in-out relative py-2 px-4`
 
-type OptionType = {
+export type OptionType = {
   name: string
   value: any
   disabled?: boolean
 }
 
-type SelectType = {
+export type SelectType = {
   options: OptionType[]
-  onChange?: any
+  onChange: (value: OptionType) => void
   value: string
+  optionsClassName?: string
 }
 
-export const Select = ({ options, value, onChange }: SelectType) => {
+export const Select = ({
+  options,
+  value,
+  onChange,
+  optionsClassName,
+}: SelectType) => {
   const selectedOption = options.find(option => option.value === value)
 
   const [button, setButton] = useState<HTMLButtonElement | null>(null)
@@ -48,6 +54,7 @@ export const Select = ({ options, value, onChange }: SelectType) => {
           <Listbox.Options
             ref={setPopper}
             style={styles.popper}
+            className={optionsClassName}
             {...attributes.popper}
           >
             <Card className="my-2">

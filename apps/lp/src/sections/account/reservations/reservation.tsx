@@ -10,7 +10,7 @@ import {
 } from "@bus/ui"
 import { data, useLoadResource } from "data"
 import moment from "moment"
-import { ReservationType, ReservedTripType, PassengerType } from "store"
+import { ReservationType, ReservedTripType, PassengerType } from "@bus/shared"
 import { getTotalPrice, getPrice, getTotalPriceWithDiscount } from "utils"
 import { Link } from "gatsby"
 

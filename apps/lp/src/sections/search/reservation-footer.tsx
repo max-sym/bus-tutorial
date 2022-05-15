@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Button, Text, ModalType } from "@bus/ui"
-import { ReservationType, useStore } from "store"
+import { ReservationType } from "@bus/shared"
+import { useStore } from "store"
 import {
   getFormattedTimeLeft,
   getTotalPrice,
