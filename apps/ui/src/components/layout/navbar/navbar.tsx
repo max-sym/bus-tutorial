@@ -5,7 +5,7 @@ import { Text } from "@bus/ui"
 
 const Container = tw.div`fixed left-0 right-0 top-0 z-20 transition duration-[2000ms] delay-500`
 const Box = tw.div`bg-black bg-opacity-50 w-full backdrop-filter backdrop-blur`
-const WidthContainer = tw.div`md:max-w-screen-2xl w-full mx-auto md:px-4`
+const WidthContainer = tw.div`md:max-w-screen-2xl w-full mx-auto md:px-12`
 export const NavItemsContainer = tw.div`flex items-center justify-between md:justify-center`
 const NavItemContainer = tw.div`px-2 py-4 cursor-pointer`
 
